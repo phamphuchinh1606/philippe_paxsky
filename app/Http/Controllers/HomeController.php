@@ -2,10 +2,15 @@
 
 namespace App\Http\Controllers;
 
+use App\Models\Building;
 use Illuminate\Http\Request;
 
 class HomeController extends Controller
 {
+    private function showView($viewName,$arrayData = []){
+        return View('buildingTypes.'.$viewName, $arrayData);
+    }
+
     /**
      * Create a new controller instance.
      *
@@ -23,6 +28,6 @@ class HomeController extends Controller
      */
     public function index()
     {
-        return view('home');
+        return $this->showView('index');
     }
 }

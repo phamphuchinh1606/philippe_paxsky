@@ -3,7 +3,7 @@
 @section('head.title','Update Direction')
 
 @section('body.breadcrumb')
-    {{ Breadcrumbs::render('direction.update',$investor->name) }}
+    {{ Breadcrumbs::render('direction.update',$direction->name) }}
 @endsection
 @section('body.content')
     <div class="container-fluid product_type">

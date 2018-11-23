@@ -50,3 +50,11 @@ Route::post('/direction/create', 'DirectionController@create')->name('direction.
 Route::get('/direction/update/{id}', 'DirectionController@showUpdate')->name('direction.update');
 Route::post('/direction/update/{id}', 'DirectionController@update')->name('direction.update');
 Route::post('/direction/delete/{id}', 'DirectionController@destroy')->name('direction.delete');
+
+//Route Building
+Route::get('/building', 'BuildingController@index')->name('building.index');
+Route::get('/building/create', 'BuildingController@showCreate')->name('building.create');
+Route::post('/building/create', 'BuildingController@create')->name('building.create');
+Route::get('/building/update/{id}', 'BuildingController@showUpdate')->name('building.update');
+Route::post('/building/update/{id}', 'BuildingController@update')->name('building.update');
+Route::post('/building/delete/{id}', 'BuildingController@destroy')->name('building.delete');

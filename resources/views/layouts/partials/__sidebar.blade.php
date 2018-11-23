@@ -12,7 +12,7 @@
                 </a>
                 <ul class="nav-dropdown-items">
                     <li class="nav-item">
-                        <a class="nav-link" href="">
+                        <a class="nav-link" href="{{route('building.create')}}">
                             <i class="nav-icon icon-layers"></i>
                             List Building
                         </a>

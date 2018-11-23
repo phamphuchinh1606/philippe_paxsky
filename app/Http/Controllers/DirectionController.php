@@ -11,8 +11,8 @@ class DirectionController extends Controller
     }
 
     public function index(){
-        $investors = $this->directionService->getAll();
-        return $this->showView('index',['investors' => $investors]);
+        $directions = $this->directionService->getAll();
+        return $this->showView('index',['directions' => $directions]);
     }
 
     public function showCreate(){
@@ -21,7 +21,7 @@ class DirectionController extends Controller
 
     public function create(Request $request){
         $this->directionService->create($request->direction_name);
-        return redirect()->route('investor.index')->with('success','Create direction success');
+        return redirect()->route('direction.index')->with('success','Create direction success');
     }
 
     public function showUpdate($id){
@@ -33,7 +33,7 @@ class DirectionController extends Controller
     }
 
     public function update($id , Request $request){
-        $this->directionService->update($id, $request->investor_name);
+        $this->directionService->update($id, $request->direction_name);
         return redirect()->route('direction.index')->with('success','Update direction success');
     }
 

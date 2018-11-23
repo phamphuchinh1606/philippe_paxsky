@@ -23,12 +23,22 @@ Dropzone.options.myDropzone = {
                 file_name_upload: file.file_name_upload
             };
             $.post({
-                url: "/admin/delete-image",
+                url: "/delete-image",
                 data: data,
                 dataType: 'json',
                 success: function (data) {
                     total_photos_counter--;
                     $("#counter").text("# " + total_photos_counter);
+                    $('input[value="'+file.file_name_upload+'"]').remove();
+                    let indexRemove = 0;
+                    images.forEach(function(image){
+                        console.log(images);
+                        if(file.file_name_upload == image){
+                            images.splice(indexRemove,1);
+                            return;
+                        }
+                        indexRemove++;
+                    });
                 }
             });
         });
@@ -42,7 +52,7 @@ Dropzone.options.myDropzone = {
             file["dataURL"] = urlImage;
             file["file_name_upload"] = done.file_name_upload;
             file["customName"] = name;
-            $('input[name=product_images]').val(done.file_name_upload);
+            $('input[name=building_images]').val(done.file_name_upload);
             images.push(done.file_name_upload);
             addImage();
         }else{
@@ -53,10 +63,10 @@ Dropzone.options.myDropzone = {
 };
 
 function addImage(){
-    let rootImages = $('.root_product_images');
-    rootImages.find('.product_images').remove();
+    let rootImages = $('.root_building_images');
+    rootImages.find('.building_images').remove();
     images.forEach(function(image){
-        rootImages.append('<input type="hidden" class="form-control product_images" name="product_images[]" value="' + image + '"/>');
+        rootImages.append('<input type="hidden" class="form-control building_images" name="building_images[]" value="' + image + '"/>');
     });
 }
 

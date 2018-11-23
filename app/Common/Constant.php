@@ -16,4 +16,8 @@ class Constant{
     public static $STATUS_READ_OFF = 0;
     public static $STATUS_READ_OFF_NAME = "Chưa đọc";
 
+    public static $PATH_FOLDER_UPLOAD_IMAGE_EDITOR = "images_editor";
+    public static $PATH_FOLDER_UPLOAD_IMAGE_DROP = "images_drop";
+    public static $PATH_URL_UPLOAD_IMAGE = "storage/";
+
 }

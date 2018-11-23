@@ -60,7 +60,7 @@
                                                         {{$direction->name}}
                                                     </td>
                                                     <td class="text-center">
-                                                        <a class="btn btn-info" href="{{route('investor.update',['id' => $direction->id])}}">
+                                                        <a class="btn btn-info" href="{{route('direction.update',['id' => $direction->id])}}">
                                                             <i class="fa fa-edit"></i>
                                                         </a>
                                                         <a data-toggle="modal" class="btn btn-danger anchorClick"

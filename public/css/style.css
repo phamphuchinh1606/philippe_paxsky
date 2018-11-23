@@ -178,3 +178,7 @@ Popup confirm
 div.odd {
     background-color: #F9f9f9;
 }
+input.form-control, select.form-control{
+    background-color: #f9ffff;
+    resize: none;
+}

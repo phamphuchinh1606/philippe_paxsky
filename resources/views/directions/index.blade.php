@@ -1,6 +1,6 @@
 @extends('layouts.master')
 
-@section('head.title','List Investor')
+@section('head.title','List Direction')
 
 @section('head.css')
     <link href="{{asset('css/plugins/dataTables.bootstrap4.css')}}" rel="stylesheet">
@@ -12,7 +12,7 @@
 @endsection
 
 @section('body.breadcrumb')
-    {{ Breadcrumbs::render('buildingType') }}
+    {{ Breadcrumbs::render('direction') }}
 @endsection
 
 @section('body.content')
@@ -22,9 +22,9 @@
                 <div class="animated fadeIn">
                     <div class="card">
                         <div class="card-header">
-                            <i class="fa fa-edit"></i> List Investor
+                            <i class="fa fa-edit"></i> List Direction
                             <div class="card-header-actions">
-                                <a class="btn btn-block btn-outline-primary active" href="{{route('investor.create')}}">
+                                <a class="btn btn-block btn-outline-primary active" href="{{route('direction.create')}}">
                                     New
                                 </a>
                             </div>
@@ -51,21 +51,21 @@
                                             </tr>
                                             </thead>
                                             <tbody>
-                                            @foreach($investors as $index => $investor)
+                                            @foreach($directions as $index => $direction)
                                                 <tr role="row" class="odd">
                                                     <td class="sorting_1">
                                                         {{$index + 1}}
                                                     </td>
                                                     <td>
-                                                        {{$investor->name}}
+                                                        {{$direction->name}}
                                                     </td>
                                                     <td class="text-center">
-                                                        <a class="btn btn-info" href="{{route('investor.update',['id' => $investor->id])}}">
+                                                        <a class="btn btn-info" href="{{route('investor.update',['id' => $direction->id])}}">
                                                             <i class="fa fa-edit"></i>
                                                         </a>
                                                         <a data-toggle="modal" class="btn btn-danger anchorClick"
-                                                           data-url="{{route('building_type.delete',['id' => $investor->id]) }}"
-                                                           data-name="{{$investor->name}}" href="#deleteModal">
+                                                           data-url="{{route('direction.delete',['id' => $direction->id]) }}"
+                                                           data-name="{{$direction->name}}" href="#deleteModal">
                                                             <i class="fa fa-trash-o"></i>
                                                         </a>
                                                     </td>

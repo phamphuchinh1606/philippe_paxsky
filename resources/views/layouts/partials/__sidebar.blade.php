@@ -24,6 +24,18 @@
                             <i class="nav-icon icon-layers"></i>
                             Investors
                         </a>
+                        <a class="nav-link" href="{{route('classify.index')}}">
+                            <i class="nav-icon icon-layers"></i>
+                            Classifications
+                        </a>
+                        <a class="nav-link" href="{{route('management_agency.index')}}">
+                            <i class="nav-icon icon-layers"></i>
+                            Management Agency
+                        </a>
+                        <a class="nav-link" href="{{route('direction.index')}}">
+                            <i class="nav-icon icon-layers"></i>
+                            Directions
+                        </a>
                     </li>
                 </ul>
             </li>

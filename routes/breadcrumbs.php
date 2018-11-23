@@ -43,3 +43,63 @@ Breadcrumbs::for('investor.update', function ($trail, $investorName) {
 });
 //========================End Investor===============================================
 
+//Classification ====================================================================
+Breadcrumbs::for('classify', function ($trail) {
+    $trail->parent('home');
+    $trail->push('List Classification', route('classify.index'));
+});
+
+
+//Investor Create
+Breadcrumbs::for('classify.create', function ($trail) {
+    $trail->parent('classify');
+    $trail->push('Create Classification');
+});
+
+//Investor Type Update
+Breadcrumbs::for('classify.update', function ($trail, $classifyName) {
+    $trail->parent('classify');
+    $trail->push($classifyName);
+});
+//========================End Investor===============================================
+
+//Management Agency ====================================================================
+Breadcrumbs::for('management_agency', function ($trail) {
+    $trail->parent('home');
+    $trail->push('List Management Agency', route('management_agency.index'));
+});
+
+
+//Investor Create
+Breadcrumbs::for('management_agency.create', function ($trail) {
+    $trail->parent('management_agency');
+    $trail->push('Create Management Agency');
+});
+
+//Investor Type Update
+Breadcrumbs::for('management_agency.update', function ($trail, $managementAgencyName) {
+    $trail->parent('management_agency');
+    $trail->push($managementAgencyName);
+});
+//========================End Investor===============================================
+
+//Direction ====================================================================
+Breadcrumbs::for('direction', function ($trail) {
+    $trail->parent('home');
+    $trail->push('List Direction', route('direction.index'));
+});
+
+
+//Investor Create
+Breadcrumbs::for('direction.create', function ($trail) {
+    $trail->parent('direction');
+    $trail->push('Create Direction');
+});
+
+//Investor Type Update
+Breadcrumbs::for('direction.update', function ($trail, $directionName) {
+    $trail->parent('direction');
+    $trail->push($directionName);
+});
+//========================End Investor===============================================
+

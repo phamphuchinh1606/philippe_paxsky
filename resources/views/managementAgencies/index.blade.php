@@ -1,6 +1,6 @@
 @extends('layouts.master')
 
-@section('head.title','List Investor')
+@section('head.title','List Management Agency')
 
 @section('head.css')
     <link href="{{asset('css/plugins/dataTables.bootstrap4.css')}}" rel="stylesheet">
@@ -12,7 +12,7 @@
 @endsection
 
 @section('body.breadcrumb')
-    {{ Breadcrumbs::render('buildingType') }}
+    {{ Breadcrumbs::render('management_agency') }}
 @endsection
 
 @section('body.content')
@@ -22,9 +22,9 @@
                 <div class="animated fadeIn">
                     <div class="card">
                         <div class="card-header">
-                            <i class="fa fa-edit"></i> List Investor
+                            <i class="fa fa-edit"></i> List Management Agency
                             <div class="card-header-actions">
-                                <a class="btn btn-block btn-outline-primary active" href="{{route('investor.create')}}">
+                                <a class="btn btn-block btn-outline-primary active" href="{{route('management_agency.create')}}">
                                     New
                                 </a>
                             </div>
@@ -45,27 +45,27 @@
                                                     No.
                                                 </th>
                                                 <th>
-                                                   Investor Name
+                                                   Management Agency Name
                                                 </th>
                                                 <th class="sorting">Actions</th>
                                             </tr>
                                             </thead>
                                             <tbody>
-                                            @foreach($investors as $index => $investor)
+                                            @foreach($managementAgencies as $index => $managementAgency)
                                                 <tr role="row" class="odd">
                                                     <td class="sorting_1">
                                                         {{$index + 1}}
                                                     </td>
                                                     <td>
-                                                        {{$investor->name}}
+                                                        {{$managementAgency->name}}
                                                     </td>
                                                     <td class="text-center">
-                                                        <a class="btn btn-info" href="{{route('investor.update',['id' => $investor->id])}}">
+                                                        <a class="btn btn-info" href="{{route('management_agency.update',['id' => $managementAgency->id])}}">
                                                             <i class="fa fa-edit"></i>
                                                         </a>
                                                         <a data-toggle="modal" class="btn btn-danger anchorClick"
-                                                           data-url="{{route('building_type.delete',['id' => $investor->id]) }}"
-                                                           data-name="{{$investor->name}}" href="#deleteModal">
+                                                           data-url="{{route('management_agency.delete',['id' => $managementAgency->id]) }}"
+                                                           data-name="{{$managementAgency->name}}" href="#deleteModal">
                                                             <i class="fa fa-trash-o"></i>
                                                         </a>
                                                     </td>

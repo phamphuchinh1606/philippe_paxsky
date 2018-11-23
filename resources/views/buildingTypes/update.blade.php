@@ -14,7 +14,7 @@
                         <div class="col-md-6">
                             <div class="card">
                                 <div class="card-header">
-                                    <strong>Create Building Type</strong>
+                                    <strong>Update Building Type</strong>
                                     <div class="card-header-actions">
                                         <a class="btn btn-block btn-outline-secondary active" href="{{route('building_type.index')}}">
                                             Back

@@ -32,8 +32,7 @@
             <div class="col-xl-12 col-md-12">
                 <div class="form-group">
                     <label class="col-form-label" for="direction">Direction</label>
-                    <input class="form-control" id="direction" type="text"
-                           name="direction" placeholder="Direction">
+                    @include('common.__select_direction',['selectName' => 'direction'])
                 </div>
             </div>
         </div>

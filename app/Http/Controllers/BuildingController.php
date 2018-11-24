@@ -13,4 +13,9 @@ class BuildingController extends Controller
     public function showCreate(){
         return $this->showView('create');
     }
+
+    public function create(Request $request){
+        dd($request);
+        return redirect()->route('building.index')->with('success' , 'Create building success');
+    }
 }

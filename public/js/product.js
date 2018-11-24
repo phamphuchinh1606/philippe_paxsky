@@ -16,5 +16,9 @@ jQuery(document).ready(function ($) {
         }else{
             comparePrice.val(0);
         }
-    })
+    });
+
+    $('button.submit-building').on('click',function(){
+       $('#form-building').submit();
+    });
 });

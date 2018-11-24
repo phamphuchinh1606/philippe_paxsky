@@ -28,35 +28,32 @@
         <div class="row">
             <div class="col-xl-6 col-md-12">
                 <div class="form-group">
-                    <label class="col-form-label" for="building_name">Building
+                    <label class="col-form-label" for="name">Building
                         Name</label>
-                    <input class="form-control" id="building_name" type="text"
-                           name="building_name" placeholder="Building Name">
+                    <input class="form-control" id="name" type="text"
+                           name="name" placeholder="Building Name">
                 </div>
             </div>
             <div class="col-xl-6 col-md-12">
                 <div class="form-group">
-                    <label class="col-form-label" for="building_sub_name">Building
+                    <label class="col-form-label" for="sub_name">Building
                         Title</label>
-                    <input class="form-control" id="building_sub_name" type="text"
-                           name="building_sub_name" placeholder="Building Title">
+                    <input class="form-control" id="sub_name" type="text"
+                           name="sub_name" placeholder="Building Title">
                 </div>
             </div>
         </div>
         <div class="row">
             <div class="col-xl-6 col-md-12">
                 <div class="form-group">
-                    <label class="col-form-label" for="building_type">Building
-                        Type</label>
-                    <input class="form-control" id="building_type" type="text"
-                           name="building_type" placeholder="Building Type">
+                    <label class="col-form-label" for="building_type">Building Type</label>
+                    @include('common.__select_building_type',['selectName' => 'type_id'])
                 </div>
             </div>
             <div class="col-xl-6 col-md-12">
                 <div class="form-group">
                     <label class="col-form-label" for="classify">Classify</label>
-                    <input class="form-control" id="classify" type="text"
-                           name="classify" placeholder="Classify">
+                    @include('common.__select_classification',['selectName' => 'classify_id'])
                 </div>
             </div>
         </div>
@@ -64,15 +61,13 @@
             <div class="col-xl-6 col-md-12">
                 <div class="form-group">
                     <label class="col-form-label" for="investor">Investor</label>
-                    <input class="form-control" id="building_type" type="text"
-                           name="investor" placeholder="Investor">
+                    @include('common.__select_investor',['selectName' => 'investor_id'])
                 </div>
             </div>
             <div class="col-xl-6 col-md-12">
                 <div class="form-group">
                     <label class="col-form-label" for="management_agency">Management Agency</label>
-                    <input class="form-control" id="management_agency" type="text"
-                           name="management_agency" placeholder="Management agency">
+                    @include('common.__select_management_agency',['selectName' => 'management_agency_id'])
                 </div>
             </div>
         </div>

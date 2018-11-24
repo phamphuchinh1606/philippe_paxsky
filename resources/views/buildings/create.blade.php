@@ -26,7 +26,7 @@
                 <div class="animated fadeIn">
                     <div class="row">
                         <div class="col-md-8">
-                            <form method="post" action="{{route('building.create')}}" enctype="multipart/form-data"
+                            <form method="post" id="form-building" action="{{route('building.create')}}" enctype="multipart/form-data"
                                   id="form">
                                 @csrf
                                 @include('buildings.partials.__basic_building_info')
@@ -48,7 +48,7 @@
                                 <div class="col-md-12">
                                     <div class="card">
                                         <div class="card-footer text-center">
-                                            <button class="btn btn-primary" type="submit">
+                                            <button class="btn btn-primary submit-building" type="button">
                                                 <i class="fa fa-dot-circle-o"></i> Create
                                             </button>
                                             <button class="btn btn-danger" type="reset">
@@ -63,7 +63,7 @@
                         <div class="col-md-12">
                             <div class="card">
                                 <div class="card-footer text-center">
-                                    <button class="btn btn-primary" type="submit">
+                                    <button class="btn btn-primary submit-building" type="button">
                                         <i class="fa fa-dot-circle-o"></i> Create
                                     </button>
                                     <button class="btn btn-danger" type="reset">

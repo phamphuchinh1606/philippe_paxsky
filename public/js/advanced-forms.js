@@ -4,12 +4,12 @@
 // $('#ssn').mask('999-99-9999');
 // $('#eyescript').mask('~9.99 ~9.99 999');
 // $('#ccn').mask('9999 9999 9999 9999');
-// $('#select2-1, #select2-2, #select2-4').select2({theme: 'bootstrap'});
+$('#select2-2').select2({theme:'bootstrap'});
 // $('#select2-3').select2({theme: 'bootstrap', placeholder: 'Your Favorite Football Team', allowClear: true});
-$('input.daterange').daterangepicker({
-    startDate: startDate,
-    endDate: endDate,
-});
+// $('input.daterange').daterangepicker({
+//     startDate: startDate,
+//     endDate: endDate,
+// });
 // $('input[name="daterange"]').daterangepicker({
 //     opens: 'left',
 //     ranges: {

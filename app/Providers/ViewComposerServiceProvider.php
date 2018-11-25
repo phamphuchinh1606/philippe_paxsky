@@ -15,6 +15,10 @@ class ViewComposerServiceProvider extends ServiceProvider
     public function boot()
     {
         View::composer(
+            ['common.__select_building'],
+            'App\Http\ViewComposers\BuildingViewComposer'
+        );
+        View::composer(
             ['common.__select_building_type'],
             'App\Http\ViewComposers\BuildingTypeViewComposer'
         );
@@ -33,6 +37,10 @@ class ViewComposerServiceProvider extends ServiceProvider
         View::composer(
             ['common.__select_management_agency'],
             'App\Http\ViewComposers\ManagementAgencyViewComposer'
+        );
+        View::composer(
+            ['common.__select_office_status'],
+            'App\Http\ViewComposers\OfficeStatusViewComposer'
         );
     }
 

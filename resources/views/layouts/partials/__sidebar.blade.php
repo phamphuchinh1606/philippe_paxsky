@@ -16,10 +16,6 @@
                             <i class="nav-icon icon-layers"></i>
                             List Building
                         </a>
-                        {{--<a class="nav-link" href="{{route('building_type.index')}}">--}}
-                            {{--<i class="nav-icon icon-layers"></i>--}}
-                            {{--Building Type--}}
-                        {{--</a>--}}
                         <a class="nav-link" href="{{route('investor.index')}}">
                             <i class="nav-icon icon-layers"></i>
                             Investors
@@ -35,6 +31,25 @@
                         <a class="nav-link" href="{{route('direction.index')}}">
                             <i class="nav-icon icon-layers"></i>
                             Directions
+                        </a>
+                    </li>
+                </ul>
+            </li>
+            <li class="nav-item nav-dropdown">
+                <a class="nav-link nav-dropdown-toggle" href="#">
+                    <i class="nav-icon icon-settings"></i>Offices
+                </a>
+                <ul class="nav-dropdown-items">
+                    <li class="nav-item">
+                        <a class="nav-link" href="{{route('office.index')}}">
+                            <i class="nav-icon icon-layers"></i>
+                            Offices
+                        </a>
+                    </li>
+                    <li class="nav-item">
+                        <a class="nav-link" href="{{route('office_layout.index')}}">
+                            <i class="nav-icon icon-layers"></i>
+                            Office Layouts
                         </a>
                     </li>
                 </ul>

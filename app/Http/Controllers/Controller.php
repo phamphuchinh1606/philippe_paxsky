@@ -17,7 +17,9 @@ use App\Services\{BuildingTypeService,
     ManagementAgencyService,
     DirectionService,
     BuildingService,
-    BuildingImageService};
+    BuildingImageService,
+    OfficeLayoutService,
+    OfficeService};
 
 class Controller extends BaseController
 {
@@ -37,9 +39,15 @@ class Controller extends BaseController
 
     protected $buildingImageService;
 
+    protected $officeLayoutService;
+
+    protected $officeService;
+
     public function __construct(BuildingTypeService $buildingTypeService, InvestorService $investorService,
                                 ClassificationService $classificationService, ManagementAgencyService $managementAgencyService,
-                                DirectionService $directionService, BuildingService $buildingService, BuildingImageService $buildingImageService)
+                                DirectionService $directionService, BuildingService $buildingService,
+                                BuildingImageService $buildingImageService, OfficeLayoutService $officeLayoutService,
+                                OfficeService $officeService)
     {
         $this->buildingTypeService = $buildingTypeService;
         $this->investorService = $investorService;
@@ -48,6 +56,8 @@ class Controller extends BaseController
         $this->directionService = $directionService;
         $this->buildingService = $buildingService;
         $this->buildingImageService = $buildingImageService;
+        $this->officeLayoutService = $officeLayoutService;
+        $this->officeService = $officeService;
     }
 
     public function uploadImageQuillEditor(Request $request){

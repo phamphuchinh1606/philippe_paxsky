@@ -12,14 +12,14 @@
                 </a>
                 <ul class="nav-dropdown-items">
                     <li class="nav-item">
-                        <a class="nav-link" href="{{route('building.create')}}">
+                        <a class="nav-link" href="{{route('building.index')}}">
                             <i class="nav-icon icon-layers"></i>
                             List Building
                         </a>
-                        <a class="nav-link" href="{{route('building_type.index')}}">
-                            <i class="nav-icon icon-layers"></i>
-                            Building Type
-                        </a>
+                        {{--<a class="nav-link" href="{{route('building_type.index')}}">--}}
+                            {{--<i class="nav-icon icon-layers"></i>--}}
+                            {{--Building Type--}}
+                        {{--</a>--}}
                         <a class="nav-link" href="{{route('investor.index')}}">
                             <i class="nav-icon icon-layers"></i>
                             Investors

@@ -58,3 +58,5 @@ Route::post('/building/create', 'BuildingController@create')->name('building.cre
 Route::get('/building/update/{id}', 'BuildingController@showUpdate')->name('building.update');
 Route::post('/building/update/{id}', 'BuildingController@update')->name('building.update');
 Route::post('/building/delete/{id}', 'BuildingController@destroy')->name('building.delete');
+Route::post('/building/image/add/{buildingId}','BuildingController@addBuildingImage')->name('building.image.add');
+Route::post('/building/image/delete/{buildingId}/{id}','BuildingController@deleteBuildingImage')->name('building.image.delete');

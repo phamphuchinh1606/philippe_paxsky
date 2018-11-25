@@ -33,7 +33,7 @@ $('.editor_quill').each(function(){
                          let elementImage = images[i];
                          $.ajax({
                              type:'POST',
-                             url:'/admin/upload-image-quill-editor',
+                             url:'/upload-image-quill-editor',
                              data: {
                                  src_image: src
                              },

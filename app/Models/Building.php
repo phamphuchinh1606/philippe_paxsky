@@ -10,7 +10,11 @@ class Building extends Model
         return $this->belongsTo('App\Models\BuildingType','type_id');
     }
 
-    public function buildingImage(){
-        return $this->hasMany('App\Models\BuildingImage','id');
+    public function images(){
+        return $this->hasMany('App\Models\BuildingImage','building_id');
+    }
+
+    public function direction(){
+        return $this->belongsTo('App\Models\Direction','direction_id');
     }
 }

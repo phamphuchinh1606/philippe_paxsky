@@ -2,7 +2,7 @@
     "use strict";
     // When ready.
     $(function() {
-        var $form = $( "#form" );
+        var $form = $( "#form-building" );
         var $input = $form.find("input.number");
         $input.each(function(){
             var $this = $( this );
@@ -40,6 +40,22 @@
                 return ( input === 0 ) ? "" : input.toLocaleString( "en-US" );
             } );
         } );
+
+        var $inputNumber = $form.find("input[type=number]");
+        $inputNumber.each(function(){
+            var $this = $( this );
+
+            // Get the value.
+            var input = $this.val();
+            if(input.endsWith('.00')){
+                input = input ? parseInt(input) : 0;
+            }
+            $this.val( function() {
+                return ( input === 0 ) ? "" : input;
+            } );
+        });
+
+
 
         /**
          * ==================================

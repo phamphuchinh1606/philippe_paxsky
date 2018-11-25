@@ -1,18 +1,22 @@
 <?php
 
 namespace App\Services;
-use App\Common\Constant;
-use App\Models\BuildingType;
-use App\Logics\BuildingLogic;
+use App\Common\{Constant};
+use App\Models\{Building, BuildingImage};
+use App\Logics\{BuildingLogic, BuildingImageLogic};
 use App\Common\AppCommon;
 use Illuminate\Http\Request;
+use Storage;
 
 class BuildingService extends BaseService{
     private $buildingLogic;
 
-    public function __construct(BuildingLogic $buildingLogic)
+    private $buildingImageLogic;
+
+    public function __construct(BuildingLogic $buildingLogic, BuildingImageLogic $buildingImageLogic)
     {
         $this->buildingLogic = $buildingLogic;
+        $this->buildingImageLogic = $buildingImageLogic;
     }
 
     public function find($id){
@@ -20,38 +24,102 @@ class BuildingService extends BaseService{
     }
 
     public function getAll(){
-        return $this->buildingLogic->getAll();
+        $buildings =  $this->buildingLogic->getAll();
+        foreach ($buildings as $building){
+            $building->public_name = AppCommon::namePublicBuildingType($building->is_public);
+            $building->public_class = AppCommon::classPublicBuildingType($building->is_public);
+        }
+        return $buildings;
     }
 
-    private function getInfoBuilding(Request $request){
-        $params = [];
-        $params['name'] = $request->name;
-        $params['sub_name'] = $request->sub_name;
-        $params['investor_id'] = $request->investor_id;
-        $params['classify_id'] = $request->classify_id;
-        $params['management_agency_id'] = $request->management_agency_id;
-        $params['direction_id'] = $request->direction_id;
+    private function getInfoBuilding(Request $request, $building = null){
+        if(!isset($building)){
+            $building = new Building();
+        }
+        //Basic Info
+        $building->is_public = AppCommon::getIsPublic($request->is_public);
+        $building->name = $request->name;
+        $building->sub_name = $request->sub_name;
+        $building->investor_id = $request->investor_id;
+        $building->classify_id = $request->classify_id;
+        $building->management_agency_id = $request->management_agency_id;
+        $building->structure = $request->structure;
+        $building->basement_number = $request->basement_number;
+        $building->ground_floor_number = $request->ground_floor_number;
+        $building->mezzanine_number = $request->mezzanine_number;
+        $building->floor_number = $request->floor_number;
+        $building->rooftop_floor_number = $request->rooftop_floor_number;
+        $building->acreage_total = $request->acreage_total;
+        $building->acreage_rent_total = $request->acreage_rent_total;
+        $building->floor_area = $request->floor_area;
+        $building->length_width_floor = $request->length_width_floor;
+        //Location
+        $building->province_id = $request->province_id;
+        $building->district_id = $request->district_id;
+        $building->address = $request->address;
+        $building->acreage_rent_total = $request->acreage_rent_total;
+        $building->direction_id = $request->direction_id;
+        $building->long = $request->long;
+        $building->lat = $request->lat;
+        //Rental Cost
+        $building->rental_cost = is_null($request->rental_cost) ? 0 : $request->rental_cost;
+        $building->tax_cost = is_null($request->tax_cost) ? 0 : $request->tax_cost;
+        $building->manager_cost = is_null($request->manager_cost) ? 0 : $request->manager_cost;
+        $building->electricity_cost = is_null($request->electricity_cost) ? 0 : $request->electricity_cost;
+        $building->over_time_cost = is_null($request->over_time_cost) ? 0 : $request->over_time_cost;
 
+        $building->parking_fee_bike = is_null($request->parking_fee_bike) ? 0 : $request->parking_fee_bike;
+        $building->parking_fee_car = is_null($request->parking_fee_car) ? 0 : $request->parking_fee_car;
+        $building->contract_duration = is_null($request->contract_duration) ? 0 : $request->contract_duration;
+        $building->mode_of_deposit = is_null($request->mode_of_deposit) ? 0 : $request->mode_of_deposit;
+        $building->mode_of_payment = is_null($request->mode_of_payment) ? 0 : $request->mode_of_payment;
+        $building->number_of_vehicles = is_null($request->number_of_vehicles) ? 0 : $request->number_of_vehicles;
 
-        $params['productPrice'] = $request->product_price == null ? 0 : $request->product_price;
-        $params['productCostPrice'] = $request->product_cost_price == null ? 0 : $request->product_cost_price;
-        $params['productComparePrice'] = $request->product_compare_price == null ? 0 : $request->product_compare_price;
-        $params['productSalePercent'] = $request->product_sale_percent == null ? 0 : $request->product_sale_percent;
-        $params['isPublic'] = AppCommon::getIsPublic($request->is_public);
-        $params['productDescription'] = $request->product_description;
-        $params['productContent'] = $request->product_content;
+        //Content
+        $building->description = $request->description;
+        $building->content = $request->building_content;
+        $building->notes = $request->notes;
+        return $building;
     }
 
     public function create(Request $request){
-//        return $this->buildingLogic->create($buildingTypeName);
+        $building = $this->getInfoBuilding($request);
+        $buildingDB = $this->buildingLogic->save($building);
+        if(isset($buildingDB->id)){
+            $buildingId = $buildingDB->id;
+            $buildingImage = $request->file('building_main_image') ;
+            if(isset($buildingImage)){
+                $imageName = AppCommon::moveImageBuilding($buildingImage, $buildingId);
+                $building->main_image = $imageName;
+                $building = $this->buildingLogic->save($building);
+            }
+            $buildingImages = $request->building_images;
+            if(isset($buildingImages) && count($buildingImages) > 0){
+                foreach ($buildingImages as $indexImage => $image){
+                    if(isset($image)){
+                        $moveImageName = str_replace(Constant::$PATH_FOLDER_UPLOAD_IMAGE_DROP,Constant::$PATH_FOLDER_UPLOAD_BUILDING.'/'.$buildingId, $image);
+                        Storage::move($image, $moveImageName);
+                        $this->buildingImageLogic->create($buildingId,$moveImageName, $indexImage);
+                    }
+                }
+            }
+        }
+        return $building;
     }
 
-    public function update($id, $buildingTypeName){
-        $buildingType = $this->buildingLogic->find($id);
-        if(isset($buildingType)){
-            $buildingType->type_name = $buildingTypeName;
-            $this->buildingLogic->save($buildingType);
+    public function update($id, Request $request){
+        $buildingDB = $this->buildingLogic->find($id);
+        if(isset($buildingDB)){
+            $building = $this->getInfoBuilding($request, $buildingDB);
+            $buildingImage = $request->file('building_main_image') ;
+            if(isset($buildingImage)){
+                AppCommon::deleteImage($building->main_image);
+                $imageName = AppCommon::moveImageBuilding($buildingImage, $id);
+                $building->main_image = $imageName;
+            }
+            $buildingDB = $this->buildingLogic->save($building);
         }
+        return $buildingDB;
     }
 
     public function destroy($id){

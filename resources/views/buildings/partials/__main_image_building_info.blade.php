@@ -1,3 +1,4 @@
+<?php use App\Common\ImageCommon; use App\Common\AppCommon; ?>
 <div class="card">
     <div class="card-header">
         <i class="fa fa-align-justify"></i> Hình Ảnh Chính
@@ -9,7 +10,7 @@
                 <div class="upload__area-image">
                     <span>
                         <img id="imgHandle"
-                             src="http://beats-city.amagumolabs.io/images/upload/no_image_available.jpg">
+                             src="{{ImageCommon::showImage(AppCommon::showValueOld('main_image',$building->main_image))}}">
                         <label for="imgAnchorInput">Upload image</label>
                     </span>
                     <p>

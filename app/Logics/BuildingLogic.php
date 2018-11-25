@@ -14,17 +14,10 @@ class BuildingLogic extends BaseLogic{
         return Building::whereIsDelete(Constant::$DELETE_FLG_OFF)->get();
     }
 
-    public function create($buildingInfo = []){
-        if(isset($buildingInfo) && count($buildingInfo) > 0){
-            return Building::create($buildingInfo);
-        }
-        return null;
-    }
-
     public function save(Building $building){
         if(isset($building)){
-            return $building->save();
+            $building->save();
         }
-        return null;
+        return $building;
     }
 }

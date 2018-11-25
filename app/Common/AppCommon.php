@@ -64,7 +64,7 @@ class AppCommon{
         return $className;
     }
 
-    public static function namePublicProductType($statusValue){
+    public static function namePublicBuildingType($statusValue){
         $publicName = "";
         switch ($statusValue){
             case Constant::$PUBLIC_FLG_ON:
@@ -77,7 +77,7 @@ class AppCommon{
         return $publicName;
     }
 
-    public static function classPublicProductType($statusValue){
+    public static function classPublicBuildingType($statusValue){
         $className = "";
         switch ($statusValue){
             case Constant::$PUBLIC_FLG_ON:
@@ -125,8 +125,8 @@ class AppCommon{
         return "";
     }
 
-    public static function moveImageProduct(UploadedFile $file, $productId){
-        return AppCommon::moveImage($file, Constant::$PATH_FOLDER_UPLOAD_PRODUCT.'/'.$productId);
+    public static function moveImageBuilding(UploadedFile $file, $productId){
+        return AppCommon::moveImage($file, Constant::$PATH_FOLDER_UPLOAD_BUILDING.'/'.$productId);
     }
 
     public static function deleteImage($imageName){
@@ -137,5 +137,26 @@ class AppCommon{
 
     public static function formatMoney($value){
         return number_format($value);
+    }
+
+    public static function formatDouble($value){
+        try{
+            if($value == (int)$value){
+                return number_format($value);
+            }
+        }catch (\Exception $ex){}
+
+        return number_format($value,2);
+    }
+
+    public static function showValueOld($oldName, $value){
+        $exit = false;
+        eval('$exit= isset($'.$oldName.');');
+        if($exit){
+            $valueOld = "";
+            eval('$valueOld = old($'.$oldName.')');
+            return $valueOld;
+        }
+        return $value;
     }
 }

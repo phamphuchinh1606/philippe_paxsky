@@ -2,6 +2,7 @@
 
 namespace App\Http\Controllers;
 
+use App\Models\Building;
 use Illuminate\Foundation\Bus\DispatchesJobs;
 use Illuminate\Routing\Controller as BaseController;
 use Illuminate\Foundation\Validation\ValidatesRequests;
@@ -14,7 +15,9 @@ use App\Services\{BuildingTypeService,
     InvestorService,
     ClassificationService,
     ManagementAgencyService,
-    DirectionService};
+    DirectionService,
+    BuildingService,
+    BuildingImageService};
 
 class Controller extends BaseController
 {
@@ -30,15 +33,21 @@ class Controller extends BaseController
 
     protected $directionService;
 
+    protected $buildingService;
+
+    protected $buildingImageService;
+
     public function __construct(BuildingTypeService $buildingTypeService, InvestorService $investorService,
                                 ClassificationService $classificationService, ManagementAgencyService $managementAgencyService,
-                                DirectionService $directionService)
+                                DirectionService $directionService, BuildingService $buildingService, BuildingImageService $buildingImageService)
     {
         $this->buildingTypeService = $buildingTypeService;
         $this->investorService = $investorService;
         $this->classificationService = $classificationService;
         $this->managementAgencyService = $managementAgencyService;
         $this->directionService = $directionService;
+        $this->buildingService = $buildingService;
+        $this->buildingImageService = $buildingImageService;
     }
 
     public function uploadImageQuillEditor(Request $request){

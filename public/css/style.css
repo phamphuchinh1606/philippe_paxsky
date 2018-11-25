@@ -85,8 +85,8 @@ Popup confirm
     margin: 100px auto;
 }
 
-/*Css Product*/
-#editor.product_content{
+/*Css Building*/
+#editor.building_content{
     height: 500px;
 }
 
@@ -178,7 +178,7 @@ Popup confirm
 div.odd {
     background-color: #F9f9f9;
 }
-input.form-control, select.form-control{
+input.form-control, select.form-control, textarea.form-control, .ql-container{
     background-color: #f9ffff;
     resize: none;
 }

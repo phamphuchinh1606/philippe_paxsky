@@ -7,6 +7,14 @@
     <link rel="stylesheet" href="{{asset('css/plugins/dropzone.css')}}">
     <link href="{{asset('css/dropzon_custom.css')}}" rel="stylesheet">
     <link href="{{asset('css/plugins/select2.min.css')}}" rel="stylesheet">
+    <style>
+        .select2-container--bootstrap .select2-selection{
+            background-color: #f9ffff;
+            resize: none;
+            min-height: 40px;
+            padding-top: 3px;
+        }
+    </style>
 @endsection
 
 @section('body.js')
@@ -17,6 +25,7 @@
     <script src="{{asset('js/plugins/select2.min.js')}}"></script>
     <script src="{{asset('js/product.js')}}"></script>
     <script src="{{asset('js/advanced-forms.js')}}"></script>
+    <script src="{{asset('js/office.js')}}"></script>
 @endsection
 
 @section('body.breadcrumb')

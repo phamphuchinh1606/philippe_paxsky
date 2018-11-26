@@ -18,6 +18,8 @@ Route::post('/office-layout/create', 'OfficeLayoutController@create')->name('off
 Route::get('/office-layout/update/{id}', 'OfficeLayoutController@showUpdate')->name('office_layout.update');
 Route::post('/office-layout/update/{id}', 'OfficeLayoutController@update')->name('office_layout.update');
 Route::post('/office-layout/delete/{id}', 'OfficeLayoutController@destroy')->name('office_layout.delete');
+
+Route::post('office-layout/json/office','OfficeLayoutController@officeLayoutToJson')->name('office_layout.json.office');
 //Route::post('/office-layout/image/add/{buildingId}','OfficeLayoutController@addBuildingImage')->name('office_layout.image.add');
 //Route::post('/office-layout/image/delete/{buildingId}/{id}','OfficeLayoutController@deleteBuildingImage')->name('office_layout.image.delete');
 

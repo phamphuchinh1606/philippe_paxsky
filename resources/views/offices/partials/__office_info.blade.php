@@ -28,7 +28,8 @@
         <div class="row">
             <div class="col-xl-6 col-md-12">
                 <div class="form-group">
-                    <label class="col-form-label" for="direction">Building</label>
+                    <label class="col-form-label" for="direction">Office Layout</label>
+                    <input type="hidden" id="url-load-data" value="{{route('office_layout.json.office')}}"/>
                     @include('common.__select_office_layout',['selectName' => 'office_layout_id','defaultValue' => AppCommon::showValueOld('office_layout_id',$office->office_layout_id)])
                 </div>
             </div>
@@ -42,16 +43,9 @@
         <div class="row">
             <div class="col-xl-12 col-md-12">
                 <div class="form-group">
-                    <label class="col-form-label" for="direction">Floor</label>
                     <fieldset class="form-group">
-                        <label>Multiple Select / Tags</label>
-                        <select class="form-control" id="select2-2" name="states[]" multiple="multiple">
-                            <option data-select2-id="11">Option 1</option>
-                            <option data-select2-id="10">Option 2</option>
-                            <option data-select2-id="12">Option 3</option>
-                            <option data-select2-id="13">Option 4</option>
-                            <option data-select2-id="14">Option 5</option>
-                        </select>
+                        <label>Floor</label>
+                        @include('common.__select_floor_office')
                     </fieldset>
                 </div>
             </div>

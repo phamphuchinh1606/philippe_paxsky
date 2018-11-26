@@ -77,6 +77,13 @@
     <script src="{{asset('js/plugins/coreui.min.js')}}"></script>
     <script src="{{asset('js/form.input.number.js') }}" type='text/javascript'></script>
     <script src="{{asset('js/plugins/tooltips.js') }}" type='text/javascript'></script>
+    <script type="text/javascript">
+        $.ajaxSetup({
+            headers: {
+                'X-CSRF-TOKEN': $('meta[name="_token"]').attr('content')
+            }
+        });
+    </script>
     @yield('body.js')
     <script>
         // $('#ui-view').ajaxLoad();

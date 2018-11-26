@@ -43,4 +43,18 @@ class OfficeLayoutController extends Controller
         $this->officeLayoutService->destroy($id);
         return redirect()->route('office_layout.index')->with('success','Delete office layout success');
     }
+
+    public function officeLayoutToJson(Request $request){
+        $id = $request->office_layout_id;
+        if(isset($id)){
+            $officeLayout = $this->officeLayoutService->find($id);
+            if(isset($officeLayout)){
+                return response()->json($officeLayout);
+            }
+        }
+        $jsonData = new \StdClass();
+        $jsonData->error = "Can not get data";
+        $jsonData->error_code = -1;
+        return response()->json($jsonData);
+    }
 }

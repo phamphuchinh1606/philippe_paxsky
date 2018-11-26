@@ -9,8 +9,14 @@
             <div class="box-body">
                 <div class="upload__area-image">
                     <span>
-                        <img id="imgHandle"
-                             src="{{ImageCommon::showImage(AppCommon::showValueOld('main_image',$office->image_src))}}">
+                        @if(isset($office->id))
+                            <img id="imgHandle"
+                                 src="{{ImageCommon::showImage(AppCommon::showValueOld('main_image',$office->image_src))}}">
+                        @else
+                            <img id="imgHandle"
+                                 src="{{asset('images/no_image_available.jpg')}}">
+                        @endif
+
                         <label for="imgAnchorInput">Upload image</label>
                     </span>
                     <p>

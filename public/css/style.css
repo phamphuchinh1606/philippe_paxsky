@@ -178,7 +178,8 @@ Popup confirm
 div.odd {
     background-color: #F9f9f9;
 }
-input.form-control, select.form-control, textarea.form-control, .ql-container{
+input.form-control, select.form-control, textarea.form-control, .ql-container , .select2-selection{
     background-color: #f9ffff;
     resize: none;
+    min-height: 40px;
 }

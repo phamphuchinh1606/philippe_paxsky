@@ -10,8 +10,11 @@ jQuery(document).ready(function ($) {
             dataType: 'json',
             success: function(data) {
                 for (var property in data) {
+                    if("image_src" == property){
+                        continue;
+                    }
                     let input = $('input[name='+property+']');
-                    if( input != undefined && input != null){
+                    if( input != undefined && input != null && input.is('input')){
                         input.val(data[property]);
                     }
                     let select = $('select[name='+property+']');
@@ -19,7 +22,9 @@ jQuery(document).ready(function ($) {
                         select.val(data[property]);
                     }
                 }
-
+                $('#imgHandle').attr('src',data.image_src_path);
+                $('input[name=image_src_office_layout]').val(data.image_src);
+                $('input[name=office_name]').val(data.layout_name);
             }
         };
         jQuery.ajax(params);

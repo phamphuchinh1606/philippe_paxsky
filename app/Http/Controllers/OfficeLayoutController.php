@@ -2,6 +2,7 @@
 
 namespace App\Http\Controllers;
 
+use App\Common\ImageCommon;
 use App\Models\OfficeLayout;
 use Illuminate\Http\Request;
 
@@ -49,6 +50,7 @@ class OfficeLayoutController extends Controller
         if(isset($id)){
             $officeLayout = $this->officeLayoutService->find($id);
             if(isset($officeLayout)){
+                $officeLayout->image_src_path = ImageCommon::showImage($officeLayout->image_src);
                 return response()->json($officeLayout);
             }
         }

@@ -12,7 +12,7 @@
 @endsection
 
 @section('body.breadcrumb')
-    {{ Breadcrumbs::render('buildingType') }}
+    {{ Breadcrumbs::render('investor') }}
 @endsection
 
 @section('body.content')

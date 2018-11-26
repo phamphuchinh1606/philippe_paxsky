@@ -23,25 +23,26 @@ class OfficeController extends Controller
     }
 
     public function create(Request $request){
-        $this->officeLayoutService->create($request);
-        return redirect()->route('office_layout.index')->with('success','Create office layout success');
+        $this->officeService->create($request);
+        return redirect()->route('office.index')->with('success','Create office success');
     }
 
     public function showUpdate($id){
-        $officeLayout = $this->officeLayoutService->find($id);
-        if(isset($officeLayout)){
-            return $this->showView('update',['officeLayout' => $officeLayout]);
+        $office = $this->officeService->find($id);
+        if(isset($office)){
+            $officeLayouts = $this->officeLayoutService->getAll();
+            return $this->showView('update',['office' => $office, 'officeLayouts' => $officeLayouts]);
         }
         return redirect()->route('office_layout.index');
     }
 
     public function update($id , Request $request){
-        $this->officeLayoutService->update($id, $request);
-        return redirect()->route('office_layout.index')->with('success','Update office layout success');
+        $this->officeService->update($id, $request);
+        return redirect()->route('office.index')->with('success','Update office success');
     }
 
     public function destroy($id){
-        $this->officeLayoutService->destroy($id);
-        return redirect()->route('office_layout.index')->with('success','Delete office layout success');
+        $this->officeService->destroy($id);
+        return redirect()->route('office.index')->with('success','Delete office success');
     }
 }

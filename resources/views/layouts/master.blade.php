@@ -9,6 +9,8 @@
     <meta name="keyword" content="Bootstrap,Admin,Template,Open,Source,jQuery,CSS,HTML,RWD,Dashboard">
     <!-- CSRF Token -->
     <meta name="_token" content="{{ csrf_token() }}">
+    <link rel="apple-touch-icon" href="{{asset('images/logo paxsky.png')}}">
+    <link rel="shortcut icon" href="{{asset('images/logo paxsky.png')}}">
     <title>@yield('head.title','Paxsky')</title>
 
     <link href="{{asset('/css/plugins/coreui-icons.min.css')}}" rel="stylesheet">

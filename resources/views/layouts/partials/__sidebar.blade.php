@@ -2,13 +2,13 @@
     <nav class="sidebar-nav ps ps--active-y">
         <ul class="nav">
             <li class="nav-item">
-                <a class="nav-link" href="">
-                    <i class="nav-icon icon-speedometer"></i> Trang chủ
+                <a class="nav-link" href="{{route('home')}}">
+                    <i class="nav-icon icon-home"></i> Trang chủ
                 </a>
             </li>
             <li class="nav-item nav-dropdown">
                 <a class="nav-link nav-dropdown-toggle" href="#">
-                    <i class="nav-icon icon-settings"></i>Buildings
+                    <i class="nav-icon icon-grid"></i>Buildings
                 </a>
                 <ul class="nav-dropdown-items">
                     <li class="nav-item">
@@ -17,19 +17,19 @@
                             List Building
                         </a>
                         <a class="nav-link" href="{{route('investor.index')}}">
-                            <i class="nav-icon icon-layers"></i>
+                            <i class="nav-icon icon-disc"></i>
                             Investors
                         </a>
                         <a class="nav-link" href="{{route('classify.index')}}">
-                            <i class="nav-icon icon-layers"></i>
+                            <i class="nav-icon icon-social-spotify"></i>
                             Classifications
                         </a>
                         <a class="nav-link" href="{{route('management_agency.index')}}">
-                            <i class="nav-icon icon-layers"></i>
+                            <i class="nav-icon icon-support"></i>
                             Management Agency
                         </a>
                         <a class="nav-link" href="{{route('direction.index')}}">
-                            <i class="nav-icon icon-layers"></i>
+                            <i class="nav-icon icon-direction"></i>
                             Directions
                         </a>
                     </li>
@@ -37,18 +37,18 @@
             </li>
             <li class="nav-item nav-dropdown">
                 <a class="nav-link nav-dropdown-toggle" href="#">
-                    <i class="nav-icon icon-settings"></i>Offices
+                    <i class="nav-icon icon-list"></i>Offices
                 </a>
                 <ul class="nav-dropdown-items">
                     <li class="nav-item">
                         <a class="nav-link" href="{{route('office.index')}}">
-                            <i class="nav-icon icon-layers"></i>
+                            <i class="nav-icon icon-printer"></i>
                             Offices
                         </a>
                     </li>
                     <li class="nav-item">
                         <a class="nav-link" href="{{route('office_layout.index')}}">
-                            <i class="nav-icon icon-layers"></i>
+                            <i class="nav-icon icon-chart"></i>
                             Office Layouts
                         </a>
                     </li>

@@ -14,7 +14,7 @@
 @endsection
 
 @section('body.breadcrumb')
-    {{ Breadcrumbs::render('buildingType') }}
+    {{ Breadcrumbs::render('office_layout') }}
 @endsection
 
 @section('body.content')

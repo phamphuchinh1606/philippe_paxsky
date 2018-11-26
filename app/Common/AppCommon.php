@@ -116,6 +116,31 @@ class AppCommon{
         return $className;
     }
 
+    public static function getFloorNameOffice($floorId){
+        $floorName = "";
+        switch ($floorId){
+            case -1:
+                $floorName = "Ground Floor";
+                break;
+            case 0:
+                $floorName = "Mezzanine";
+                break;
+            case 99:
+                $floorName = "Rooftop";
+                break;
+            default:
+                $floorName = "Floor ". $floorId;
+                break;
+        }
+        return $floorName;
+    }
+
+    public static function copyImage($pathFileSrc , $pathFileDec){
+        if(Storage::exists($pathFileSrc)){
+            Storage::copy($pathFileSrc,$pathFileDec);
+        }
+    }
+
     public static function moveImage(UploadedFile $file, $pathFolder){
         if(isset($file)){
             $filename = time().'_'.$file->getClientOriginalName();

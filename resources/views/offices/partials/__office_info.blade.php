@@ -3,7 +3,7 @@
     <div class="card-header">
         <i class="icon-note"></i> Create Office Layout
         <div class="card-header-actions">
-            <a class="btn btn-sm btn-secondary" href="{{route('office_layout.index')}}">
+            <a class="btn btn-sm btn-secondary" href="{{route('office.index')}}">
                 Back
             </a>
         </div>
@@ -14,8 +14,8 @@
                 @include('common.tagHtml.__input_text',[
                     'labelInput' => 'Office Name',
                     'placeHolder' => 'Office name',
-                    'inputName' => 'layout_name',
-                    'inputValue' => $office->layout_name
+                    'inputName' => 'office_name',
+                    'inputValue' => $office->office_name
                 ])
             </div>
             <div class="col-xl-6 col-md-12">
@@ -45,7 +45,7 @@
                 <div class="form-group">
                     <fieldset class="form-group">
                         <label>Floor</label>
-                        @include('common.__select_floor_office')
+                        @include('common.__select_floor_office',['defaultValue' => $office->floor, 'multiple' => !isset($office->id)])
                     </fieldset>
                 </div>
             </div>
@@ -116,6 +116,7 @@
         <div class="d-none">
             <input type="file" class="'form-control" id="image_src"
                    name="image_src" value="{{AppCommon::showValueOld('image_src',$office->image_src)}}"/>
+            <input type="hidden" id="image_src_office_layout" name="image_src_office_layout"/>
             <div class="root_building_images">
                 <input type="hidden" class="'form-control building_images"
                        name="building_images[]" value=""/>
@@ -124,7 +125,7 @@
     </div>
     <div class="card-footer text-right">
         <button class="btn btn-primary submit-building" type="button">
-            <i class="fa fa-dot-circle-o"></i> Create
+            <i class="fa fa-dot-circle-o"></i> @if(isset($office->id)) Update @else Create @endif
         </button>
         <button class="btn btn-danger" type="reset">
             <i class="fa fa-ban"></i> Cancel</button>

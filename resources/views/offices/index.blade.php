@@ -14,7 +14,7 @@
 @endsection
 
 @section('body.breadcrumb')
-    {{ Breadcrumbs::render('buildingType') }}
+    {{ Breadcrumbs::render('office') }}
 @endsection
 
 @section('body.content')
@@ -53,10 +53,13 @@
                                                     Office Name
                                                 </th>
                                                 <th class="text-center">
-                                                    Direction
+                                                    Building Name
                                                 </th>
                                                 <th class="text-center">
-                                                    Building Name
+                                                    Floor
+                                                </th>
+                                                <th class="text-center">
+                                                    Direction
                                                 </th>
                                                 <th class="text-center">
                                                     Acreage Total
@@ -80,13 +83,16 @@
                                                         <img src="{{ImageCommon::showImage($office->image_src)}}">
                                                     </td>
                                                     <td class="app-col-name">
-                                                        {{$office->layout_name}}
-                                                    </td>
-                                                    <td class="app-col-direction">
-                                                        {{$office->direction->name}}
+                                                        {{$office->office_name}}
                                                     </td>
                                                     <td class="app-col-direction">
                                                         {{$office->building->name}}
+                                                    </td>
+                                                    <td class="app-col-name">
+                                                        {{$office->floor_name}}
+                                                    </td>
+                                                    <td class="app-col-direction">
+                                                        {{$office->direction->name}}
                                                     </td>
                                                     <td class="app-col-acreage_rent_total text-right">
                                                         {{\App\Common\AppCommon::formatDouble($office->acreage_total)}}
@@ -103,7 +109,7 @@
                                                         </a>
                                                         <a data-toggle="modal" class="btn btn-danger anchorClick"
                                                            data-url="{{route('office.delete',['id' => $office->id]) }}"
-                                                           data-name="{{$office->layout_name}}" href="#deleteModal">
+                                                           data-name="{{$office->office_name}}" href="#deleteModal">
                                                             <i class="fa fa-trash-o"></i>
                                                         </a>
                                                     </td>

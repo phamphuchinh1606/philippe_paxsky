@@ -103,3 +103,63 @@ Breadcrumbs::for('direction.update', function ($trail, $directionName) {
 });
 //========================End Investor===============================================
 
+//Building ====================================================================
+Breadcrumbs::for('building', function ($trail) {
+    $trail->parent('home');
+    $trail->push('List Building', route('building.index'));
+});
+
+
+//Building Create
+Breadcrumbs::for('building.create', function ($trail) {
+    $trail->parent('building');
+    $trail->push('Create Building');
+});
+
+//Building Type Update
+Breadcrumbs::for('building.update', function ($trail, $buildingName) {
+    $trail->parent('building');
+    $trail->push($buildingName);
+});
+//========================End Building===============================================
+
+//Office ====================================================================
+Breadcrumbs::for('office', function ($trail) {
+    $trail->parent('home');
+    $trail->push('List Office', route('office.index'));
+});
+
+
+//Office Create
+Breadcrumbs::for('office.create', function ($trail) {
+    $trail->parent('office');
+    $trail->push('Create Office');
+});
+
+//Office Type Update
+Breadcrumbs::for('office.update', function ($trail, $officeName) {
+    $trail->parent('office');
+    $trail->push($officeName);
+});
+//========================End Office===============================================
+
+//Office Layout ====================================================================
+Breadcrumbs::for('office_layout', function ($trail) {
+    $trail->parent('home');
+    $trail->push('List Office Layout', route('office_layout.index'));
+});
+
+
+//Office Create
+Breadcrumbs::for('office_layout.create', function ($trail) {
+    $trail->parent('office_layout');
+    $trail->push('Create Office Layout');
+});
+
+//Office Type Update
+Breadcrumbs::for('office_layout.update', function ($trail, $officeLayOutName) {
+    $trail->parent('office_layout');
+    $trail->push($officeLayOutName);
+});
+//========================End Office===============================================
+

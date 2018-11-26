@@ -17,7 +17,7 @@
 @endsection
 
 @section('body.breadcrumb')
-    {{ Breadcrumbs::render('buildingType.create') }}
+    {{ Breadcrumbs::render('building.update', $building->name) }}
 @endsection
 @section('body.content')
     <div class="container-fluid">

@@ -20,6 +20,7 @@ class Constant{
     public static $PATH_FOLDER_UPLOAD_IMAGE_DROP = "images_drop";
     public static $PATH_FOLDER_UPLOAD_BUILDING = "buildings";
     public static $PATH_FOLDER_UPLOAD_OFFICE_LAYOUT = "officeLayouts";
+    public static $PATH_FOLDER_UPLOAD_OFFICE = "offices";
     public static $PATH_URL_UPLOAD_IMAGE = "storage/";
 
     public static $URL_PAXSKY = "";

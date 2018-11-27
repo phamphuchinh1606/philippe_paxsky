@@ -89,15 +89,26 @@
             <div class="col-xl-6 col-md-12">
                 <div class="form-group">
                     <label class="col-form-label" for="acreage_total">Acreage Total</label>
-                    <input class="form-control text-right" id="acreage_total" type="number" step="0.1"
-                           name="acreage_total" placeholder="Acreage total" value="{{AppCommon::showValueOld('acreage_total',$building->acreage_total)}}">
+                    <div class="input-prepend input-group">
+                        <input class="form-control text-right" id="acreage_total" type="number" step="0.1"
+                               name="acreage_total" placeholder="Acreage total" value="{{AppCommon::showValueOld('acreage_total',$building->acreage_total)}}">
+                        <div class="input-group-prepend">
+                            <span class="input-group-text">m2</span>
+                        </div>
+                    </div>
                 </div>
             </div>
             <div class="col-xl-6 col-md-12">
                 <div class="form-group">
                     <label class="col-form-label" for="acreage_rent_total">Acreage Rent Total</label>
-                    <input class="form-control text-right" id="acreage_rent_total" type="number" step="0.1"
-                           name="acreage_rent_total" placeholder="Acreage rent total" value="{{AppCommon::showValueOld('acreage_rent_total',$building->acreage_rent_total)}}">
+                    <div class="input-prepend input-group">
+                        <input class="form-control text-right" id="acreage_rent_total" type="number" step="0.1"
+                               name="acreage_rent_total" placeholder="Acreage rent total" value="{{AppCommon::showValueOld('acreage_rent_total',$building->acreage_rent_total)}}">
+                        <div class="input-group-prepend">
+                            <span class="input-group-text">m2</span>
+                        </div>
+                    </div>
+
                 </div>
             </div>
         </div>
@@ -105,8 +116,14 @@
             <div class="col-xl-6 col-md-12">
                 <div class="form-group">
                     <label class="col-form-label" for="floor_area">Floor Area</label>
-                    <input class="form-control text-right" id="floor_area" type="number" step="0.1"
-                           name="floor_area" placeholder="Floor Area" value="{{AppCommon::showValueOld('floor_area',$building->floor_area)}}">
+                    <div class="input-prepend input-group">
+                        <input class="form-control text-right" id="floor_area" type="number" step="0.1"
+                               name="floor_area" placeholder="Floor Area" value="{{AppCommon::showValueOld('floor_area',$building->floor_area)}}">
+                        <div class="input-group-prepend">
+                            <span class="input-group-text">m2</span>
+                        </div>
+                    </div>
+
                 </div>
             </div>
             <div class="col-xl-6 col-md-12">

@@ -1,7 +1,7 @@
 <?php use App\Common\AppCommon; ?>
 <div class="card">
     <div class="card-header">
-        <i class="icon-note"></i> Create Office Layout
+        <i class="icon-note"></i> Create Office
         <div class="card-header-actions">
             <a class="btn btn-sm btn-secondary" href="{{route('office.index')}}">
                 Back
@@ -56,7 +56,8 @@
                     'labelInput' => 'Acreage Total',
                     'placeHolder' => 'Acreage total',
                     'inputName' => 'acreage_total',
-                    'inputValue' => $office->acreage_total
+                    'inputValue' => $office->acreage_total,
+                    'unit' => 'm2'
                 ])
             </div>
             <div class="col-xl-6 col-md-12">
@@ -64,7 +65,8 @@
                     'labelInput' => 'Acreage Rent',
                     'placeHolder' => 'Acreage rent',
                     'inputName' => 'acreage_rent',
-                    'inputValue' => $office->acreage_rent
+                    'inputValue' => $office->acreage_rent,
+                    'unit' => 'm2'
                 ])
             </div>
         </div>
@@ -74,7 +76,8 @@
                     'labelInput' => 'Length Floor',
                     'placeHolder' => 'Length floor',
                     'inputName' => 'length_floor',
-                    'inputValue' => $office->length_floor
+                    'inputValue' => $office->length_floor,
+                    'unit' => 'm'
                 ])
             </div>
             <div class="col-xl-6 col-md-12">
@@ -82,7 +85,8 @@
                     'labelInput' => 'Width floor',
                     'placeHolder' => 'Width floor',
                     'inputName' => 'width_floor',
-                    'inputValue' => $office->width_floor
+                    'inputValue' => $office->width_floor,
+                    'unit' => 'm'
                 ])
             </div>
         </div>

@@ -36,7 +36,7 @@ class InvestorService extends BaseService{
         $investor = $this->investorLogic->find($id);
         if(isset($investor)){
             $investor->is_delete = Constant::$DELETE_FLG_ON;
-            $this->buildingTypeLogic->save($investor);
+            $this->investorLogic->save($investor);
         }
     }
 

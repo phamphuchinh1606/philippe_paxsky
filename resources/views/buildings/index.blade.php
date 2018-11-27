@@ -83,10 +83,12 @@
                                                         {{$building->direction->name}}
                                                     </td>
                                                     <td class="app-col-acreage_rent_total text-right">
-                                                        {{\App\Common\AppCommon::formatDouble($building->acreage_rent_total)}}
+                                                        {{\App\Common\NumberUtils::formatDouble($building->acreage_rent_total)}}
+                                                        {{\App\Common\Constant::$UNIT_ACREAGE}}
                                                     </td>
                                                     <td class="app-col-rental-cost text-right">
-                                                        {{\App\Common\AppCommon::formatDouble($building->rental_cost)}}
+                                                        {{\App\Common\NumberUtils::formatDouble($building->rental_cost)}}
+                                                        {{\App\Common\Constant::$UNIT_RENT_COST}}
                                                     </td>
                                                     <td class="app-col-status text-center">
                                                         <span class="badge {{$building->public_class}}">{{$building->public_name}}</span>

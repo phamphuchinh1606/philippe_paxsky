@@ -23,11 +23,39 @@ class BuildingService extends BaseService{
         return $this->buildingLogic->find($id);
     }
 
+    private function getStructureStr(Building $building){
+        $strStructure = "";
+        if($building->basement_number > 0){
+            $strStructure = $strStructure . " " .$building->basement_number . " hầm";
+        }
+        if($building->mezzanine_number > 0){
+            $strStructure = $strStructure . " " . $building->mezzanine_number . " trệt";
+        }
+        if($building->ground_floor_number > 0){
+            $strStructure = $strStructure . " " . $building->ground_floor_number . " lửng";
+        }
+        if($building->floor_number > 0){
+            $strStructure = $strStructure . " " . $building->floor_number . " tầng";
+        }
+        if($building->floor_number > 0){
+            $strStructure = $strStructure . " " . $building->floor_number . " sân thượng";
+        }
+        return $strStructure;
+    }
+
     public function getAll(){
         $buildings =  $this->buildingLogic->getAll();
         foreach ($buildings as $building){
             $building->public_name = AppCommon::namePublicBuildingType($building->is_public);
             $building->public_class = AppCommon::classPublicBuildingType($building->is_public);
+            $acreageRents = [];
+            foreach ($building->offices as $office){
+                if(!isset($acreageRents[$office->acreage_rent])){
+                    $acreageRents[$office->acreage_rent] = $office->acreage_rent;
+                }
+            }
+            $building->acreage_rent_list = implode("-",$acreageRents);
+            $building->structure_str = $this->getStructureStr($building);
         }
         return $buildings;
     }

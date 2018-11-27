@@ -19,6 +19,7 @@ class BuildingController extends Controller
 
     public function showCreate(){
         $building = new Building();
+        $building->init();
         $building->is_public = Constant::$PUBLIC_FLG_ON;
         return $this->showView('create',['building' => $building]);
     }

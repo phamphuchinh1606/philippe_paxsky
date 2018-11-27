@@ -12,23 +12,23 @@
                 </a>
                 <ul class="nav-dropdown-items">
                     <li class="nav-item">
-                        <a class="nav-link" href="{{route('building.index')}}">
+                        <a class="nav-link @if(\Request::is('*building*')) active @endif" href="{{route('building.index')}}">
                             <i class="nav-icon icon-layers"></i>
                             List Building
                         </a>
-                        <a class="nav-link" href="{{route('investor.index')}}">
+                        <a class="nav-link @if(\Request::is('*investor*')) active @endif" href="{{route('investor.index')}}">
                             <i class="nav-icon icon-disc"></i>
                             Investors
                         </a>
-                        <a class="nav-link" href="{{route('classify.index')}}">
+                        <a class="nav-link @if(\Request::is('*classify*')) active @endif" href="{{route('classify.index')}}">
                             <i class="nav-icon icon-social-spotify"></i>
                             Classifications
                         </a>
-                        <a class="nav-link" href="{{route('management_agency.index')}}">
+                        <a class="nav-link @if(\Request::is('*management-agency*')) active @endif" href="{{route('management_agency.index')}}">
                             <i class="nav-icon icon-support"></i>
                             Management Agency
                         </a>
-                        <a class="nav-link" href="{{route('direction.index')}}">
+                        <a class="nav-link @if(\Request::is('*direction*')) active @endif" href="{{route('direction.index')}}">
                             <i class="nav-icon icon-direction"></i>
                             Directions
                         </a>
@@ -41,13 +41,13 @@
                 </a>
                 <ul class="nav-dropdown-items">
                     <li class="nav-item">
-                        <a class="nav-link" href="{{route('office.index')}}">
+                        <a class="nav-link @if(\Request::is('*office/*')) active @endif" href="{{route('office.index')}}">
                             <i class="nav-icon icon-printer"></i>
                             Offices
                         </a>
                     </li>
                     <li class="nav-item">
-                        <a class="nav-link" href="{{route('office_layout.index')}}">
+                        <a class="nav-link @if(\Request::is('*office-layout*')) active @endif" href="{{route('office_layout.index')}}">
                             <i class="nav-icon icon-chart"></i>
                             Office Layouts
                         </a>

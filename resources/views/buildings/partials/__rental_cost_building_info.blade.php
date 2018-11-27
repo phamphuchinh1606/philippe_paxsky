@@ -13,7 +13,7 @@
                             <input class="form-control text-right" id="rental_cost" name="rental_cost" size="16"
                                    type="number" step="0.1" value="{{AppCommon::showValueOld('rental_cost',$building->rental_cost)}}">
                             <div class="input-group-prepend">
-                                <span class="input-group-text">$</span>
+                                <span class="input-group-text">$ / m2</span>
                             </div>
                         </div>
                     </div>
@@ -27,7 +27,7 @@
                             <input class="form-control text-right" id="tax_cost" name="tax_cost" size="16" type="number" step="0.1"
                                    value="{{AppCommon::showValueOld('tax_cost',$building->tax_cost)}}">
                             <div class="input-group-prepend">
-                                <span class="input-group-text">$</span>
+                                <span class="input-group-text">$ / m2</span>
                             </div>
                         </div>
                     </div>
@@ -41,7 +41,7 @@
                             <input class="form-control text-right" id="manager_cost" name="manager_cost" size="16" type="number" step="0.1"
                                    value="{{AppCommon::showValueOld('manager_cost',$building->manager_cost)}}">
                             <div class="input-group-prepend">
-                                <span class="input-group-text">$</span>
+                                <span class="input-group-text">$ / m2</span>
                             </div>
                         </div>
                     </div>
@@ -57,7 +57,7 @@
                             <input class="form-control text-right" id="electricity_cost" name="electricity_cost" size="16" type="number" step="0.1"
                                    value="{{AppCommon::showValueOld('electricity_cost',$building->electricity_cost)}}">
                             <div class="input-group-prepend">
-                                <span class="input-group-text">$</span>
+                                <span class="input-group-text">K/W hours</span>
                             </div>
                         </div>
                     </div>
@@ -115,7 +115,7 @@
                             <input class="form-control text-right" id="contract_duration" name="contract_duration" size="16" type="number" step="0.1"
                                    value="{{AppCommon::showValueOld('contract_duration',$building->contract_duration)}}">
                             <div class="input-group-prepend">
-                                <span class="input-group-text">$</span>
+                                <span class="input-group-text">Years</span>
                             </div>
                         </div>
                     </div>
@@ -129,7 +129,7 @@
                             <input class="form-control text-right" id="mode_of_deposit" name="mode_of_deposit" size="16" type="number" step="0.1"
                                    value="{{AppCommon::showValueOld('mode_of_deposit',$building->mode_of_deposit)}}">
                             <div class="input-group-prepend">
-                                <span class="input-group-text">$</span>
+                                <span class="input-group-text">Months</span>
                             </div>
                         </div>
                     </div>
@@ -145,7 +145,7 @@
                             <input class="form-control text-right" id="mode_of_payment" name="mode_of_payment" size="16" type="number" step="0.1"
                                    value="{{AppCommon::showValueOld('mode_of_payment',$building->mode_of_payment)}}">
                             <div class="input-group-prepend">
-                                <span class="input-group-text">$</span>
+                                <span class="input-group-text">Months</span>
                             </div>
                         </div>
                     </div>
@@ -159,7 +159,7 @@
                             <input class="form-control text-right" id="number_of_vehicles" name="number_of_vehicles" size="16" type="number" step="0.1"
                                    value="{{AppCommon::showValueOld('number_of_vehicles',$building->number_of_vehicles)}}">
                             <div class="input-group-prepend">
-                                <span class="input-group-text">$</span>
+                                <span class="input-group-text">Bikes/Floor</span>
                             </div>
                         </div>
                     </div>

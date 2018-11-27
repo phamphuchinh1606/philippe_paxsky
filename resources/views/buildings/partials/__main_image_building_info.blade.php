@@ -1,7 +1,7 @@
 <?php use App\Common\ImageCommon; use App\Common\AppCommon; ?>
 <div class="card">
     <div class="card-header">
-        <i class="fa fa-align-justify"></i> Hình Ảnh Chính
+        <i class="fa fa-align-justify"></i> Main Image
         <small>slides only</small>
     </div>
     <div class="card-body">
@@ -9,8 +9,13 @@
             <div class="box-body">
                 <div class="upload__area-image">
                     <span>
-                        <img id="imgHandle"
-                             src="{{ImageCommon::showImage(AppCommon::showValueOld('main_image',$building->main_image))}}">
+                        @if(isset($building->id))
+                            <img id="imgHandle"
+                                 src="{{ImageCommon::showImage(AppCommon::showValueOld('main_image',$building->main_image))}}">
+                        @else
+                            <img id="imgHandle"
+                                 src="{{asset('images/no_image_available.jpg')}}">
+                        @endif
                         <label for="imgAnchorInput">Upload image</label>
                     </span>
                     <p>

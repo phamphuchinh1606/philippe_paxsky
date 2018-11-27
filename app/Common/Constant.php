@@ -31,4 +31,9 @@ class Constant{
         self::$PATH_URL_UPLOAD_IMAGE = env('PATH_URL_UPLOAD_IMAGE','storage/');
     }
 
+    //Unit
+    public static $UNIT_ACREAGE = "m2";
+    public static $UNIT_RENT_COST = "$/m2";
+    public static $UNIT_ELECTRIC_COST = "K/W giờ";
+
 }

@@ -32,7 +32,8 @@
                     'labelInput' => 'Acreage Total',
                     'placeHolder' => 'Acreage total',
                     'inputName' => 'acreage_total',
-                    'inputValue' => $officeLayout->acreage_total
+                    'inputValue' => $officeLayout->acreage_total,
+                    'unit' => 'm2'
                 ])
             </div>
             <div class="col-xl-6 col-md-12">
@@ -40,7 +41,8 @@
                     'labelInput' => 'Acreage Rent',
                     'placeHolder' => 'Acreage rent',
                     'inputName' => 'acreage_rent',
-                    'inputValue' => $officeLayout->acreage_rent
+                    'inputValue' => $officeLayout->acreage_rent,
+                    'unit' => 'm2'
                 ])
             </div>
         </div>
@@ -50,7 +52,8 @@
                     'labelInput' => 'Length Floor',
                     'placeHolder' => 'Length floor',
                     'inputName' => 'length_floor',
-                    'inputValue' => $officeLayout->length_floor
+                    'inputValue' => $officeLayout->length_floor,
+                    'unit' => 'm'
                 ])
             </div>
             <div class="col-xl-6 col-md-12">
@@ -58,7 +61,8 @@
                     'labelInput' => 'Width floor',
                     'placeHolder' => 'Width floor',
                     'inputName' => 'width_floor',
-                    'inputValue' => $officeLayout->width_floor
+                    'inputValue' => $officeLayout->width_floor,
+                    'unit' => 'm'
                 ])
             </div>
         </div>
@@ -100,7 +104,7 @@
     </div>
     <div class="card-footer text-right">
         <button class="btn btn-primary submit-building" type="button">
-            <i class="fa fa-dot-circle-o"></i> Create
+            <i class="fa fa-dot-circle-o"></i> @if(isset($officeLayout->id)) Update @else Create @endif
         </button>
         <button class="btn btn-danger" type="reset">
             <i class="fa fa-ban"></i> Cancel</button>

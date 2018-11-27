@@ -1,10 +1,10 @@
 <footer class="app-footer">
     <div>
-        <a href="https://coreui.io/pro/">CoreUI Pro</a>
-        <span>© 2018 creativeLabs.</span>
+        <a href="{{route('home')}}">AmagumoLabs</a>
+        <span>© 2018 creative.</span>
     </div>
     <div class="ml-auto">
         <span>Powered by</span>
-        <a href="https://coreui.io/pro/">CoreUI Pro</a>
+        <a href="{{route('home')}}">AmagumoLabs</a>
     </div>
 </footer>

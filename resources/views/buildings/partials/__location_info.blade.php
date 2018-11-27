@@ -8,15 +8,17 @@
             <div class="col-xl-6 col-md-12">
                 <div class="form-group">
                     <label class="col-form-label" for="province_id">Province</label>
-                    <input class="form-control" id="province_id" type="text"
-                           name="province_id" placeholder="Province" value="{{AppCommon::showValueOld('province_id',$building->province_id)}}">
+                    @include('common.__select_province',['selectName' => 'province_id', 'defaultValue' => AppCommon::showValueOld('province_id',$building->province_id)])
+                    {{--<input class="form-control" id="province_id" type="text"--}}
+                           {{--name="province_id" placeholder="Province" value="{{AppCommon::showValueOld('province_id',$building->province_id)}}">--}}
                 </div>
             </div>
             <div class="col-xl-6 col-md-12">
                 <div class="form-group">
                     <label class="col-form-label" for="district_id">District</label>
-                    <input class="form-control" id="district_id" type="text"
-                           name="district_id" placeholder="District" value="{{AppCommon::showValueOld('district_id',$building->district_id)}}">
+                    @include('common.__select_district',['selectName' => 'district_id', 'defaultValue' => AppCommon::showValueOld('district_id',$building->district_id)])
+                    {{--<input class="form-control" id="district_id" type="text"--}}
+                           {{--name="district_id" placeholder="District" value="{{AppCommon::showValueOld('district_id',$building->district_id)}}">--}}
                 </div>
             </div>
         </div>

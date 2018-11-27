@@ -64,7 +64,7 @@
                                                             <i class="fa fa-edit"></i>
                                                         </a>
                                                         <a data-toggle="modal" class="btn btn-danger anchorClick"
-                                                           data-url="{{route('building_type.delete',['id' => $investor->id]) }}"
+                                                           data-url="{{route('investor.delete',['id' => $investor->id]) }}"
                                                            data-name="{{$investor->name}}" href="#deleteModal">
                                                             <i class="fa fa-trash-o"></i>
                                                         </a>

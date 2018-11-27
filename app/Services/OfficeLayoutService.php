@@ -58,10 +58,11 @@ class OfficeLayoutService extends BaseService{
         $officeDb = $this->officeLayoutLogic->find($id);
         if(isset($officeDb)){
             $office = $this->getOfficeInfo($request,$officeDb);
+            $officeId = $officeDb->id;
             $officeImage = $request->file('image_src') ;
             if(isset($officeImage)){
                 AppCommon::deleteImage($officeDb->image_src);
-                $imageName = AppCommon::moveImageBuilding($officeImage, $id);
+                $imageName = AppCommon::moveImage($officeImage, Constant::$PATH_FOLDER_UPLOAD_OFFICE_LAYOUT.'/'.$officeId);
                 $office->image_src = $imageName;
             }
             $office = $this->officeLayoutLogic->save($office);

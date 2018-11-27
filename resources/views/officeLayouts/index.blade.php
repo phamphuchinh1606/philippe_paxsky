@@ -87,9 +87,11 @@
                                                     </td>
                                                     <td class="app-col-acreage_rent_total text-right">
                                                         {{\App\Common\AppCommon::formatDouble($office->acreage_total)}}
+                                                        {{\App\Common\Constant::$UNIT_ACREAGE}}
                                                     </td>
                                                     <td class="app-col-rental-cost text-right">
                                                         {{\App\Common\AppCommon::formatDouble($office->acreage_rent)}}
+                                                        {{\App\Common\Constant::$UNIT_ACREAGE}}
                                                     </td>
                                                     <td class="text-center app-col-action">
                                                         <a class="btn btn-info" href="{{route('office_layout.update',['id' => $office->id])}}">

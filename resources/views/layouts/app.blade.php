@@ -7,8 +7,10 @@
 
     <!-- CSRF Token -->
     <meta name="csrf-token" content="{{ csrf_token() }}">
+    <link rel="apple-touch-icon" href="{{asset('images/logo paxsky.png')}}">
+    <link rel="shortcut icon" href="{{asset('images/logo paxsky.png')}}">
 
-    <title>Beats City</title>
+    <title>Paxsky</title>
 
     <!-- Styles -->
     <link href="https://fonts.googleapis.com/css?family=Roboto:300,300i,400,400i,500,500i,700,700i&amp;subset=vietnamese" rel="stylesheet">

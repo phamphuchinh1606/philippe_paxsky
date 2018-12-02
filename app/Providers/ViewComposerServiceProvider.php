@@ -46,6 +46,14 @@ class ViewComposerServiceProvider extends ServiceProvider
             ['common.__select_province','common.__select_district'],
             'App\Http\ViewComposers\AddressViewComposer'
         );
+        View::composer(
+            ['common.__select_user_type'],
+            'App\Http\ViewComposers\UserViewComposer'
+        );
+        View::composer(
+            ['common.__select_group_customer'],
+            'App\Http\ViewComposers\CustomerViewComposer'
+        );
     }
 
     /**

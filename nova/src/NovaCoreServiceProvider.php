@@ -21,18 +21,18 @@ class NovaCoreServiceProvider extends ServiceProvider
      */
     public function boot()
     {
-        if ($this->app->runningInConsole()) {
-            $this->app->register(NovaServiceProvider::class);
-        }
-
-        if (! $this->app->configurationIsCached()) {
-            $this->mergeConfigFrom(__DIR__.'/../config/nova.php', 'nova');
-        }
-
-        Route::middlewareGroup('nova', config('nova.middleware', []));
-
-        $this->app->make(HttpKernel::class)
-                    ->pushMiddleware(ServeNova::class);
+//        if ($this->app->runningInConsole()) {
+//            $this->app->register(NovaServiceProvider::class);
+//        }
+//
+//        if (! $this->app->configurationIsCached()) {
+//            $this->mergeConfigFrom(__DIR__.'/../config/nova.php', 'nova');
+//        }
+//
+//        Route::middlewareGroup('nova', config('nova.middleware', []));
+//
+//        $this->app->make(HttpKernel::class)
+//                    ->pushMiddleware(ServeNova::class);
     }
 
     /**
@@ -42,8 +42,8 @@ class NovaCoreServiceProvider extends ServiceProvider
      */
     public function register()
     {
-        if (! defined('NOVA_PATH')) {
-            define('NOVA_PATH', realpath(__DIR__.'/../'));
-        }
+//        if (! defined('NOVA_PATH')) {
+//            define('NOVA_PATH', realpath(__DIR__.'/../'));
+//        }
     }
 }

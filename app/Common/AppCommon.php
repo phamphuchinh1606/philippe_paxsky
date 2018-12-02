@@ -116,6 +116,19 @@ class AppCommon{
         return $className;
     }
 
+    public static function getActiveName($activeCode){
+        $activeName = "";
+        switch ($activeCode){
+            case Constant::$ACTIVE_FLG_ON:
+                $activeName = Constant::$ACTIVE_FLG_ON_NAME;
+                break;
+            case Constant::$ACTIVE_FLG_OFF:
+                $activeName = Constant::$ACTIVE_FLG_OFF_NAME;
+                break;
+        }
+        return $activeName;
+    }
+
     public static function getFloorNameOffice($floorId){
         $floorName = "";
         switch ($floorId){

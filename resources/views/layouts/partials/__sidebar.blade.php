@@ -54,6 +54,25 @@
                     </li>
                 </ul>
             </li>
+            <li class="nav-item nav-dropdown">
+                <a class="nav-link nav-dropdown-toggle" href="#">
+                    <i class="nav-icon icon-list"></i>User & Customer
+                </a>
+                <ul class="nav-dropdown-items">
+                    <li class="nav-item">
+                        <a class="nav-link @if(\Request::is('*user/*')) active @endif" href="{{route('user.index')}}">
+                            <i class="nav-icon icon-printer"></i>
+                            User List
+                        </a>
+                    </li>
+                    <li class="nav-item">
+                        <a class="nav-link @if(\Request::is('*customer*')) active @endif" href="{{route('customer.index')}}">
+                            <i class="nav-icon icon-chart"></i>
+                            Customer List
+                        </a>
+                    </li>
+                </ul>
+            </li>
         </ul>
         <div class="ps__rail-x" style="left: 0px; bottom: 0px;">
             <div class="ps__thumb-x" tabindex="0" style="left: 0px; width: 0px;"></div>

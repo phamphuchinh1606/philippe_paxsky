@@ -11,6 +11,11 @@ class Constant{
     public static $PUBLIC_FLG_OFF = 0;
     public static $PUBLIC_FLG_OFF_NAME = "Un Public";
 
+    public static $ACTIVE_FLG_ON = 1;
+    public static $ACTIVE_FLG_ON_NAME = "Active";
+    public static $ACTIVE_FLG_OFF = 0;
+    public static $ACTIVE_FLG_OFF_NAME = "UnActive";
+
     public static $STATUS_READ_ON = 1;
     public static $STATUS_READ_ON_NAME = "Đã đọc";
     public static $STATUS_READ_OFF = 0;
@@ -21,6 +26,7 @@ class Constant{
     public static $PATH_FOLDER_UPLOAD_BUILDING = "buildings";
     public static $PATH_FOLDER_UPLOAD_OFFICE_LAYOUT = "officeLayouts";
     public static $PATH_FOLDER_UPLOAD_OFFICE = "offices";
+    public static $PATH_FOLDER_UPLOAD_USER = "users";
     public static $PATH_URL_UPLOAD_IMAGE = "storage/";
 
     public static $URL_PAXSKY = "";

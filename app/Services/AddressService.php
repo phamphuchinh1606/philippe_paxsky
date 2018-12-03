@@ -37,4 +37,8 @@ class AddressService extends BaseService{
         return $this->addressLogic->getDistrictByProvinceCode($provinceCode);
     }
 
+    public function getDistrictByProvinceId($provinceId){
+        return $this->addressLogic->getDistrictByProvinceId($provinceId);
+    }
+
 }

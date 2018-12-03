@@ -22,7 +22,6 @@
     <script src="{{asset('js/plugins/text-editor.js')}}"></script>
     <script src="{{asset('js/plugins/dropzone.js')}}"></script>
     <script src="{{asset('js/dropzone-config.js')}}"></script>
-    <script src="{{asset('js/plugins/select2.min.js')}}"></script>
     <script src="{{asset('js/product.js')}}"></script>
     <script src="{{asset('js/advanced-forms.js')}}"></script>
     <script src="{{asset('js/office.js')}}"></script>

@@ -6,8 +6,6 @@
     {{ Breadcrumbs::render('direction.create') }}
 @endsection
 @section('body.js')
-    <script src="{{asset('js/plugins/select2.min.js')}}"></script>
-    <script src="{{asset('js/plugins/jquery.maskedinput.js')}}"></script>
     <script src="{{asset('js/advanced-forms.js') }}" type='text/javascript'></script>
 @endsection
 

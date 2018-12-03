@@ -50,4 +50,8 @@ class AddressLogic extends BaseLogic{
     public function getDistrictByProvinceCode($provinceCode){
         return District::whereProvinceCode($provinceCode)->orderBy('label')->get();
     }
+
+    public function getDistrictByProvinceId($provinceId){
+        return District::whereId($provinceId)->orderBy('label')->get();
+    }
 }

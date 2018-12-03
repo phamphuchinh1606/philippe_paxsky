@@ -35,8 +35,10 @@ class AddressViewComposer
     public function compose(View $view)
     {
         $provinceCodeHCM = "1580578";
-        $provinces = $this->addressService->getProvinceByCode($provinceCodeHCM);
-        $districtHCM = $this->addressService->getDistrictByProvinceCode($provinceCodeHCM);
-        $view->with('provinces', [$provinces])->with('districts' , $districtHCM);
+//        $provinces = $this->addressService->getProvinceByCode($provinceCodeHCM);
+//        $districtHCM = $this->addressService->getDistrictByProvinceCode($provinceCodeHCM);
+        $provinces = $this->addressService->getProvinceAll();
+        $districts = $this->addressService->getDistrictByProvinceCode($provinceCodeHCM);
+        $view->with('provinces', $provinces)->with('districts' , $districts);
     }
 }

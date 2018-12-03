@@ -11,7 +11,7 @@
                     <span>
                         @if(isset($user->id))
                             <img id="imgHandle"
-                                 src="{{ImageCommon::showImage(AppCommon::showValueOld('profile_image',$customer->user->profile_image))}}">
+                                 src="{{ImageCommon::showImage(AppCommon::showValueOld('profile_image',$user->profile_image))}}">
                         @else
                             <img id="imgHandle"
                                  src="{{asset('images/no_image_available.jpg')}}">

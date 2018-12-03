@@ -1,3 +1,4 @@
+<?php use App\Common\AppCommon; ?>
 <div class="card">
     <div class="card-header">
         <strong>{{$headTitle}}</strong>
@@ -54,6 +55,33 @@
             @endif
             <div class="row">
                 <div class="col-xl-6 col-md-12">
+                    @include('common.tagHtml.__input_date',[
+                           'labelInput' => 'Birthday',
+                           'inputName' => 'birthday',
+                           'placeHolder' => 'Birthday',
+                           'required' => true,
+                           'inputValue' => $customer->birthday
+                       ])
+                </div>
+                <div class="col-xl-6 col-md-12">
+                    @include('common.tagHtml.__check_form_radio',[
+                        'labelInput' => 'Gender',
+                        'inputName' => 'gender',
+                        'dataCheck' => [
+                            [
+                                'value' => 'male',
+                                'name' => 'Male'
+                            ],
+                            [
+                                'value' => 'female',
+                                'name' => 'Female'
+                            ]
+                        ]
+                    ])
+                </div>
+            </div>
+            <div class="row">
+                <div class="col-xl-6 col-md-12">
                     @include('common.tagHtml.__input_text',[
                         'labelInput' => 'Email',
                         'inputName' => 'email',
@@ -84,6 +112,21 @@
                         'inputName' => 'is_active',
                         'inputValue' => $customer->user->is_active
                     ])
+                </div>
+            </div>
+            <div class="row">
+                <div class="col-xl-6 col-md-12">
+                    <div class="form-group">
+                        <label class="col-form-label" for="province_id">Province</label>
+                        @include('common.address.__select_province',['selectName' => 'province_id', 'defaultValue' => AppCommon::showValueOld('province_id',$customer->province_id),
+                                'changeProvince' => true])
+                    </div>
+                </div>
+                <div class="col-xl-6 col-md-12">
+                    <div class="form-group">
+                        <label class="col-form-label" for="district_id">District</label>
+                        @include('common.address.__select_district',['selectName' => 'district_id', 'defaultValue' => AppCommon::showValueOld('district_id',$customer->district_id)])
+                    </div>
                 </div>
             </div>
             <div class="row">

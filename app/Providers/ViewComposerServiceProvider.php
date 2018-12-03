@@ -43,7 +43,7 @@ class ViewComposerServiceProvider extends ServiceProvider
             'App\Http\ViewComposers\OfficeStatusViewComposer'
         );
         View::composer(
-            ['common.__select_province','common.__select_district'],
+            ['common.address.__select_province','common.address.__select_district'],
             'App\Http\ViewComposers\AddressViewComposer'
         );
         View::composer(

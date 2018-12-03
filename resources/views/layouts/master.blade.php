@@ -79,6 +79,8 @@
     <script src="{{asset('js/plugins/coreui.min.js')}}"></script>
     <script src="{{asset('js/form.input.number.js') }}" type='text/javascript'></script>
     <script src="{{asset('js/plugins/tooltips.js') }}" type='text/javascript'></script>
+    <script src="{{asset('js/plugins/select2.min.js')}}"></script>
+    <script src="{{asset('js/plugins/jquery.maskedinput.js')}}"></script>
     <script type="text/javascript">
         $.ajaxSetup({
             headers: {

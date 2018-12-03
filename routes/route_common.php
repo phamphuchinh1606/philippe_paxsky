@@ -16,4 +16,7 @@ Route::get('/upload-image-quill-editor','Controller@uploadImageQuillEditor')->na
 Route::post('/upload-image','Controller@uploadImage')->name('common.upload_image');
 Route::post('/delete-image','Controller@deleteImage')->name('common.delete_image');
 
+//Load Address
+Route::post('/address/load-change-province', 'AddressController@loadProvinceChange')->name('common.address.change_province');
+
 

@@ -3,7 +3,7 @@
 @section('head.title','Update User')
 
 @section('body.breadcrumb')
-    {{ Breadcrumbs::render('direction.create') }}
+    {{ Breadcrumbs::render('user.update',$user->first_name.' '.$user->last_name) }}
 @endsection
 @section('body.js')
     <script src="{{asset('js/plugins/select2.min.js')}}"></script>

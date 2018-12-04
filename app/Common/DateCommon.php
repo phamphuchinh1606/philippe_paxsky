@@ -44,4 +44,8 @@ class DateCommon{
         }
         return $date;
     }
+
+    public static function dateToString($date, $format = "d-M-Y"){
+        return $date->format($format);
+    }
 }

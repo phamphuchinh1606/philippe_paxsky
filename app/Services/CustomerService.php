@@ -2,16 +2,24 @@
 
 namespace App\Services;
 use App\Common\Constant;
+use App\Common\DateCommon;
 use App\Logics\CustomerLogic;
+use App\Logics\UserLogic;
+use App\Models\Customer;
+use App\User;
 use Illuminate\Http\Request;
 use App\Common\AppCommon;
+use DB;
 
 class CustomerService extends BaseService{
     private $customerLogic;
 
-    public function __construct(CustomerLogic $customerLogic)
+    private $userLogic;
+
+    public function __construct(CustomerLogic $customerLogic, UserLogic $userLogic)
     {
         $this->customerLogic = $customerLogic;
+        $this->userLogic = $userLogic;
     }
 
     public function find($id){
@@ -20,9 +28,10 @@ class CustomerService extends BaseService{
 
     public function getAll(){
         $customers = $this->customerLogic->getAll();
-//        foreach ($customers as $customer){
-//            $customer->active_name = AppCommon::getActiveName($user->is_active);
-//        }
+        foreach ($customers as $customer){
+            $customer->active_name = AppCommon::getActiveName($customer->user->is_active);
+            $customer->full_name = $customer->first_name.' '.$customer->last_name;
+        }
         return $customers;
     }
 
@@ -30,84 +39,95 @@ class CustomerService extends BaseService{
         return $this->customerLogic->getGroupCustomerAll();
     }
 
-//    private function getOfficeInfo(Request $request, $office = null){
-//        if(!isset($office)){
-//            $office = new Office();
-//        }
-//        $office->office_name = $request->office_name;
-//        $office->building_id = $request->building_id;
-//        $office->office_layout_id = $request->office_layout_id;
-//        $office->acreage_total = $request->acreage_total;
-//        $office->acreage_rent = $request->acreage_rent;
-//        $office->structure = $request->structure;
-//        $office->length_floor = $request->length_floor;
-//        $office->width_floor = $request->width_floor;
-//        $office->door_number = $request->door_number;
-//        $office->direction_id = $request->direction_id;
-//        $office->status_id = $request->status_id;
-//        $office->floor = $request->floor;
-//        return $office;
-//    }
-//
-//    public function create(Request $request){
-//        $office = $this->getOfficeInfo($request);
-//        if($office->floor != null && count($office->floor) > 0){
-//            foreach ($office->floor as $floor){
-//                $officeClone = $office->replicate();
-//                $officeClone->floor = $floor;
-//                $officeDb = $this->officeLogic->save($officeClone);
-//                if(isset($officeDb->id)){
-//                    $officeId = $officeDb->id;
-//                    $officeImage = $request->file('image_src');
-//                    if(isset($officeImage)){
-//                        $imageName = AppCommon::moveImage($officeImage, Constant::$PATH_FOLDER_UPLOAD_OFFICE.'/'.$officeId);
-//                        $officeDb->image_src = $imageName;
-//                        $office = $this->officeLogic->save($officeDb);
-//                    }else if(isset($request->image_src_office_layout)){
-//                        $pathFolderImageOfficeLayout = Constant::$PATH_FOLDER_UPLOAD_OFFICE_LAYOUT.'/'.$officeDb->office_layout_id;
-//                        $pathFolderDec = Constant::$PATH_FOLDER_UPLOAD_OFFICE.'/'.$officeId;
-//                        $pathDec = str_replace($pathFolderImageOfficeLayout,$pathFolderDec, $request->image_src_office_layout);
-//                        AppCommon::copyImage($request->image_src_office_layout, $pathDec);
-//                        $officeDb->image_src = $pathDec;
-//                        $office = $this->officeLogic->save($officeDb);
-//                    }
-//                }
-//            }
-//        }
-//
-//        return $office;
-//    }
-//
-//    public function update($id, $request){
-//        $officeDb = $this->officeLogic->find($id);
-//        if(isset($officeDb)){
-//            $office = $this->getOfficeInfo($request,$officeDb);
-//            if(count($office->floor) > 0)
-//                $office->floor = $office->floor[0];
-//            $officeId = $officeDb->id;
-//            $officeImage = $request->file('image_src');
-//            if(isset($officeImage)){
-//                AppCommon::deleteImage($officeDb->image_src);
-//                $imageName = AppCommon::moveImageBuilding($officeImage, $id);
-//                $office->image_src = $imageName;
-//            }else if(isset($request->image_src_office_layout)){
-//                AppCommon::deleteImage($officeDb->image_src);
-//                $pathFolderImageOfficeLayout = Constant::$PATH_FOLDER_UPLOAD_OFFICE_LAYOUT.'/'.$officeDb->office_layout_id;
-//                $pathFolderDec = Constant::$PATH_FOLDER_UPLOAD_OFFICE.'/'.$officeId;
-//                $pathDec = str_replace($pathFolderImageOfficeLayout,$pathFolderDec, $request->image_src_office_layout);
-//                AppCommon::copyImage($request->image_src_office_layout, $pathDec);
-//                $office->image_src = $pathDec;
-//            }
-//            $office = $this->officeLogic->save($office);
-//        }
-//    }
-//
-//    public function destroy($id){
-//        $office = $this->officeLogic->find($id);
-//        if(isset($office)){
-//            $office->is_delete = Constant::$DELETE_FLG_ON;
-//            $this->officeLogic->save($office);
-//        }
-//    }
+    private function getCustomerInfo(Request $request, $customer = null, $user = null){
+        if(!isset($customer)){
+            $customer = new Customer();
+        }
+        if(!isset($user)){
+            $user = new User();
+        }
+        $customer->first_name = $request->first_name;
+        $customer->last_name = $request->last_name;
+        $customer->email = $request->email;
+        $customer->mobile_phone = $request->mobile_phone;
+        $customer->birthday = $request->birthday;
+        $customer->gender = $request->gender;
+        $customer->group_id = $request->group_id;
+        $customer->province_id = $request->province_id;
+        $customer->district_id = $request->district_id;
+
+
+        //Set info user login
+        $user->first_name = $request->first_name;
+        $user->last_name = $request->last_name;
+        $user->email = $request->email;
+        $user->mobile_phone = $request->mobile_phone;
+        $user->is_active = AppCommon::getIsPublic($request->is_active);
+        $user->note = $request->note;
+        if(isset($user) && !isset($user->id)){
+            $user->password = $request->password;
+        }
+        $data = new \StdClass();
+        $data->customer = $customer;
+        $data->user = $user;
+        return $data;
+    }
+
+    public function create(Request $request){
+        $data = $this->getCustomerInfo($request);
+        $customer = $data->customer;
+        $user = $data->user;
+        if($user->email != null){
+            try{
+                DB::beginTransaction();
+                $user->user_type_id = Constant::$USER_TYPE_CUSTOMER;
+                $userDB = $this->userLogic->save($user);
+                if(isset($userDB)){
+                    $customer->user_id = $userDB->id;
+                    $customer = $this->customerLogic->save($customer);
+                    $customerImage = $request->file('profile_image');
+                    if(isset($customerImage)){
+                        $imageName = AppCommon::moveImage($customerImage, Constant::$PATH_FOLDER_UPLOAD_USER.'/'.$userDB->id);
+                        $userDB->profile_image = $imageName;
+                        $this->userLogic->save($userDB);
+                    }
+                }
+                DB::commit();
+
+            }catch (\Exception $ex){
+                DB::rollBack();
+                dd($ex);
+            }
+        }
+        return $customer;
+    }
+
+    public function update($id, $request){
+        $customerDB = $this->customerLogic->find($id);
+        if(isset($customerDB)){
+            $userDB = $customerDB->user;
+            $data = $this->getCustomerInfo($request,$customerDB,$userDB);
+            $customer = $data->customer;
+            $user = $data->user;
+            if(isset($user->email)){
+                $customerImage = $request->file('profile_image');
+                if(isset($customerImage)){
+                    AppCommon::deleteImage($userDB->profile_image);
+                    $imageName = AppCommon::moveImage($customerImage, Constant::$PATH_FOLDER_UPLOAD_USER.'/'.$userDB->id);
+                    $user->profile_image = $imageName;
+                }
+                $this->userLogic->save($user);
+                $this->customerLogic->save($customer);
+            }
+        }
+    }
+
+    public function destroy($id){
+        $customer = $this->customerLogic->find($id);
+        if(isset($customer)){
+            $customer->is_delete = Constant::$DELETE_FLG_ON;
+            $this->customerLogic->save($customer);
+        }
+    }
 
 }

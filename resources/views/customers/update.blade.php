@@ -3,7 +3,7 @@
 @section('head.title','Update User')
 
 @section('body.breadcrumb')
-    {{ Breadcrumbs::render('direction.create') }}
+    {{ Breadcrumbs::render('customer.update',$customer->first_name.' '.$customer->last_name) }}
 @endsection
 @section('body.js')
     <script src="{{asset('js/plugins/select2.min.js')}}"></script>
@@ -17,13 +17,13 @@
             <div class="animated fadeIn">
                 <div class="row">
                     <div class="col-md-8">
-                        @include('users.partials.__user_info',['headTitle' => 'Update User',
+                        @include('customers.partials.__customer_info',['headTitle' => 'Update Customer',
                             'saveButtonName' => 'Update',
-                            'actionUrl' => route('user.update',['id' => $user->id])])
+                            'actionUrl' => route('customer.update',['id' => $customer->id])])
                     </div>
 
                     <div class="col-md-4">
-                        @include('users.partials.__user_profile_image')
+                        @include('customers.partials.__customer_profile_image')
                     </div>
                 </div>
             </div>

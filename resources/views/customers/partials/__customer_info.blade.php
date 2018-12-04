@@ -31,7 +31,7 @@
                    ])
                 </div>
             </div>
-            @if(!isset($user->id))
+            @if(!isset($customer->id))
                 <div class="row">
                     <div class="col-xl-6 col-md-12">
                         @include('common.tagHtml.__input_password',[
@@ -60,13 +60,14 @@
                            'inputName' => 'birthday',
                            'placeHolder' => 'Birthday',
                            'required' => true,
-                           'inputValue' => $customer->birthday
+                           'inputValue' => $customer->birthday_str
                        ])
                 </div>
                 <div class="col-xl-6 col-md-12">
                     @include('common.tagHtml.__check_form_radio',[
                         'labelInput' => 'Gender',
                         'inputName' => 'gender',
+                        'defaultValue' => $customer->gender,
                         'dataCheck' => [
                             [
                                 'value' => 'male',
@@ -119,7 +120,7 @@
                     <div class="form-group">
                         <label class="col-form-label" for="province_id">Province</label>
                         @include('common.address.__select_province',['selectName' => 'province_id', 'defaultValue' => AppCommon::showValueOld('province_id',$customer->province_id),
-                                'changeProvince' => true])
+                                'changeProvince' => true, 'defaultValue' => $customer->province_id])
                     </div>
                 </div>
                 <div class="col-xl-6 col-md-12">

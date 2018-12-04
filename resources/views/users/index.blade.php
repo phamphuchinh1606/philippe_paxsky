@@ -12,7 +12,7 @@
 @endsection
 
 @section('body.breadcrumb')
-    {{ Breadcrumbs::render('direction') }}
+    {{ Breadcrumbs::render('user') }}
 @endsection
 
 @section('body.content')
@@ -72,7 +72,9 @@
                                                         {{$user->full_name}}
                                                     </td>
                                                     <td>
-                                                        {{$user->userType->type_name}}
+                                                        @if(isset($user->userType))
+                                                            {{$user->userType->type_name}}
+                                                        @endif
                                                     </td>
                                                     <td>
                                                         {{$user->email}}

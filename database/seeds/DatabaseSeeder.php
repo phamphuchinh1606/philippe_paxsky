@@ -14,8 +14,8 @@ class DatabaseSeeder extends Seeder
         // $this->call(UsersTableSeeder::class);
         $this->call([
 //            OfficeStatusSeeder::class,
-//            UserTypeSeeder::class,
-            GroupCustomerSeeder::class,
+            UserTypeSeeder::class,
+//            GroupCustomerSeeder::class,
         ]);
     }
 }

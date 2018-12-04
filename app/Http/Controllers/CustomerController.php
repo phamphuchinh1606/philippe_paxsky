@@ -2,6 +2,7 @@
 
 namespace App\Http\Controllers;
 
+use App\Common\DateCommon;
 use App\Models\Customer;
 use Illuminate\Http\Request;
 
@@ -23,25 +24,26 @@ class CustomerController extends Controller
     }
 
     public function create(Request $request){
-        $this->userService->create($request);
-        return redirect()->route('user.index')->with('success','Create user success');
+        $this->customerService->create($request);
+        return redirect()->route('customer.index')->with('success','Create customer success');
     }
 
     public function showUpdate($id){
-        $user = $this->userService->find($id);
-        if(isset($user)){
-            return $this->showView('update',['user' => $user]);
+        $customer = $this->customerService->find($id);
+        $customer->birthday_str = DateCommon::dateFormat($customer->birthday, "Y-m-d");
+        if(isset($customer)){
+            return $this->showView('update',['customer' => $customer]);
         }
-        return redirect()->route('user.index');
+        return redirect()->route('customer.index');
     }
 
     public function update($id , Request $request){
-        $this->userService->update($id, $request);
-        return redirect()->route('user.index')->with('success','Update user success');
+        $this->customerService->update($id, $request);
+        return redirect()->route('customer.index')->with('success','Update customer success');
     }
 
     public function destroy($id){
-        $this->userService->destroy($id);
-        return redirect()->route('user.index')->with('success','Delete user success');
+        $this->customerService->destroy($id);
+        return redirect()->route('customer.index')->with('success','Delete customer success');
     }
 }

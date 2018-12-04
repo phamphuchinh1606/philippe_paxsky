@@ -3,7 +3,7 @@
 @section('head.title','Create User')
 
 @section('body.breadcrumb')
-    {{ Breadcrumbs::render('direction.create') }}
+    {{ Breadcrumbs::render('user.create') }}
 @endsection
 @section('body.js')
     <script src="{{asset('js/advanced-forms.js') }}" type='text/javascript'></script>

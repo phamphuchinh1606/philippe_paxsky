@@ -12,7 +12,7 @@
 @endsection
 
 @section('body.breadcrumb')
-    {{ Breadcrumbs::render('direction') }}
+    {{ Breadcrumbs::render('customer') }}
 @endsection
 
 @section('body.content')
@@ -84,11 +84,11 @@
                                                         {{$customer->active_name}}
                                                     </td>
                                                     <td class="text-center">
-                                                        <a class="btn btn-info" href="{{route('$customer.update',['id' => $customer->id])}}">
+                                                        <a class="btn btn-info" href="{{route('customer.update',['id' => $customer->id])}}">
                                                             <i class="fa fa-edit"></i>
                                                         </a>
                                                         <a data-toggle="modal" class="btn btn-danger anchorClick"
-                                                           data-url="{{route('$customer.delete',['id' => $customer->id]) }}"
+                                                           data-url="{{route('customer.delete',['id' => $customer->id]) }}"
                                                            data-name="{{$customer->full_name}}" href="#deleteModal">
                                                             <i class="fa fa-trash-o"></i>
                                                         </a>

@@ -12,7 +12,7 @@ class UserLogic extends BaseLogic{
     }
 
     public function getAll(){
-        return User::whereIsDelete(Constant::$DELETE_FLG_OFF)->get();
+        return User::whereIsDelete(Constant::$DELETE_FLG_OFF)->where('user_type_id','<>',Constant::$USER_TYPE_CUSTOMER)->get();
     }
 
     public function save(User $user){

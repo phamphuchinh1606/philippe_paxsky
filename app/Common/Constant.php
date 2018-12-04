@@ -42,4 +42,12 @@ class Constant{
     public static $UNIT_RENT_COST = "$/m2";
     public static $UNIT_ELECTRIC_COST = "K/W giờ";
 
+    public static $GENDER_MALE = "male";
+    public static $GENDER_FEMALE = "female";
+
+    public static $PROVINCE_ID_HCM= "4";
+
+    //Type user
+    public static $USER_TYPE_CUSTOMER = "99";
+
 }

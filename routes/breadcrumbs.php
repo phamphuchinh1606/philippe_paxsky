@@ -163,3 +163,42 @@ Breadcrumbs::for('office_layout.update', function ($trail, $officeLayOutName) {
 });
 //========================End Office===============================================
 
+//Customer Layout ====================================================================
+Breadcrumbs::for('customer', function ($trail) {
+    $trail->parent('home');
+    $trail->push('List Customer', route('customer.index'));
+});
+
+
+//Customer Create
+Breadcrumbs::for('customer.create', function ($trail) {
+    $trail->parent('office_layout');
+    $trail->push('Create Customer');
+});
+
+//Customer Type Update
+Breadcrumbs::for('customer.update', function ($trail, $customerName) {
+    $trail->parent('customer');
+    $trail->push($customerName);
+});
+//========================End Customer===============================================
+
+//User Layout ====================================================================
+Breadcrumbs::for('user', function ($trail) {
+    $trail->parent('home');
+    $trail->push('List User', route('user.index'));
+});
+
+
+//User Create
+Breadcrumbs::for('user.create', function ($trail) {
+    $trail->parent('user');
+    $trail->push('Create User');
+});
+
+//User Type Update
+Breadcrumbs::for('user.update', function ($trail, $userName) {
+    $trail->parent('user');
+    $trail->push($userName);
+});
+//========================End Customer===============================================

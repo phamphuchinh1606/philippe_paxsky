@@ -12,8 +12,8 @@
         <div class="row">
             <div class="col-xl-6 col-md-12">
                 @include('common.tagHtml.__input_text',[
-                    'labelInput' => 'Office Name',
-                    'placeHolder' => 'Office name',
+                    'labelInput' => 'Layout Name',
+                    'placeHolder' => 'Layout name',
                     'inputName' => 'layout_name',
                     'inputValue' => $officeLayout->layout_name
                 ])

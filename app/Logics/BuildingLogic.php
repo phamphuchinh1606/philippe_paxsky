@@ -3,6 +3,7 @@
 namespace App\Logics;
 use App\Models\Building;
 use App\Common\Constant;
+use App\Models\Office;
 
 class BuildingLogic extends BaseLogic{
 
@@ -12,6 +13,39 @@ class BuildingLogic extends BaseLogic{
 
     public function getAll(){
         return Building::whereIsDelete(Constant::$DELETE_FLG_OFF)->get();
+    }
+
+    public function searchBuilding($districtId, $acreage, $directionId){
+        $tableOfficeName = (new Office())->getTable();
+        $buildingName = (new Building())->getTable();
+        $query = Building::whereIsDelete(Constant::$DELETE_FLG_OFF);
+        if(isset($directionId)){
+            $query->where('direction_id', $directionId);
+        }
+        if(isset($districtId)){
+            $query->where('district_id', $districtId);
+        }
+        if(isset($acreage)){
+            $acreageFrom = 0;
+            $acreageTo = 0;
+            if(str_contains($acreage,'-')){
+                $acreageFrom = explode('-',$acreage)[0];
+                $acreageTo = explode('-',$acreage)[1];
+            }else{
+                $acreageFrom = $acreage;
+                $acreageTo = 999999;
+            }
+            if(is_numeric ($acreageFrom) && is_numeric ($acreageTo)){
+                $query->whereIn('id', function($query) use ($acreageFrom ,$acreageTo, $tableOfficeName) {
+                    $query->select('building_id')
+                        ->from($tableOfficeName)
+                        ->where('acreage_rent','>=', $acreageFrom)
+                        ->where('acreage_rent' , '<=' , $acreageTo)
+                        ->whereIsDelete(Constant::$DELETE_FLG_OFF);
+                });
+            }
+        }
+        return $query->orderBy('created_at','desc')->get();
     }
 
     public function save(Building $building){

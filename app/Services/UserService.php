@@ -6,6 +6,7 @@ use App\Logics\UserLogic;
 use App\User;
 use Illuminate\Http\Request;
 use App\Common\AppCommon;
+use Illuminate\Support\Facades\Hash;
 
 class UserService extends BaseService{
     private $userLogic;
@@ -17,6 +18,17 @@ class UserService extends BaseService{
 
     public function find($id){
         return $this->userLogic->find($id);
+    }
+
+    public function checkLogin($email, $password){
+        $user = $this->userLogic->checkLogin($email, bcrypt($password));
+        if(isset($user)){
+            if (Hash::check($password, $user->password))
+            {
+                return true;
+            }
+        }
+        return false;
     }
 
     public function getAll(){
@@ -41,8 +53,8 @@ class UserService extends BaseService{
         $user->user_type_id = $request->user_type_id;
         $user->email = $request->email;
         $user->mobile_phone = $request->mobile_phone;
-        if(!isset($user)){
-            $user->password = $request->password;
+        if(!isset($user->id)){
+            $user->password = bcrypt($request->password);
         }
         $user->note = $request->note;
         $user->is_active = AppCommon::getIsPublic($request->is_active);

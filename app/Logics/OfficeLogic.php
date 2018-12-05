@@ -15,6 +15,10 @@ class OfficeLogic extends BaseLogic{
         return Office::whereIsDelete(Constant::$DELETE_FLG_OFF)->get();
     }
 
+    public function getOfficeByBuilding($buildingId){
+        return Office::whereIsDelete(Constant::$DELETE_FLG_OFF)->whereBuildingId($buildingId)->get();
+    }
+
     public function save(Office $office){
         if(isset($office)){
             $office->save();

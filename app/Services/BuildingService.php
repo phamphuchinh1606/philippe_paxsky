@@ -60,6 +60,23 @@ class BuildingService extends BaseService{
         return $buildings;
     }
 
+    public function searchBuilding($districtId, $acreage, $directionId){
+        $buildings =  $this->buildingLogic->searchBuilding($districtId, $acreage, $directionId);
+        foreach ($buildings as $building){
+            $building->public_name = AppCommon::namePublicBuildingType($building->is_public);
+            $building->public_class = AppCommon::classPublicBuildingType($building->is_public);
+            $acreageRents = [];
+            foreach ($building->offices as $office){
+                if(!isset($acreageRents[$office->acreage_rent])){
+                    $acreageRents[$office->acreage_rent] = $office->acreage_rent;
+                }
+            }
+            $building->acreage_rent_list = implode("-",$acreageRents);
+            $building->structure_str = $this->getStructureStr($building);
+        }
+        return $buildings;
+    }
+
     private function getInfoBuilding(Request $request, $building = null){
         if(!isset($building)){
             $building = new Building();

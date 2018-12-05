@@ -27,6 +27,14 @@ class OfficeService extends BaseService{
         return $offices;
     }
 
+    public function getOfficeByBuilding($buildingId){
+        $offices = $this->officeLogic->getOfficeByBuilding($buildingId);
+        foreach ($offices as $office){
+            $office->floor_name = AppCommon::getFloorNameOffice($office->floor);
+        }
+        return $offices;
+    }
+
     public function getStatusAll(){
         return $this->officeLogic->getStatusAll();
     }

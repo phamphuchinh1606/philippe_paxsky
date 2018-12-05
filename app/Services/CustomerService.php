@@ -10,6 +10,7 @@ use App\User;
 use Illuminate\Http\Request;
 use App\Common\AppCommon;
 use DB;
+use Illuminate\Support\Facades\Hash;
 
 class CustomerService extends BaseService{
     private $customerLogic;
@@ -65,7 +66,7 @@ class CustomerService extends BaseService{
         $user->is_active = AppCommon::getIsPublic($request->is_active);
         $user->note = $request->note;
         if(isset($user) && !isset($user->id)){
-            $user->password = $request->password;
+            $user->password = bcrypt($request->password);
         }
         $data = new \StdClass();
         $data->customer = $customer;

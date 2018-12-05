@@ -26,4 +26,10 @@ class UserLogic extends BaseLogic{
     public function getUserTypeAll(){
         return UserType::all();
     }
+
+    public function checkLogin($email){
+        return User::whereIsDelete(Constant::$DELETE_FLG_OFF)->whereIsActive(Constant::$ACTIVE_FLG_ON)
+                ->whereEmail($email)
+                ->whereUserTypeId(Constant::$USER_TYPE_CUSTOMER)->first();
+    }
 }

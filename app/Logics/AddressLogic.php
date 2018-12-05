@@ -43,6 +43,10 @@ class AddressLogic extends BaseLogic{
         return Province::all();
     }
 
+    public function getProvinceById($provinceId){
+        return Province::whereId($provinceId)->first();
+    }
+
     public function getProvinceByCode($code){
         return Province::whereCode($code)->first();
     }
@@ -52,6 +56,6 @@ class AddressLogic extends BaseLogic{
     }
 
     public function getDistrictByProvinceId($provinceId){
-        return District::whereId($provinceId)->orderBy('label')->get();
+        return District::where($provinceId)->orderBy('label')->get();
     }
 }

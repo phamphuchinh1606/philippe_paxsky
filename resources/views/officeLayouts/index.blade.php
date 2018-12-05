@@ -50,7 +50,7 @@
                                                     Image
                                                 </th>
                                                 <th class="text-center">
-                                                    Office Name
+                                                    Layout Name
                                                 </th>
                                                 <th class="text-center">
                                                     Direction

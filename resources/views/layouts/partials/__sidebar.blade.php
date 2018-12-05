@@ -73,6 +73,19 @@
                     </li>
                 </ul>
             </li>
+            <li class="nav-item nav-dropdown">
+                <a class="nav-link nav-dropdown-toggle" href="#">
+                    <i class="nav-icon icon-list"></i>App
+                </a>
+                <ul class="nav-dropdown-items">
+                    <li class="nav-item">
+                        <a class="nav-link @if(\Request::is('*user/*')) active @endif" href="{{route('appointment.index')}}">
+                            <i class="nav-icon icon-printer"></i>
+                            Visits
+                        </a>
+                    </li>
+                </ul>
+            </li>
         </ul>
         <div class="ps__rail-x" style="left: 0px; bottom: 0px;">
             <div class="ps__thumb-x" tabindex="0" style="left: 0px; width: 0px;"></div>

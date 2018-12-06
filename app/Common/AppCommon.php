@@ -20,45 +20,39 @@ class AppCommon{
         return $isPublic;
     }
 
-    public static function namePublicOrderStatus($statusValue){
+    public static function nameAppointmentStatus($statusValue){
         $statusName = "";
         switch ($statusValue){
-            case Constant::$ORDER_STATUS_NEW_CODE:
-                $statusName = Constant::$ORDER_STATUS_NEW_NAME;
+            case Constant::$APPOINTMENT_STATUS_PENDING:
+                $statusName = Constant::$APPOINTMENT_STATUS_PENDING_NAME;
                 break;
-            case Constant::$ORDER_STATUS_CONFIRM_CODE:
-                $statusName = Constant::$ORDER_STATUS_CONFIRM_NAME;
+            case Constant::$APPOINTMENT_STATUS_SCHEDULE:
+                $statusName = Constant::$APPOINTMENT_STATUS_SCHEDULE_NAME;
                 break;
-            case Constant::$ORDER_STATUS_SHIPPING_CODE:
-                $statusName = Constant::$ORDER_STATUS_SHIPPING_NAME;
+            case Constant::$APPOINTMENT_STATUS_CANCEL:
+                $statusName = Constant::$APPOINTMENT_STATUS_CANCEL_NAME;
                 break;
-            case Constant::$ORDER_STATUS_FINISH_CODE:
-                $statusName = Constant::$ORDER_STATUS_FINISH_NAME;
-                break;
-            case Constant::$ORDER_STATUS_CANCEL_CODE:
-                $statusName = Constant::$ORDER_STATUS_CANCEL_NAME;
+            case Constant::$APPOINTMENT_STATUS_DONE:
+                $statusName = Constant::$APPOINTMENT_STATUS_DONE_NAME;
                 break;
         }
         return $statusName;
     }
 
-    public static function classPublicOrderStatus($statusValue){
+    public static function classAppointmentStatus($statusValue){
         $className = "";
         switch ($statusValue){
-            case Constant::$ORDER_STATUS_NEW_CODE:
-                $className = 'badge-secondary';
-                break;
-            case Constant::$ORDER_STATUS_CONFIRM_CODE:
-                $className = 'badge-primary';
-                break;
-            case Constant::$ORDER_STATUS_SHIPPING_CODE:
+            case Constant::$APPOINTMENT_STATUS_PENDING:
                 $className = 'badge-warning';
                 break;
-            case Constant::$ORDER_STATUS_FINISH_CODE:
-                $className = 'badge-success';
+            case Constant::$APPOINTMENT_STATUS_SCHEDULE:
+                $className = 'badge-primary';
                 break;
-            case Constant::$ORDER_STATUS_CANCEL_CODE:
+            case Constant::$APPOINTMENT_STATUS_CANCEL:
                 $className = 'badge-danger';
+                break;
+            case Constant::$APPOINTMENT_STATUS_DONE:
+                $className = 'badge-dark';
                 break;
         }
         return $className;

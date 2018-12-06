@@ -125,4 +125,15 @@ class Controller extends BaseController
         }
         return response()->json($dataJson);
     }
+
+    protected function json($data){
+        return response()->json($data);
+    }
+
+    protected function jsonSuccess($message = 'Success'){
+        return $this->json([
+            'status'=> '0',
+            'message'=> $message
+        ]);
+    }
 }

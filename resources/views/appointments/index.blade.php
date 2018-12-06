@@ -4,15 +4,27 @@
 
 @section('head.css')
     <link href="{{asset('css/plugins/dataTables.bootstrap4.css')}}" rel="stylesheet">
+    <link href="{{asset('css/plugins/ladda-themeless.min.css')}}" rel="stylesheet">
+    <link href="{{asset('css/appointment.css')}}" rel="stylesheet">
+    <style>
+        .checked {
+            color: orange;
+        }
+    </style>
 @endsection
 
 @section('body.js')
     <script type="text/javascript" src="{{asset('js/plugins/jquery.dataTables.js')}}" class="view-script"></script>
     <script type="text/javascript" src="{{asset('js/plugins/dataTables.bootstrap4.js')}}" class="view-script"></script>
+    <script type="text/javascript" src="{{asset('js/plugins/moment.js')}}" class="view-script"></script>
+    <script type="text/javascript" src="{{asset('js/plugins/spin.min.js')}}" class="view-script"></script>
+    <script type="text/javascript" src="{{asset('js/plugins/ladda.min.js')}}" class="view-script"></script>
+    <script type="text/javascript" src="{{asset('js/plugins/loading-buttons.js')}}" class="view-script"></script>
+    <script type="text/javascript" src="{{asset('js/appointment.js')}}" class="view-script"></script>
 @endsection
 
 @section('body.breadcrumb')
-    {{ Breadcrumbs::render('user') }}
+    {{ Breadcrumbs::render('appointment') }}
 @endsection
 
 @section('body.content')
@@ -24,8 +36,9 @@
                         <div class="card-header">
                             <i class="fa fa-edit"></i> List Visit
                             <div class="card-header-actions">
-                                <a class="btn btn-block btn-outline-primary active" data-toggle="modal" data-target="#primaryModal">
-                                    New
+                                <a data-toggle="modal" class="btn btn-block btn-outline-primary active"
+                                   href="#appointmentModal" id="btn-new-appointment">
+                                    Add Visit
                                 </a>
                             </div>
                         </div>
@@ -35,61 +48,88 @@
                                     {{ \Session::get('success') }}
                                 </div>
                             @endif
+                            <input type="hidden" value="{{route('appointment.update')}}" id="url_show_detail">
+                            <input type="hidden" value="{{route('appointment.update')}}" id="url_update">
+                            <input type="hidden" value="{{route('appointment.create')}}" id="url_create">
+                            <input type="hidden" value="{{route('appointment.delete')}}" id="url_delete">
                             <div id="DataTables_Table_0_wrapper" class="dataTables_wrapper dt-bootstrap4 no-footer">
                                 <div class="row">
                                     <div class="col-sm-12">
-                                        <table class="table table-striped table-bordered datatable dataTable no-footer" id="DataTables_Table_0" role="grid" aria-describedby="DataTables_Table_0_info" style="border-collapse: collapse !important">
+                                        <table class="table appointment-list table-striped table-bordered datatable dataTable no-footer" role="grid" aria-describedby="DataTables_Table_0_info" style="border-collapse: collapse !important">
                                             <thead>
                                             <tr role="row">
-                                                <th>
+                                                <th class="status">
                                                     Status
                                                 </th>
-                                                <th>
+                                                <th class="date-visit">
                                                     Date
                                                 </th>
-                                                <th>
+                                                <th class="time-visit">
                                                     Time
                                                 </th>
-                                                <th>
+                                                <th class="customer-name">
                                                     Client Name
                                                 </th>
-                                                <th>
+                                                <th class="sale-name">
                                                     Sales Name
                                                 </th>
-                                                <td>
+                                                <th class="building-name">
+                                                    Building Name
+                                                </th>
+                                                <th class="rate">
                                                     Rate
-                                                </td>
-                                                <th>
+                                                </th>
+                                                <th class="comment">
                                                     Comment
                                                 </th>
                                             </tr>
                                             </thead>
                                             <tbody>
                                             @foreach($appointments as $index => $appointment)
-                                                <tr role="row" class="odd">
-                                                    <td>
-                                                        {{$appointment->status}}
+                                                <tr role="row" class="odd" id="{{$appointment->id}}">
+                                                    <td class="text-center">
+                                                        <span class="badge {{$appointment->status_class}}">{{$appointment->status_name}}</span>
                                                     </td>
                                                     <td>
-                                                        {{$appointment->status}}
+                                                        {{$appointment->date_str}}
                                                     </td>
                                                     <td>
-                                                        {{$appointment->status}}
+                                                        {{$appointment->time_str}}
                                                     </td>
                                                     <td>
-                                                        {{$appointment->status}}
+                                                        {{$appointment->full_name}}
                                                     </td>
                                                     <td>
-                                                        {{$appointment->status}}
+                                                        @if(isset($appointment->user))
+                                                            {{$appointment->user->first_name.' '.$appointment->user->last_name}}
+                                                        @endif
                                                     </td>
                                                     <td>
-                                                        {{$appointment->status}}
+                                                        @if(isset($appointment->building))
+                                                            {{$appointment->building->name}}
+                                                        @endif
+                                                    </td>
+                                                    <td>
+                                                        <div class="form-group">
+                                                            @for($i = 0 ; $i < $appointment->rate ; $i++)
+                                                                <span class="fa fa-star checked"></span>
+                                                            @endfor
+                                                            @for($i = $appointment->rate ; $i < 5 ; $i++)
+                                                                <span class="fa fa-star"></span>
+                                                            @endfor
+                                                        </div>
+                                                    </td>
+                                                    <td>
+                                                        {{$appointment->note}}
                                                     </td>
                                                 </tr>
                                             @endforeach
                                             </tbody>
                                         </table>
                                     </div>
+                                </div>
+                                <div class="pull-right">
+                                    {{$appointments->links()}}
                                 </div>
                             </div>
                         </div>
@@ -99,28 +139,5 @@
         </div>
     </div>
 
-    <div class="modal fade" id="appointmentModal" tabindex="-1" role="dialog" aria-labelledby="myModalLabel" aria-hidden="true" style="display: none;">
-        <div class="modal-dialog modal-primary" role="document">
-            <div class="modal-content">
-                <div class="modal-header">
-                    <h4 class="modal-title">Modal title</h4>
-                    <button class="close" type="button" data-dismiss="modal" aria-label="Close">
-                        <span aria-hidden="true">×</span>
-                    </button>
-                </div>
-                <div class="modal-body">
-                    <p> <span id="confirm-content"></span> ?</p>
-                </div>
-                <div class="modal-footer">
-                    <button class="btn btn-secondary name-cancel" type="button" data-dismiss="modal">Cancel</button>
-                    <form class="inline" action="route" method="post" id="formHolder">
-                        @csrf
-                        <button class="btn btn-primary name-ok" type="submit">OK</button>
-                    </form>
-                </div>
-            </div>
-
-        </div>
-
-    </div>
+    @include('appointments.partials.__modal_create_update')
 @endsection

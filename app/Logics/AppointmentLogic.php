@@ -11,8 +11,8 @@ class AppointmentLogic extends BaseLogic{
         return ScheduleAppointment::find($id);
     }
 
-    public function getAll(){
-        return ScheduleAppointment::get();
+    public function getAll($limit = 10){
+        return ScheduleAppointment::orderBy('created_at','desc')->paginate($limit);
     }
 
     public function save(ScheduleAppointment $appointment){
@@ -21,5 +21,9 @@ class AppointmentLogic extends BaseLogic{
             return $appointment;
         }
         return null;
+    }
+
+    public function destroy($appointmentId){
+        ScheduleAppointment::destroy($appointmentId);
     }
 }

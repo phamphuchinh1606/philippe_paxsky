@@ -30,6 +30,10 @@ class UserTypeSeeder extends Seeder
                 'type_name' => 'Customer manager'
             ],
             [
+                'type_code' => 5,
+                'type_name' => 'Sale person'
+            ],
+            [
                 'type_code' => 99,
                 'type_name' => 'Customer'
             ],

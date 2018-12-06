@@ -202,3 +202,10 @@ Breadcrumbs::for('user.update', function ($trail, $userName) {
     $trail->push($userName);
 });
 //========================End Customer===============================================
+
+//Appointment Layout ====================================================================
+Breadcrumbs::for('appointment', function ($trail) {
+    $trail->parent('home');
+    $trail->push('List Visit', route('user.index'));
+});
+//========================End Customer===============================================

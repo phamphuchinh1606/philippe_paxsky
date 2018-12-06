@@ -2,6 +2,7 @@
 
 namespace App\Http\ViewComposers;
 
+use App\Common\UserTypeConstant;
 use Illuminate\View\View;
 use App\Services\UserService;
 
@@ -35,6 +36,8 @@ class UserViewComposer
     public function compose(View $view)
     {
         $userTypes = $this->userService->getUserTypeAll();
-        $view->with('userTypes', $userTypes);
+        $userSales = $this->userService->getUserByType(UserTypeConstant::$USER_TYPE_SALE);
+        $view->with('userTypes', $userTypes)
+                ->with('userSales', $userSales);
     }
 }

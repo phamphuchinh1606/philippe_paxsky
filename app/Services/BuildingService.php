@@ -64,8 +64,11 @@ class BuildingService extends BaseService{
         $buildings =  $this->buildingLogic->searchBuilding($districtId, $acreage, $directionId, $rentCost);
         $acreageRentArray = [];
         $directionArray = [];
+        $directionObjectArray = [];
         $minRentCost = 0;
         $maxRentCost = 0;
+        $minAcreage = 0;
+        $maxAcreage = 0;
         foreach ($buildings as $building){
             $building->public_name = AppCommon::namePublicBuildingType($building->is_public);
             $building->public_class = AppCommon::classPublicBuildingType($building->is_public);
@@ -77,6 +80,12 @@ class BuildingService extends BaseService{
                 if(!in_array($office->acreage_rent,$acreageRentArray)){
                     $acreageRentArray[] = $office->acreage_rent;
                 }
+                if($minAcreage == 0 || $minAcreage >= $office->acreage_rent ){
+                    $minAcreage = $office->acreage_rent;
+                }
+                if($maxAcreage == 0 || $maxAcreage <= $office->acreage_rent ){
+                    $maxAcreage = $office->acreage_rent;
+                }
             }
             $rentCostAndVaxManager = $building->rental_cost + $building->manager_cost + $building->electricity_cost;
             if($minRentCost == 0 || $minRentCost >= $rentCostAndVaxManager ){
@@ -87,6 +96,10 @@ class BuildingService extends BaseService{
             }
             if(!isset($directionArray[$building->direction_id])){
                 $directionArray[$building->direction_id] = $building->direction->name;
+                $directionItem = new \StdClass();
+                $directionItem->direction_id = $building->direction_id;
+                $directionItem->direction_name = $building->direction->name;
+                $directionObjectArray[] = $directionItem;
             }
             $building->acreage_rent_list = implode("-",$acreageRents);
             $building->acreage_rent_array = array_values($acreageRents);
@@ -96,7 +109,9 @@ class BuildingService extends BaseService{
         $data->buildings = $buildings;
         $data->minRentCost = $minRentCost;
         $data->maxRentCost = $maxRentCost;
-        $data->directionArray = $directionArray;
+        $data->minAcreage = $minAcreage;
+        $data->maxAcreage = $maxAcreage;
+        $data->directionArray = $directionObjectArray;
         $data->acreageRentArray = $acreageRentArray;
         return $data;
     }

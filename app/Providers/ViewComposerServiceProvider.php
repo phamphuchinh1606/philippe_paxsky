@@ -47,7 +47,7 @@ class ViewComposerServiceProvider extends ServiceProvider
             'App\Http\ViewComposers\AddressViewComposer'
         );
         View::composer(
-            ['common.__select_user_type'],
+            ['common.__select_user_type', 'common.users.__select_user_sale'],
             'App\Http\ViewComposers\UserViewComposer'
         );
         View::composer(

@@ -25,7 +25,7 @@ class CreateScheduleAppointmentsTable extends Migration
             $table->longText('note')->nullable(true);
             $table->integer('status')->nullable(true);
             $table->integer('is_read')->default(0)->nullable(true);
-            $table->integer('rate')->nullable(true);
+            $table->integer('rate')->nullable(true)->default(0);
             $table->longText('rate_comment')->nullable(true);
             $table->integer('sale_person_id')->nullable(true);
             $table->timestamps();

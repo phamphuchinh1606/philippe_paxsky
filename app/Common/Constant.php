@@ -48,10 +48,17 @@ class Constant{
 
     public static $PROVINCE_ID_HCM= "4";
 
-    //Type user
-    public static $USER_TYPE_CUSTOMER = "99";
-
     //Group Customer
     public static $GROUP_CUSTOMER_VISIT = "1";
+
+    //Status Appointment
+    public static $APPOINTMENT_STATUS_PENDING = "0";
+    public static $APPOINTMENT_STATUS_PENDING_NAME = "Pending";
+    public static $APPOINTMENT_STATUS_SCHEDULE = "1";
+    public static $APPOINTMENT_STATUS_SCHEDULE_NAME = "Schedule";
+    public static $APPOINTMENT_STATUS_CANCEL = "2";
+    public static $APPOINTMENT_STATUS_CANCEL_NAME = "Cancel";
+    public static $APPOINTMENT_STATUS_DONE = "3";
+    public static $APPOINTMENT_STATUS_DONE_NAME = "Done";
 
 }

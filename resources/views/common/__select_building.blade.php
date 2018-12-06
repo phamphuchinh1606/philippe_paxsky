@@ -1,4 +1,4 @@
-<select class="form-control" name="{{$selectName}}">
+<select class="form-control" name="{{$selectName}}" @if(isset($required) && $required) required @endif>
     @if(isset($selectTop) &&  $selectTop)
         <option value="" disabled>Select building</option>
     @endif

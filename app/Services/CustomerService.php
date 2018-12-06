@@ -3,6 +3,7 @@
 namespace App\Services;
 use App\Common\Constant;
 use App\Common\DateCommon;
+use App\Common\UserTypeConstant;
 use App\Logics\CustomerLogic;
 use App\Logics\UserLogic;
 use App\Models\Customer;
@@ -30,7 +31,12 @@ class CustomerService extends BaseService{
     public function getAll(){
         $customers = $this->customerLogic->getAll();
         foreach ($customers as $customer){
-            $customer->active_name = AppCommon::getActiveName($customer->user->is_active);
+            if(isset($customer->user)){
+                $customer->active_name = AppCommon::getActiveName($customer->user->is_active);
+            }else{
+                $customer->active_name = '';
+            }
+
             $customer->full_name = $customer->first_name.' '.$customer->last_name;
         }
         return $customers;
@@ -81,7 +87,7 @@ class CustomerService extends BaseService{
         if($user->email != null){
             try{
                 DB::beginTransaction();
-                $user->user_type_id = Constant::$USER_TYPE_CUSTOMER;
+                $user->user_type_id = UserTypeConstant::$USER_TYPE_CUSTOMER;
                 $userDB = $this->userLogic->save($user);
                 if(isset($userDB)){
                     $customer->user_id = $userDB->id;

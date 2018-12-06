@@ -35,3 +35,6 @@ Route::get('/district','AddressController@districtList')->name('api.address.dist
 
 //Api Direction
 Route::get('/direction','DirectionController@directionList')->name('api.direction');
+
+//Api Appointment
+Route::post('/appointment/create','AppointmentController@create')->name('api.appointment.create');

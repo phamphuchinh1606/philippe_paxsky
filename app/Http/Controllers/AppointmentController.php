@@ -2,6 +2,7 @@
 
 namespace App\Http\Controllers;
 
+use App\Common\DateCommon;
 use Illuminate\Http\Request;
 
 class AppointmentController extends Controller
@@ -21,25 +22,29 @@ class AppointmentController extends Controller
     }
 
     public function create(Request $request){
-        $this->userService->create($request);
-        return redirect()->route('user.index')->with('success','Create user success');
+        $this->appointmentService->create($request);
+        return $this->jsonSuccess('Create appointment success');
     }
 
-    public function showUpdate($id){
-        $user = $this->userService->find($id);
-        if(isset($user)){
-            return $this->showView('update',['user' => $user]);
+    public function showUpdate(Request $request){
+        if(isset($request->appointment_id)){
+            $appointment = $this->appointmentService->find($request->appointment_id);
+            if(isset($appointment)){
+                $appointment->date_visit = DateCommon::dateFormat($appointment->date_schedule,'Y-m-d');
+                $appointment->time_visit =  DateCommon::dateFormat($appointment->date_schedule,'H:i');
+                return $this->json($appointment);
+            }
         }
-        return redirect()->route('user.index');
+        return $this->json(array('status' => 1, 'error' => 'error'));
     }
 
-    public function update($id , Request $request){
-        $this->userService->update($id, $request);
-        return redirect()->route('user.index')->with('success','Update user success');
+    public function update(Request $request){
+        $this->appointmentService->update($request);
+        return $this->jsonSuccess('Update appointment success');
     }
 
-    public function destroy($id){
-        $this->userService->destroy($id);
-        return redirect()->route('user.index')->with('success','Delete user success');
+    public function destroy(Request $request){
+        $this->appointmentService->destroy($request->appointment_id);
+        return $this->jsonSuccess('Delete appointment success');
     }
 }

@@ -40,6 +40,10 @@ class UserService extends BaseService{
         return $users;
     }
 
+    public function getUserByType($userTypeId){
+        return $this->userLogic->getUserByType($userTypeId);
+    }
+
     public function getUserTypeAll(){
         return $this->userLogic->getUserTypeAll();
     }

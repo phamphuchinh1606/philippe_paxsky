@@ -2,7 +2,9 @@
 
 namespace App\Services;
 use App\Common\Constant;
+use App\Common\DateCommon;
 use App\Logics\AppointmentLogic;
+use App\Models\ScheduleAppointment;
 use Illuminate\Http\Request;
 use App\Common\AppCommon;
 
@@ -20,68 +22,50 @@ class AppointmentService extends BaseService{
 
     public function getAll(){
         $appointments = $this->appointmentLogic->getAll();
-//        foreach ($users as $user){
-//            $user->active_name = AppCommon::getActiveName($user->is_active);
-//            $user->full_name = $user->first_name.' '.$user->last_name;
-//        }
+        foreach ($appointments as $appointment){
+            $appointment->status_name = AppCommon::nameAppointmentStatus($appointment->status);
+            $appointment->status_class = AppCommon::classAppointmentStatus($appointment->status);
+            $appointment->date_str = DateCommon::dateFormat($appointment->date_schedule,'d-m-Y');
+            $appointment->time_str = DateCommon::dateFormat($appointment->date_schedule,'H:i');
+        }
         return $appointments;
     }
 
-//    private function getUserInfo(Request $request, $user = null){
-//        if(!isset($user)){
-//            $user = new User();
-//        }
-//        $user->first_name = $request->first_name;
-//        $user->last_name = $request->last_name;
-//        $user->user_type_id = $request->user_type_id;
-//        $user->email = $request->email;
-//        $user->mobile_phone = $request->mobile_phone;
-//        if(!isset($user->id)){
-//            $user->password = bcrypt($request->password);
-//        }
-//        $user->note = $request->note;
-//        $user->is_active = AppCommon::getIsPublic($request->is_active);
-//        return $user;
-//    }
-//
-//    public function create(Request $request){
-//        $user = $this->getUserInfo($request);
-//        if($user->email != null){
-//            $userDB = $this->userLogic->save($user);
-//            if(isset($userDB->id)){
-//                $userId = $userDB->id;
-//                $userImage = $request->file('profile_image');
-//                if(isset($userImage)){
-//                    $imageName = AppCommon::moveImage($userImage, Constant::$PATH_FOLDER_UPLOAD_USER.'/'.$userId);
-//                    $userDB->profile_image = $imageName;
-//                    $user = $this->userLogic->save($userDB);
-//                }
-//            }
-//        }
-//        return $user;
-//    }
-//
-//    public function update($id, $request){
-//        $userDB = $this->userLogic->find($id);
-//        if(isset($userDB)){
-//            $user = $this->getUserInfo($request,$userDB);
-//            $userId = $user->id;
-//            $userImage = $request->file('profile_image');
-//            if(isset($userImage)){
-//                AppCommon::deleteImage($userDB->profile_image);
-//                $imageName = AppCommon::moveImage($userImage, Constant::$PATH_FOLDER_UPLOAD_USER.'/'.$userId);
-//                $user->profile_image = $imageName;
-//            }
-//            $user = $this->userLogic->save($user);
-//        }
-//    }
-//
-//    public function destroy($id){
-//        $user = $this->userLogic->find($id);
-//        if(isset($user)){
-//            $user->is_delete = Constant::$DELETE_FLG_ON;
-//            $this->userLogic->save($user);
-//        }
-//    }
+    private function getAppointmentInfo(Request $request, $appointment = null){
+        if(!isset($appointment)){
+            $appointment = new ScheduleAppointment();
+        }
+        $appointment->customer_id = $request->customer_id;
+        $appointment->full_name = $request->customer_name;
+        $appointment->email = $request->email;
+        $appointment->mobile_phone = $request->mobile_phone;
+        $appointment->building_id = $request->building_id;
+        $appointment->date_schedule = DateCommon::createFromFormat($request->schedule_date.' '.$request->schedule_time,'Y-m-d H:i');
+        $appointment->sale_person_id = $request->sale_person;
+        $appointment->note = $request->notes;
+        $appointment->status = $request->status;
+        return $appointment;
+    }
+
+    public function create(Request $request){
+        $appointment = $this->getAppointmentInfo($request);
+        if($appointment->date_schedule != null){
+            $appointmentDB = $this->appointmentLogic->save($appointment);
+        }
+        return $appointmentDB;
+    }
+
+    public function update($request){
+        $appointmentDB = $this->appointmentLogic->find($request->appointment_id);
+        if(isset($appointmentDB)){
+            $appointment = $this->getAppointmentInfo($request,$appointmentDB);
+            $appointmentDB = $this->appointmentLogic->save($appointment);
+        }
+        return $appointmentDB;
+    }
+
+    public function destroy($appointmentId){
+        $this->appointmentLogic->destroy($appointmentId);
+    }
 
 }

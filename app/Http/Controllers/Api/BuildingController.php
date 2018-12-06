@@ -12,7 +12,9 @@ class BuildingController extends ControllerApi
         $districtId = $request->district_id;
         $acreage = $request->acreage;
         $directionId = $request->direction_id;
-        $buildings = $this->buildingService->searchBuilding($districtId,$acreage,$directionId);
+        $rentCost = $request->rent_cost;
+        $data = $this->buildingService->searchBuilding($districtId,$acreage,$directionId,$rentCost);
+        $buildings =  $data->buildings;
         $listResult = [];
         foreach ($buildings as $building)
         {
@@ -25,6 +27,9 @@ class BuildingController extends ControllerApi
             $buildingItem->direction = $building->direction->name;
             $buildingItem->classify_name = $building->classify->name;
             $buildingItem->rent_cost = $building->rental_cost + $building->manager_cost + $building->tax_cost;
+            $buildingItem->rental_cost = $building->rental_cost;
+            $buildingItem->tax_cost = $building->tax_cost;
+            $buildingItem->manager_cost = $building->manager_cost;
             $buildingItem->electricity_cost = $building->electricity_cost;
             $buildingItem->structure = $building->structure_str;
             if($building->acreage_rent_list != ''){
@@ -32,8 +37,15 @@ class BuildingController extends ControllerApi
             }else{
                 $buildingItem->acreage_rent_list = 'FULL';
             }
+            $buildingItem->acreage_rent_array = $building->acreage_rent_array;
             $listResult[] = $buildingItem;
         }
-        return $this->json($listResult);
+        $result = new \StdClass();
+        $result->buildings = $listResult;
+        $result->min_rent_cost = $data->minRentCost;
+        $result->max_rent_cost = $data->maxRentCost;
+        $result->direction_array = $data->directionArray;
+        $result->acreage_rent_array = $data->acreageRentArray;
+        return $this->json($result);
     }
 }

@@ -60,8 +60,12 @@ class BuildingService extends BaseService{
         return $buildings;
     }
 
-    public function searchBuilding($districtId, $acreage, $directionId){
-        $buildings =  $this->buildingLogic->searchBuilding($districtId, $acreage, $directionId);
+    public function searchBuilding($districtId, $acreage, $directionId, $rentCost){
+        $buildings =  $this->buildingLogic->searchBuilding($districtId, $acreage, $directionId, $rentCost);
+        $acreageRentArray = [];
+        $directionArray = [];
+        $minRentCost = 0;
+        $maxRentCost = 0;
         foreach ($buildings as $building){
             $building->public_name = AppCommon::namePublicBuildingType($building->is_public);
             $building->public_class = AppCommon::classPublicBuildingType($building->is_public);
@@ -70,11 +74,31 @@ class BuildingService extends BaseService{
                 if(!isset($acreageRents[$office->acreage_rent])){
                     $acreageRents[$office->acreage_rent] = $office->acreage_rent;
                 }
+                if(!in_array($office->acreage_rent,$acreageRentArray)){
+                    $acreageRentArray[] = $office->acreage_rent;
+                }
+            }
+            $rentCostAndVaxManager = $building->rental_cost + $building->manager_cost + $building->electricity_cost;
+            if($minRentCost == 0 || $minRentCost >= $rentCostAndVaxManager ){
+                $minRentCost = $rentCostAndVaxManager;
+            }
+            if($maxRentCost == 0 || $maxRentCost <= $rentCostAndVaxManager ){
+                $maxRentCost = $rentCostAndVaxManager;
+            }
+            if(!isset($directionArray[$building->direction_id])){
+                $directionArray[$building->direction_id] = $building->direction->name;
             }
             $building->acreage_rent_list = implode("-",$acreageRents);
+            $building->acreage_rent_array = array_values($acreageRents);
             $building->structure_str = $this->getStructureStr($building);
         }
-        return $buildings;
+        $data = new \StdClass();
+        $data->buildings = $buildings;
+        $data->minRentCost = $minRentCost;
+        $data->maxRentCost = $maxRentCost;
+        $data->directionArray = $directionArray;
+        $data->acreageRentArray = $acreageRentArray;
+        return $data;
     }
 
     private function getInfoBuilding(Request $request, $building = null){

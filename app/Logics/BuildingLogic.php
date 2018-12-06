@@ -15,7 +15,7 @@ class BuildingLogic extends BaseLogic{
         return Building::whereIsDelete(Constant::$DELETE_FLG_OFF)->get();
     }
 
-    public function searchBuilding($districtId, $acreage, $directionId){
+    public function searchBuilding($districtId, $acreage, $directionId, $rentCost){
         $tableOfficeName = (new Office())->getTable();
         $buildingName = (new Building())->getTable();
         $query = Building::whereIsDelete(Constant::$DELETE_FLG_OFF);
@@ -43,6 +43,21 @@ class BuildingLogic extends BaseLogic{
                         ->where('acreage_rent' , '<=' , $acreageTo)
                         ->whereIsDelete(Constant::$DELETE_FLG_OFF);
                 });
+            }
+        }
+        if(isset($rentCost)){
+            $rentCostFrom = 0;
+            $rentCostTo = 0;
+            if(str_contains($rentCost,'-')){
+                $rentCostFrom = explode('-',$rentCost)[0];
+                $rentCostTo = explode('-',$rentCost)[1];
+            }else{
+                $rentCostFrom = $rentCost;
+                $rentCostTo = 999999;
+            }
+            if(is_numeric ($rentCostFrom) && is_numeric ($rentCostTo)){
+                $query->whereRaw("(rental_cost + manager_cost + tax_cost) >= $rentCostFrom");
+                $query->whereRaw("(rental_cost + manager_cost + tax_cost) <= $rentCostTo");
             }
         }
         return $query->orderBy('created_at','desc')->get();

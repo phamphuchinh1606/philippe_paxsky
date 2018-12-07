@@ -39,7 +39,8 @@
 
                 <!-- Branding Image -->
                 <a class="navbar-brand" href="{{ url('/') }}">
-                    Paxsky
+                    {{--Paxsky--}}
+                    <img src="{{asset('images/logo paxsky.png')}}" style="width: 100px;height: auto"/>
                 </a>
             </div>
 

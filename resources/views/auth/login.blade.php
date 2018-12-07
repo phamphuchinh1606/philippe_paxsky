@@ -53,14 +53,14 @@
                                         Forgot Your Password?
                                     </a></p>
                             </div>
-                            <div class="form-group">
-                                <a href="redirect/facebook" class="btn btn-primary facebooke">
-                                    <i class="fa fa-facebook-square pull-left"></i> Login with Facebook
-                                </a>
-                                <a href="redirect/instagram" class="btn btn-primary instagram">
-                                    <i class="fa fa-instagram pull-left"></i>Login with Iinstagram
-                                </a>
-                            </div>
+                            {{--<div class="form-group">--}}
+                                {{--<a href="redirect/facebook" class="btn btn-primary facebooke">--}}
+                                    {{--<i class="fa fa-facebook-square pull-left"></i> Login with Facebook--}}
+                                {{--</a>--}}
+                                {{--<a href="redirect/instagram" class="btn btn-primary instagram">--}}
+                                    {{--<i class="fa fa-instagram pull-left"></i>Login with Iinstagram--}}
+                                {{--</a>--}}
+                            {{--</div>--}}
                         </form>
                         @if ($errors->any())
                             <div class="alert alert-danger">

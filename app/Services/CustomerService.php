@@ -103,7 +103,6 @@ class CustomerService extends BaseService{
 
             }catch (\Exception $ex){
                 DB::rollBack();
-                dd($ex);
             }
         }
         return $customer;

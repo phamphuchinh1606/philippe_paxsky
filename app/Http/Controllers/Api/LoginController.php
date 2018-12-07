@@ -20,7 +20,7 @@ class LoginController extends ControllerApi
             return $this->jsonError($validator->errors(), $validator->errors()->first());
         }
         $isLogin = $this->userService->checkLogin($request->email, $request->password);
-        if($isLogin){
+        if(isset($isLogin)){
             $credentials = $request->only('email', 'password');
             $token = null;
             try {
@@ -36,9 +36,14 @@ class LoginController extends ControllerApi
                     'message'=> 'failed to create token'
                 ]);
             }
+            $customerId = $isLogin->id;
+            if(isset($isLogin->customer) && count($isLogin->customers) > 0){
+                $customerId = $isLogin->customers[0]->id;
+            }
             return response()->json([
                 'status'=> 0,
                 'token'=> $token,
+                'customer_id' => $customerId,
                 'message'=>'Login success! '
             ]);
         }

@@ -56,18 +56,18 @@
             </li>
             <li class="nav-item nav-dropdown">
                 <a class="nav-link nav-dropdown-toggle" href="#">
-                    <i class="nav-icon icon-list"></i>User & Customer
+                    <i class="nav-icon icon-people"></i>User & Customer
                 </a>
                 <ul class="nav-dropdown-items">
                     <li class="nav-item">
                         <a class="nav-link @if(\Request::is('*user/*')) active @endif" href="{{route('user.index')}}">
-                            <i class="nav-icon icon-printer"></i>
+                            <i class="nav-icon icon-user"></i>
                             User List
                         </a>
                     </li>
                     <li class="nav-item">
                         <a class="nav-link @if(\Request::is('*customer*')) active @endif" href="{{route('customer.index')}}">
-                            <i class="nav-icon icon-chart"></i>
+                            <i class="nav-icon icon-user-follow"></i>
                             Customer List
                         </a>
                     </li>
@@ -80,7 +80,7 @@
                 <ul class="nav-dropdown-items">
                     <li class="nav-item">
                         <a class="nav-link @if(\Request::is('*user/*')) active @endif" href="{{route('appointment.index')}}">
-                            <i class="nav-icon icon-printer"></i>
+                            <i class="nav-icon icon-calendar"></i>
                             Visits
                         </a>
                     </li>

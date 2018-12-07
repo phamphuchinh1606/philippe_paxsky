@@ -31,4 +31,8 @@ class User extends Authenticatable
     public function userType(){
         return $this->belongsTo('App\Models\UserType','user_type_id');
     }
+
+    public function customers(){
+        return $this->hasMany('App\Models\Customer','user_id');
+    }
 }

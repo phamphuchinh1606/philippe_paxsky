@@ -25,10 +25,10 @@ class UserService extends BaseService{
         if(isset($user)){
             if (Hash::check($password, $user->password))
             {
-                return true;
+                return $user;
             }
         }
-        return false;
+        return null;
     }
 
     public function getAll(){

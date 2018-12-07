@@ -15,6 +15,10 @@ class AppointmentLogic extends BaseLogic{
         return ScheduleAppointment::orderBy('created_at','desc')->paginate($limit);
     }
 
+    public function getAllByCustomer($customerId, $limit=50){
+        return ScheduleAppointment::where('customer_id',$customerId)->orderBy('created_at','desc')->limit($limit)->get();
+    }
+
     public function save(ScheduleAppointment $appointment){
         if(isset($appointment)){
             $appointment->save();

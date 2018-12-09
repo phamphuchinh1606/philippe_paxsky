@@ -11,8 +11,8 @@ class CustomerLogic extends BaseLogic{
         return Customer::find($id);
     }
 
-    public function getAll(){
-        return Customer::whereIsDelete(Constant::$DELETE_FLG_OFF)->get();
+    public function getAll($limit = 20){
+        return Customer::whereIsDelete(Constant::$DELETE_FLG_OFF)->limit($limit)->get();
     }
 
     public function save(Customer $customer){

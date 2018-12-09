@@ -35,6 +35,8 @@ class CustomerViewComposer
     public function compose(View $view)
     {
         $groupCustomers = $this->customerService->getGroupCustomerAll();
-        $view->with('groupCustomers', $groupCustomers);
+        $customers = $this->customerService->getAll();
+        $view->with('groupCustomers', $groupCustomers)
+            ->with('customers', $customers);
     }
 }

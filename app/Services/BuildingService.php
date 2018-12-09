@@ -1,12 +1,13 @@
 <?php
 
 namespace App\Services;
-use App\Common\{Constant};
+use App\Common\{Constant, ImageCommon};
 use App\Models\{Building, BuildingImage};
 use App\Logics\{BuildingLogic, BuildingImageLogic};
 use App\Common\AppCommon;
 use Illuminate\Http\Request;
 use Storage;
+use Image;
 
 class BuildingService extends BaseService{
     private $buildingLogic;
@@ -174,7 +175,9 @@ class BuildingService extends BaseService{
             $buildingImage = $request->file('building_main_image') ;
             if(isset($buildingImage)){
                 $imageName = AppCommon::moveImageBuilding($buildingImage, $buildingId);
+                $imageThumbnail = ImageCommon::moveImageBuildingThumbnail($buildingImage, $buildingId);
                 $building->main_image = $imageName;
+                $building->main_image_thumbnail = $imageThumbnail;
                 $building = $this->buildingLogic->save($building);
             }
             $buildingImages = $request->building_images;
@@ -198,8 +201,11 @@ class BuildingService extends BaseService{
             $buildingImage = $request->file('building_main_image') ;
             if(isset($buildingImage)){
                 AppCommon::deleteImage($building->main_image);
+                AppCommon::deleteImage($building->main_image_thumbnail);
                 $imageName = AppCommon::moveImageBuilding($buildingImage, $id);
+                $imageThumbnail = ImageCommon::moveImageBuildingThumbnail($buildingImage, $id);
                 $building->main_image = $imageName;
+                $building->main_image_thumbnail = $imageThumbnail;
             }
             $buildingDB = $this->buildingLogic->save($building);
         }

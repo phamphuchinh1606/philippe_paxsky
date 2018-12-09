@@ -58,6 +58,7 @@ class CreateBuildingsTable extends Migration
             $table->longText('content')->nullable(true);
             $table->longText('notes')->nullable(true);
             $table->string('main_image')->nullable(true);
+            $table->string('main_image_thumbnail')->nullable(true);
             $table->integer('status')->nullable(true);
             $table->integer('is_public')->default(1);
             $table->integer('is_delete')->default(0);

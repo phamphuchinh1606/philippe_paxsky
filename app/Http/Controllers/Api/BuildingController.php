@@ -21,6 +21,7 @@ class BuildingController extends ControllerApi
             $buildingItem = new \StdClass();
             $buildingItem->building_id = $building->id;
             $buildingItem->main_image = ImageCommon::showImage($building->main_image);
+            $buildingItem->main_image_thumbnail = ImageCommon::showImage($building->main_image_thumbnail);
             $buildingItem->sub_name = $building->sub_name;
             $buildingItem->sub_name = $building->sub_name;
             $buildingItem->address = $building->address.','.$building->district->label;

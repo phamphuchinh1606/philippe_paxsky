@@ -84,6 +84,12 @@
                             Visits
                         </a>
                     </li>
+                    <li class="nav-item">
+                        <a class="nav-link @if(\Request::is('*contract/*')) active @endif" href="{{route('contract.index')}}">
+                            <i class="nav-icon icon-calendar"></i>
+                            Contracts
+                        </a>
+                    </li>
                 </ul>
             </li>
         </ul>

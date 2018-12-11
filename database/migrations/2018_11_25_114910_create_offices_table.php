@@ -26,6 +26,7 @@ class CreateOfficesTable extends Migration
             $table->double('width_floor')->nullable(true);
             $table->double('door_number')->nullable(true);
             $table->string('image_src')->nullable(true);
+            $table->string('image_thumbnail_src')->nullable(true);
             $table->integer('direction_id')->nullable(true);
             $table->string('description')->nullable(true);
             $table->text('office_content')->nullable(true);

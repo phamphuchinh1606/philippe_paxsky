@@ -11,8 +11,8 @@ class OfficeLogic extends BaseLogic{
         return Office::find($id);
     }
 
-    public function getAll(){
-        return Office::whereIsDelete(Constant::$DELETE_FLG_OFF)->get();
+    public function getAll($limit = 20){
+        return Office::whereIsDelete(Constant::$DELETE_FLG_OFF)->paginate($limit);
     }
 
     public function getOfficeByBuilding($buildingId){

@@ -1,4 +1,16 @@
 <?php use App\Common\AppCommon; ?>
+
+<script>
+    function returnSelectCustomer(full_name, phone_number, email, customer_id){
+        let tbodyTable = $('table.table-customer tbody');
+        let dataRecord = $('#templateRecordCustomer').clone();
+        dataRecord.find('.full_name').html(full_name);
+        dataRecord.find('.mobile_phone').html(phone_number);
+        dataRecord.find('.email').html(email);
+        dataRecord.find('input[name=customer_id]').val(customer_id);
+        tbodyTable.append(dataRecord.find('tbody').html());
+    }
+</script>
 <div class="card">
     <div class="card-header">
         <i class="icon-note"></i> List Representative
@@ -16,12 +28,9 @@
     <div class="card-body">
         <div class="row">
             <div class="col-xl-12 col-md-12">
-                <table class="table appointment-list table-striped table-bordered datatable dataTable no-footer" role="grid" aria-describedby="DataTables_Table_0_info" style="border-collapse: collapse !important">
+                <table class="table table-customer appointment-list table-striped table-bordered datatable dataTable no-footer" role="grid" aria-describedby="DataTables_Table_0_info" style="border-collapse: collapse !important">
                     <thead>
                     <tr role="row">
-                        <th>
-                            No.
-                        </th>
                         <th class="status">
                             Customer Name
                         </th>
@@ -44,6 +53,22 @@
                     @endforeach
                     </tbody>
                 </table>
+                <div style="display: none" id="templateRecordCustomer">
+                    <table>
+                        <tr>
+                            <td class="full_name">{{$customer->full_name}}</td>
+                            <td class="mobile_phone">{{$customer->mobile_phone}}</td>
+                            <td class="email">{{$customer->email}}</td>
+                            <td></td>
+                            <td class="text-center">
+                                    <a data-toggle="modal" href="#deleteModal">
+                                        <i class="fa fa-trash-o"></i>
+                                    </a>
+                                    <input type="hidden" name="customer_id" value="" />
+                            </td>
+                        </tr>
+                    </table>
+                </div>
             </div>
         </div>
     </div>

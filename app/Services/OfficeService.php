@@ -6,6 +6,7 @@ use App\Logics\OfficeLogic;
 use App\Models\Office;
 use Illuminate\Http\Request;
 use App\Common\AppCommon;
+use App\Common\ImageCommon;
 
 class OfficeService extends BaseService{
     private $officeLogic;
@@ -70,14 +71,18 @@ class OfficeService extends BaseService{
                     $officeImage = $request->file('image_src');
                     if(isset($officeImage)){
                         $imageName = AppCommon::moveImage($officeImage, Constant::$PATH_FOLDER_UPLOAD_OFFICE.'/'.$officeId);
+                        $imageThumbnail = ImageCommon::moveImageOfficeThumbnail($officeImage, $officeId);
                         $officeDb->image_src = $imageName;
+                        $officeDb->image_thumbnail_src = $imageThumbnail;
                         $office = $this->officeLogic->save($officeDb);
                     }else if(isset($request->image_src_office_layout)){
                         $pathFolderImageOfficeLayout = Constant::$PATH_FOLDER_UPLOAD_OFFICE_LAYOUT.'/'.$officeDb->office_layout_id;
                         $pathFolderDec = Constant::$PATH_FOLDER_UPLOAD_OFFICE.'/'.$officeId;
                         $pathDec = str_replace($pathFolderImageOfficeLayout,$pathFolderDec, $request->image_src_office_layout);
                         AppCommon::copyImage($request->image_src_office_layout, $pathDec);
+                        $imageThumbnail = ImageCommon::movePathImageOfficeThumbnail($request->image_src_office_layout,$officeId);
                         $officeDb->image_src = $pathDec;
+                        $officeDb->image_thumbnail_src = $imageThumbnail;
                         $office = $this->officeLogic->save($officeDb);
                     }
                 }
@@ -97,15 +102,21 @@ class OfficeService extends BaseService{
             $officeImage = $request->file('image_src');
             if(isset($officeImage)){
                 AppCommon::deleteImage($officeDb->image_src);
-                $imageName = AppCommon::moveImageBuilding($officeImage, $id);
+                AppCommon::deleteImage($officeDb->image_thumbnail_src);
+                $imageName = AppCommon::moveImage($officeImage, Constant::$PATH_FOLDER_UPLOAD_OFFICE.'/'.$id);
+                $imageThumbnail = ImageCommon::moveImageOfficeThumbnail($officeImage, $officeId);
                 $office->image_src = $imageName;
+                $office->image_thumbnail_src = $imageThumbnail;
             }else if(isset($request->image_src_office_layout)){
                 AppCommon::deleteImage($officeDb->image_src);
+                AppCommon::deleteImage($officeDb->image_thumbnail_src);
                 $pathFolderImageOfficeLayout = Constant::$PATH_FOLDER_UPLOAD_OFFICE_LAYOUT.'/'.$officeDb->office_layout_id;
                 $pathFolderDec = Constant::$PATH_FOLDER_UPLOAD_OFFICE.'/'.$officeId;
                 $pathDec = str_replace($pathFolderImageOfficeLayout,$pathFolderDec, $request->image_src_office_layout);
                 AppCommon::copyImage($request->image_src_office_layout, $pathDec);
+                $imageThumbnail = ImageCommon::movePathImageOfficeThumbnail($request->image_src_office_layout,$officeId);
                 $office->image_src = $pathDec;
+                $office->image_thumbnail_src = $imageThumbnail;
             }
             $office = $this->officeLogic->save($office);
         }
@@ -116,6 +127,20 @@ class OfficeService extends BaseService{
         if(isset($office)){
             $office->is_delete = Constant::$DELETE_FLG_ON;
             $this->officeLogic->save($office);
+        }
+    }
+
+    public function buildThumbnailOffice(){
+        $offices = $this->officeLogic->getAll(1000);
+        foreach ($offices as $office){
+            if(!isset($office->image_thumbnail_src)){
+                $officeDB = $this->officeLogic->find($office->id);
+                if(isset($officeDB)){
+                    $imageThumbnail = ImageCommon::movePathImageOfficeThumbnail($officeDB->image_src,$office->id);
+                    $officeDB->image_thumbnail_src = $imageThumbnail;
+                    $this->officeLogic->save($officeDB);
+                }
+            }
         }
     }
 

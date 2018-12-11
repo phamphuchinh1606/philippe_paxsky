@@ -30,6 +30,7 @@ class OfficeController extends ControllerApi
             $officeItem->acreage_total = $office->acreage_total;
             $officeItem->acreage_rent = $office->acreage_rent;
             $officeItem->image_src = ImageCommon::showImage($office->image_src);
+            $officeItem->image_thumbnail_src = ImageCommon::showImage($office->image_thumbnail_src);
             $listResult[] = $officeItem;
         }
         return $this->json($listResult);

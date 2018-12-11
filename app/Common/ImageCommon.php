@@ -40,12 +40,17 @@ class ImageCommon{
         return "";
     }
 
-    public static function moveImageThumbnail(UploadedFile $file, $pathFolder){
+    public static function moveImageThumbnail($file, $pathFolder){
         $thumbnailWidth = env('ThumnailWidth',150);
         $thumbnailHeight = env('ThumnailHeight',null);
-
-        $img = Image::make($file->getRealPath());
-        $filename = time().'_'.$file->getClientOriginalName();
+        if($file instanceof UploadedFile){
+            $img = Image::make($file->getRealPath());
+            $filename = time().'_'.$file->getClientOriginalName();
+        }else{
+            $img = Image::make($file);
+            $array = explode('/',$file);
+            $filename = $array[count($array) - 1];
+        }
         $destinationPath = $pathFolder.Constant::$PATH_FOLDER_IMAGE_THUMBNAIL;
         $imageThumbnail = $img->resize($thumbnailWidth, $thumbnailHeight, function ($constraint) {
             $constraint->aspectRatio();
@@ -63,5 +68,26 @@ class ImageCommon{
 
     public static function moveImageBuildingThumbnail(UploadedFile $file, $productId){
         return self::moveImageThumbnail($file, Constant::$PATH_FOLDER_UPLOAD_BUILDING.'/'.$productId);
+    }
+
+    public static function movePathImageBuildingThumbnail($pathImage, $productId){
+        if(Storage::exists($pathImage)){
+            $file = Storage::path($pathImage);
+            dump($file);
+            return self::moveImageThumbnail($file, Constant::$PATH_FOLDER_UPLOAD_BUILDING.'/'.$productId);
+        }
+        return "";
+    }
+
+    public static function moveImageOfficeThumbnail($image, $officeId){
+        return self::moveImageThumbnail($image, Constant::$PATH_FOLDER_UPLOAD_OFFICE.'/'.$officeId);
+    }
+
+    public static function movePathImageOfficeThumbnail($pathImage, $officeId){
+        if(Storage::exists($pathImage)){
+            $file = Storage::path($pathImage);
+            return self::moveImageThumbnail($file, Constant::$PATH_FOLDER_UPLOAD_OFFICE.'/'.$officeId);
+        }
+        return "";
     }
 }

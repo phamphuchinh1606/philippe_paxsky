@@ -4,6 +4,7 @@ namespace App\Logics;
 use App\Models\Customer;
 use App\Models\GroupCustomer;
 use App\Common\Constant;
+use Tymon\JWTAuth\Claims\Custom;
 
 class CustomerLogic extends BaseLogic{
 
@@ -25,5 +26,19 @@ class CustomerLogic extends BaseLogic{
 
     public function getGroupCustomerAll(){
         return GroupCustomer::all();
+    }
+
+    public function searchCustomer($fullName, $email, $phoneNumber, $limit = 10){
+        $query = Customer::whereIsDelete(Constant::$DELETE_FLG_OFF);
+        if(isset($fullName) && !empty($fullName)){
+            $query->whereRaw("CONCAT(first_name,' ', last_name) like '%$fullName%'");
+        }
+        if(isset($email) && !empty($email)){
+            $query->whereRaw("email like '%$email%'");
+        }
+        if(isset($phoneNumber) && !empty($phoneNumber)){
+            $query->whereRaw("mobile_phone like '%$phoneNumber%'");
+        }
+        return $query->paginate($limit);
     }
 }

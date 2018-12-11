@@ -119,6 +119,9 @@
                                             @endforeach
                                             </tbody>
                                         </table>
+                                        <div class="pull-right">
+                                            {{$offices->links()}}
+                                        </div>
                                     </div>
                                 </div>
                             </div>

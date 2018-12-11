@@ -46,4 +46,10 @@ class CustomerController extends Controller
         $this->customerService->destroy($id);
         return redirect()->route('customer.index')->with('success','Delete customer success');
     }
+
+//    Ajax
+    public function searchCustomer(Request $request){
+        $customers = $this->customerService->searchCustomer($request->full_name, $request->email,$request->phone_number);
+        return $this->json($customers);
+    }
 }

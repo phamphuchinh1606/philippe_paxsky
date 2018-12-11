@@ -136,4 +136,9 @@ class CustomerService extends BaseService{
         }
     }
 
+    public function searchCustomer($fullName , $email, $phoneNumber){
+        $customers = $this->customerLogic->searchCustomer($fullName, $email, $phoneNumber);
+        return $customers;
+    }
+
 }

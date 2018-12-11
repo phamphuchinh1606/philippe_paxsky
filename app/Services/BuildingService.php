@@ -220,4 +220,18 @@ class BuildingService extends BaseService{
         }
     }
 
+    public function buildThumbnailBuilding(){
+        $buildings = $this->buildingLogic->getAll();
+        foreach ($buildings as $building){
+            if(!isset($building->main_image_thumbnail)){
+                $buildingDB = $this->buildingLogic->find($building->id);
+                if(isset($buildingDB)){
+                    $imageThumbnail = ImageCommon::movePathImageBuildingThumbnail($buildingDB->main_image,$buildingDB->id);
+                    $buildingDB->main_image_thumbnail = $imageThumbnail;
+                    $this->buildingLogic->save($buildingDB);
+                }
+            }
+        }
+    }
+
 }

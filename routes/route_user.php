@@ -28,6 +28,7 @@ Route::post('/customer/update/{id}', 'CustomerController@update')->name('custome
 Route::post('/customer/delete/{id}', 'CustomerController@destroy')->name('customer.delete');
 
 Route::get('/customer/search','CustomerController@searchCustomer')->name('customer.search');
+Route::post('/customer/create-ajax', 'CustomerController@createAjax')->name('customer.create_ajax');
 
 
 

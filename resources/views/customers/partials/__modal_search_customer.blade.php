@@ -83,10 +83,10 @@
                                     <div style="display: none" id="templateRecord">
                                         <table>
                                             <tr>
-                                                <td class="no">{{$index+1}}</td>
-                                                <td class="full_name">{{$customer->full_name}}</td>
-                                                <td class="mobile_phone">{{$customer->mobile_phone}}</td>
-                                                <td class="email">{{$customer->email}}</td>
+                                                <td class="no">1</td>
+                                                <td class="full_name">full name</td>
+                                                <td class="mobile_phone">mobile phone</td>
+                                                <td class="email">email</td>
                                                 <td class="text-center chose">
                                                     <div class="form-check form-check-inline mr-1">
                                                         <input class="form-check-input" id="radio{{$customer->id}}" type="radio" value="{{$customer->id}}" name="customer_id">
@@ -147,7 +147,6 @@
         let fullName = $('#searchCustomerModal input[name=full_name]').val();
         let email = $('#searchCustomerModal input[name=email]').val();
         let phoneNumber = $('#searchCustomerModal input[name=phone_number]').val();
-        console.log(email);
         let url = urlSearchCustomer;
         let data = {full_name : fullName, email : email, phone_number:phoneNumber}
         var params = {

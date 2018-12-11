@@ -52,4 +52,9 @@ class CustomerController extends Controller
         $customers = $this->customerService->searchCustomer($request->full_name, $request->email,$request->phone_number);
         return $this->json($customers);
     }
+
+    public function createAjax(Request $request){
+        $customer = $this->customerService->create($request);
+        return $this->json($customer);
+    }
 }

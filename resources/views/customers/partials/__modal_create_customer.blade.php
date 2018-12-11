@@ -146,7 +146,7 @@
                 <div class="modal-footer">
                     {{--<button class="btn btn-danger btn-delete" type="button">Delete</button>--}}
                     <button class="btn btn-secondary name-cancel pull-right" type="button" data-dismiss="modal">Cancel</button>
-                    <button class="btn btn-primary" type="submit" formnovalidate>
+                    <button class="btn btn-primary btn-save-customer" type="button" formnovalidate>
                         <span class="ladda-label">Save</span>
                     </button>
                 </div>
@@ -155,3 +155,44 @@
 
     </div>
 </div>
+
+<script>
+    let urlCreateCustomer = "{{route('customer.create_ajax')}}";
+    $(document).ready(function(){
+        $('.btn-save-customer').on('click',function(){
+            let firstName = $('input[name=first_name]').val();
+            let lastName = $('input[name=last_name]').val();
+            let password = $('input[name=password]').val();
+            let confirmPassword = $('input[name=confirm_password]').val();
+            let birthday = $('input[name=birthday]').val();
+            let email = $('input[name=email]').val();
+            let mobilePhone = $('input[name=mobile_phone]').val();
+            let groupId = $('select[name=group_id]').val();
+            let provinceId = $('select[name=province_id]').val();
+            let districtId = $('select[name=district_id]').val();
+            let note = $('input[name=note]').val();
+            let gender = $('input[name=gender]:checked').val();
+            let isActive = $('input[name=is_active]').prop("checked") ? 'On' : 'Off';
+
+            let url = urlCreateCustomer;
+            let data = {first_name : firstName, last_name : lastName, password : password, confirm_password : confirmPassword, birthday : birthday, email: email,
+                mobile_phone : mobilePhone, group_id : groupId , province_id : provinceId, district_id : districtId, note : note, gender : gender, is_active : isActive};
+
+            var params = {
+                type: 'POST',
+                url: url,
+                data: data,
+                dataType: 'json',
+                success: function(data) {
+                    let full_name = data.first_name + ' ' + data.last_name;
+                    let phone_number = data.mobile_phone;
+                    let email = data.email;
+                    let customerId = data.id;
+                    $("#createCustomerModal").modal('toggle');
+                    return returnSelectCustomer(full_name, phone_number, email, customerId);
+                }
+            };
+            jQuery.ajax(params);
+        });
+    });
+</script>

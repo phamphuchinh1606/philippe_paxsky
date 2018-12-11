@@ -1,14 +1,35 @@
 <?php use App\Common\AppCommon; ?>
 
 <script>
+    $(document).ready(function(){
+        eventDeleteCustomer();
+    });
+
+    function eventDeleteCustomer(){
+        $('.table-customer a.delete-customer').on('click',function(){
+            let trItem = $(this).closest('tr');
+            trItem.remove();
+        });
+    }
+
     function returnSelectCustomer(full_name, phone_number, email, customer_id){
         let tbodyTable = $('table.table-customer tbody');
-        let dataRecord = $('#templateRecordCustomer').clone();
-        dataRecord.find('.full_name').html(full_name);
-        dataRecord.find('.mobile_phone').html(phone_number);
-        dataRecord.find('.email').html(email);
-        dataRecord.find('input[name=customer_id]').val(customer_id);
-        tbodyTable.append(dataRecord.find('tbody').html());
+        let bAdd = true;
+        tbodyTable.find('input[name=customer_id]').each(function(){
+            let id = $(this).val();
+            if(id == customer_id){
+                bAdd = false;
+            }
+        });
+        if(bAdd){
+            let dataRecord = $('#templateRecordCustomer').clone();
+            dataRecord.find('.full_name').html(full_name);
+            dataRecord.find('.mobile_phone').html(phone_number);
+            dataRecord.find('.email').html(email);
+            dataRecord.find('input[name=customer_id]').val(customer_id);
+            tbodyTable.append(dataRecord.find('tbody').html());
+            eventDeleteCustomer();
+        }
     }
 </script>
 <div class="card">
@@ -61,7 +82,7 @@
                             <td class="email">{{$customer->email}}</td>
                             <td></td>
                             <td class="text-center">
-                                    <a data-toggle="modal" href="#deleteModal">
+                                    <a class="delete-customer" href="#">
                                         <i class="fa fa-trash-o"></i>
                                     </a>
                                     <input type="hidden" name="customer_id" value="" />

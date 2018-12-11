@@ -72,7 +72,9 @@
                                                         {{$customer->full_name}}
                                                     </td>
                                                     <td>
-                                                        {{$customer->groupCustomer->group_name}}
+                                                        @if(isset($customer->groupCustomer))
+                                                            {{$customer->groupCustomer->group_name}}
+                                                        @endif
                                                     </td>
                                                     <td>
                                                         {{$customer->email}}

@@ -31,4 +31,6 @@ Route::get('/office/update/{id}', 'OfficeController@showUpdate')->name('office.u
 Route::post('/office/update/{id}', 'OfficeController@update')->name('office.update');
 Route::post('/office/delete/{id}', 'OfficeController@destroy')->name('office.delete');
 
+Route::get('/office/search','OfficeController@searchOffice')->name('office.search');
+
 

@@ -27,7 +27,14 @@ class ContractController extends Controller
     }
 
     public function create(Request $request){
-        $this->officeService->create($request);
+        $this->contractService->create($request);
         return redirect()->route('office.index')->with('success','Create office success');
+    }
+
+    public function showUpdate($id){
+        $contract = $this->contractService->find($id);
+        $customer = new Customer();
+        $customer->init();
+        return $this->showView('update',['contract' => $contract, 'customer' => $customer]);
     }
 }

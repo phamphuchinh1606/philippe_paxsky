@@ -167,7 +167,7 @@
                         dataRecord.find('.email').html(customer.email);
                         dataRecord.find('.form-check-input').attr('id','radio' + customer.id);
                         dataRecord.find('.form-check-label').attr('for','radio' + customer.id);
-                        dataRecord.find('.form-check-label').val(customer.id);
+                        dataRecord.find('.form-check-input').val(customer.id);
                         tbody.append(dataRecord.find('tbody').html());
                         $indexCustomer++;
                     })

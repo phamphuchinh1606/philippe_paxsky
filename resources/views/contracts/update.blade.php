@@ -1,6 +1,6 @@
 @extends('layouts.master')
 
-@section('head.title','Create Contract')
+@section('head.title','Update Contract')
 
 @section('head.css')
     <link href="{{asset('css/plugins/select2.min.css')}}" rel="stylesheet">
@@ -21,7 +21,7 @@
         <div id="ui-view">
             <div>
                 <div class="animated fadeIn">
-                    <form method="post" id="form-building" action="{{route('contract.create')}}" enctype="multipart/form-data"
+                    <form method="post" id="form-building" action="{{route('contract.update',['id' => $contract->id])}}" enctype="multipart/form-data"
                           id="form">
                         @csrf
                         <div class="row">

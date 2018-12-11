@@ -13,4 +13,8 @@ class RentalContract extends Model
     public function customers(){
         return $this->hasMany('App\Models\RentalContractCustomer','rental_contract_id');
     }
+
+    public function offices(){
+        return $this->hasMany('App\Models\RentalContractDetail','rental_contract_id');
+    }
 }

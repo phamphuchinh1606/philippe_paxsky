@@ -45,4 +45,10 @@ class OfficeController extends Controller
         $this->officeService->destroy($id);
         return redirect()->route('office.index')->with('success','Delete office success');
     }
+
+    //    Ajax
+    public function searchOffice(Request $request){
+        $offices = $this->officeService->searchOffice($request->building_id, $request->office_name,$request->floor);
+        return $this->json($offices);
+    }
 }

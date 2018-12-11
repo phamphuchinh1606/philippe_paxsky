@@ -3,6 +3,7 @@
 namespace App\Models;
 
 use Illuminate\Database\Eloquent\Model;
+use App\Common\AppCommon;
 
 class Office extends Model
 {
@@ -21,6 +22,10 @@ class Office extends Model
 //        $office->image_src = $this->image_src;
 //        return $office;
 //    }
+
+    public function getFloorNameAttribute(){
+        return AppCommon::getFloorNameOffice($this->floor);
+    }
 
     public function building(){
         return $this->belongsTo('App\Models\Building','building_id');

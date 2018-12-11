@@ -26,7 +26,7 @@
             dataRecord.find('.full_name').html(full_name);
             dataRecord.find('.mobile_phone').html(phone_number);
             dataRecord.find('.email').html(email);
-            dataRecord.find('input[name=customer_id]').val(customer_id);
+            dataRecord.find('input.customer_id').val(customer_id);
             tbodyTable.append(dataRecord.find('tbody').html());
             eventDeleteCustomer();
         }
@@ -69,23 +69,37 @@
                     </tr>
                     </thead>
                     <tbody>
-                    @foreach($contract->customers as $index => $customer)
+                    @if(isset($contract->customers))
+                        @foreach($contract->customers as $index => $customer)
+                            <tr>
+                                <td class="full_name">{{$customer->customer->first_name . ' ' . $customer->customer->last_name}}</td>
+                                <td class="mobile_phone">{{$customer->customer->mobile_phone}}</td>
+                                <td class="email">{{$customer->customer->email}}</td>
+                                <td></td>
+                                <td class="text-center">
+                                    <a class="delete-customer" href="#">
+                                        <i class="fa fa-trash-o"></i>
+                                    </a>
+                                    <input type="hidden" class="customer_id" name="customer_id[]" value="{{$customer->id}}" />
+                                </td>
+                            </tr>
+                        @endforeach
+                    @endif
 
-                    @endforeach
                     </tbody>
                 </table>
                 <div style="display: none" id="templateRecordCustomer">
                     <table>
                         <tr>
-                            <td class="full_name">{{$customer->full_name}}</td>
-                            <td class="mobile_phone">{{$customer->mobile_phone}}</td>
-                            <td class="email">{{$customer->email}}</td>
+                            <td class="full_name"></td>
+                            <td class="mobile_phone"></td>
+                            <td class="email"></td>
                             <td></td>
                             <td class="text-center">
                                     <a class="delete-customer" href="#">
                                         <i class="fa fa-trash-o"></i>
                                     </a>
-                                    <input type="hidden" name="customer_id" value="" />
+                                    <input type="hidden" class="customer_id" name="customer_id[]" value="" />
                             </td>
                         </tr>
                     </table>

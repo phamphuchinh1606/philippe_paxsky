@@ -47,11 +47,14 @@
                                         <table class="table appointment-list table-striped table-bordered datatable dataTable no-footer" role="grid" aria-describedby="DataTables_Table_0_info" style="border-collapse: collapse !important">
                                             <thead>
                                             <tr role="row">
+                                                <th class="no">
+                                                    No.
+                                                </th>
                                                 <th class="status">
                                                     Status
                                                 </th>
                                                 <th class="contract-number">
-                                                    Contract Number
+                                                    Contract Code
                                                 </th>
                                                 <th class="company-name">
                                                     Company Name
@@ -74,43 +77,37 @@
                                             </thead>
                                             <tbody>
                                             @foreach($contracts as $index => $contract)
-                                                {{--<tr role="row" class="odd" id="{{$appointment->id}}">--}}
-                                                    {{--<td class="text-center">--}}
+                                                <tr role="row" class="odd" id="{{$contract->id}}">
+                                                    <td>{{$index+1}}</td>
+                                                    <td class="text-center">
                                                         {{--<span class="badge {{$appointment->status_class}}">{{$appointment->status_name}}</span>--}}
-                                                    {{--</td>--}}
-                                                    {{--<td>--}}
-                                                        {{--{{$appointment->date_str}}--}}
-                                                    {{--</td>--}}
-                                                    {{--<td>--}}
-                                                        {{--{{$appointment->time_str}}--}}
-                                                    {{--</td>--}}
-                                                    {{--<td>--}}
-                                                        {{--{{$appointment->full_name}}--}}
-                                                    {{--</td>--}}
-                                                    {{--<td>--}}
-                                                        {{--@if(isset($appointment->user))--}}
-                                                            {{--{{$appointment->user->first_name.' '.$appointment->user->last_name}}--}}
-                                                        {{--@endif--}}
-                                                    {{--</td>--}}
-                                                    {{--<td>--}}
-                                                        {{--@if(isset($appointment->building))--}}
-                                                            {{--{{$appointment->building->name}}--}}
-                                                        {{--@endif--}}
-                                                    {{--</td>--}}
-                                                    {{--<td>--}}
-                                                        {{--<div class="form-group">--}}
-                                                            {{--@for($i = 0 ; $i < $appointment->rate ; $i++)--}}
-                                                                {{--<span class="fa fa-star checked"></span>--}}
-                                                            {{--@endfor--}}
-                                                            {{--@for($i = $appointment->rate ; $i < 5 ; $i++)--}}
-                                                                {{--<span class="fa fa-star"></span>--}}
-                                                            {{--@endfor--}}
-                                                        {{--</div>--}}
-                                                    {{--</td>--}}
-                                                    {{--<td>--}}
-                                                        {{--{{$appointment->note}}--}}
-                                                    {{--</td>--}}
-                                                {{--</tr>--}}
+                                                    </td>
+                                                    <td>
+                                                        {{$contract->contract_code}}
+                                                    </td>
+                                                    <td>
+                                                        {{$contract->company_name}}
+                                                    </td>
+                                                    <td>
+                                                        @if(isset($contract->user))
+                                                            {{$contract->user->first_name.' '.$contract->user->last_name}}
+                                                        @endif
+                                                    </td>
+                                                    <td>
+                                                        {{$contract->start_date}}
+                                                    </td>
+                                                    <td>
+                                                        {{$contract->end_date}}
+                                                    </td>
+                                                    <td>
+                                                        {{$contract->total_amount}}
+                                                    </td>
+                                                    <td class="text-center app-col-action">
+                                                        <a class="btn btn-info" href="{{route('contract.update',['id' => $contract->id])}}">
+                                                            <i class="fa fa-edit"></i>
+                                                        </a>
+                                                    </td>
+                                                </tr>
                                             @endforeach
                                             </tbody>
                                         </table>

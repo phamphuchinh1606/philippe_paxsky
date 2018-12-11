@@ -5,6 +5,7 @@
         margin-right: 72%;
     }
 </style>
+
 <div class="modal fade" id="searchOfficeModal" tabindex="-1" role="dialog" aria-labelledby="myModalLabel" aria-hidden="true" style="display: none;">
     <div class="modal-dialog modal-lg modal-primary" role="document">
         <div class="modal-content">
@@ -16,6 +17,7 @@
                 <div class="modal-body">
                     <div class="row">
                         <div class="col-xl-4 col-md-12">
+                            <label class="col-form-label font-weight-bold" for="building_id">Building</label>
                             @include('common.__select_building',['selectName' => 'building_id'])
                         </div>
                         <div class="col-xl-4 col-md-12">
@@ -26,7 +28,8 @@
                            ])
                         </div>
                         <div class="col-xl-4 col-md-12">
-                            @include('common.__select_floor_office',['selectName' => 'floor'])
+                            <label class="col-form-label font-weight-bold" for="floor">Floor</label>
+                            @include('common.__select_floor_office_2-1',['selectName' => 'floor', 'defaultValue' => ''])
                         </div>
                     </div>
                     <div class="row">
@@ -39,19 +42,19 @@
                                     <table class="table table-striped table-bordered datatable dataTable no-footer" role="grid" aria-describedby="DataTables_Table_0_info" style="border-collapse: collapse !important">
                                         <thead>
                                         <tr role="row">
-                                            <th>
+                                            <th class="no">
                                                 No.
                                             </th>
-                                            <th class="status">
+                                            <th class="office-name">
                                                 Office Name
                                             </th>
-                                            <th class="contract-number">
+                                            <th class="building">
                                                 Building
                                             </th>
-                                            <th class="company-name">
+                                            <th class="floor">
                                                 Floor
                                             </th>
-                                            <th class="company-name">
+                                            <th class="acreage-rent">
                                                 Acreage Rent
                                             </th>
                                             <th class="action">
@@ -75,17 +78,19 @@
                                         {{--@endforeach--}}
                                         </tbody>
                                     </table>
-                                    <div style="display: none" id="templateRecord">
+                                    <div style="display: none" id="templateOfficeRecord">
                                         <table>
                                             <tr>
-                                                <td class="no">{{$index+1}}</td>
-                                                <td class="full_name">{{$customer->full_name}}</td>
-                                                <td class="mobile_phone">{{$customer->mobile_phone}}</td>
-                                                <td class="email">{{$customer->email}}</td>
+                                                <td class="no">1</td>
+                                                <td class="office-name">office</td>
+                                                <td class="building">building</td>
+                                                <td class="floor">floor</td>
+                                                <td class="acreage-rent text-right"></td>
                                                 <td class="text-center chose">
                                                     <div class="form-check form-check-inline mr-1">
-                                                        <input class="form-check-input" id="radio{{$customer->id}}" type="radio" value="{{$customer->id}}" name="customer_id">
-                                                        <label class="form-check-label" for="radio{{$customer->id}}">Chose</label>
+                                                        <input class="form-check-input" id="radio-1" type="radio" value="" name="office_id">
+                                                        <input type="hidden" value="" name="price">
+                                                        <label class="form-check-label" for="radio-1">Chose</label>
                                                     </div>
                                                 </td>
                                             </tr>
@@ -100,7 +105,7 @@
                 <div class="modal-footer">
                     {{--<button class="btn btn-danger btn-delete" type="button">Delete</button>--}}
                     <button class="btn btn-secondary name-cancel pull-right" type="button" data-dismiss="modal">Cancel</button>
-                    <button class="btn btn-primary" type="button" onclick="return false;" id="btn-selected" formnovalidate>
+                    <button class="btn btn-primary" type="button" onclick="return false;" id="btn-selected-office" formnovalidate>
                         <span class="ladda-label">Chose</span>
                     </button>
                 </div>
@@ -111,61 +116,68 @@
 </div>
 
 <script>
-    let urlSearchCustomer = "{{route('customer.search')}}";
+    let urlSearchOffice = "{{route('office.search')}}";
     $(document).ready(function(){
-        $('#searchCustomerModal input[name=full_name]').on('change',function(){
-            changeSearch();
+        $( "#searchOfficeModal" ).on('shown.bs.modal', function(){
+            changeSearchOffice();
         });
-        $('#searchCustomerModal input[name=email]').on('change',function(){
-            changeSearch();
+        $('#searchOfficeModal select[name=building_id]').on('change',function(){
+            changeSearchOffice();
         });
-        $('#searchCustomerModal input[name=phone_number]').on('change',function(){
-            changeSearch();
+        $('#searchOfficeModal input[name=office_name]').on('change',function(){
+            changeSearchOffice();
+        });
+        $('#searchOfficeModal select[name=floor]').on('change',function(){
+            changeSearchOffice();
         });
 
-        $('#btn-selected').on('click',function(){
-            $('input[name=customer_id]').each(function(){
+        $('#btn-selected-office').on('click',function(){
+            $('input[name=office_id]').each(function(){
                 if($(this).prop('checked')){
                     let trData = $(this).closest('tr');
-                    let full_name = trData.find('.full_name').html();
-                    let phone_number = trData.find('.mobile_phone').html();
-                    let email = trData.find('.email').html();
-                    let customerId = $(this).val();
-                    $("#searchCustomerModal").modal('toggle');
-                    return returnSelectCustomer(full_name, phone_number, email, customerId);
+                    let office_name = trData.find('.office-name').html();
+                    let building_name = trData.find('.building').html();
+                    let floor = trData.find('.floor').html();
+                    let acreage_rent = trData.find('.acreage-rent').html();
+                    let price = trData.find('input[name=price]').val();
+                    let office_id = $(this).val();
+                    $("#searchOfficeModal").modal('toggle');
+                    return returnSelectOffice(office_name, building_name, floor, acreage_rent, price, office_id);
                 }
             });
         })
     });
 
-    function changeSearch(){
-        let fullName = $('#searchCustomerModal input[name=full_name]').val();
-        let email = $('#searchCustomerModal input[name=email]').val();
-        let phoneNumber = $('#searchCustomerModal input[name=phone_number]').val();
-        console.log(email);
-        let url = urlSearchCustomer;
-        let data = {full_name : fullName, email : email, phone_number:phoneNumber}
+    function changeSearchOffice(){
+        let buildingId = $('#searchOfficeModal select[name=building_id]').val();
+        let officeName = $('#searchOfficeModal input[name=office_name]').val();
+        let floor = $('#searchOfficeModal select[name=floor]').val();
+        let url = urlSearchOffice;
+        let data = {building_id : buildingId, office_name : officeName, floor : floor};
         var params = {
             type: 'GET',
             url: url,
             data: data,
             dataType: 'json',
             success: function(data) {
-                let tbody = $('#searchCustomerModal table.table tbody');
+                console.log(data);
+                let tbody = $('#searchOfficeModal table.table tbody');
                 tbody.html('');
                 if(data.data.length > 0){
-                    $indexCustomer = 1;
-                    data.data.forEach(function(customer){
-                        let dataRecord = $('#templateRecord').clone(true);
-                        dataRecord.find('.no').html($indexCustomer);
-                        dataRecord.find('.full_name').html(customer.first_name + ' ' + customer.last_name);
-                        dataRecord.find('.mobile_phone').html(customer.mobile_phone);
-                        dataRecord.find('.email').html(customer.email);
-                        dataRecord.find('.form-check-input').attr('id','radio' + customer.id);
-                        dataRecord.find('.form-check-label').attr('for','radio' + customer.id);
-                        dataRecord.find('.form-check-label').val(customer.id);
+                    $indexOffice = 1;
+                    data.data.forEach(function(office){
+                        let dataRecord = $('#templateOfficeRecord').clone(true);
+                        dataRecord.find('.no').html($indexOffice);
+                        dataRecord.find('.office-name').html(office.office_name);
+                        dataRecord.find('.building').html(office.building_name);
+                        dataRecord.find('.floor').html(office.floor_name);
+                        dataRecord.find('.acreage-rent').html(office.acreage_rent + ' m2');
+                        dataRecord.find('.form-check-input').attr('id','radio-' + office.id);
+                        dataRecord.find('.form-check-label').attr('for','radio-' + office.id);
+                        dataRecord.find('.form-check-input').val(office.id);
+                        dataRecord.find('input[name=price]').val(150 + ' $');
                         tbody.append(dataRecord.find('tbody').html());
-                        $indexCustomer++;
+                        $indexOffice++;
                     })
                 }
             }

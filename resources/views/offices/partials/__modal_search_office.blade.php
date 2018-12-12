@@ -7,12 +7,15 @@
 </style>
 
 <div class="modal fade" id="searchOfficeModal" tabindex="-1" role="dialog" aria-labelledby="myModalLabel" aria-hidden="true" style="display: none;">
-    <div class="modal-dialog modal-lg modal-primary" role="document">
+    <div class="modal-dialog modal-lg modal-success" role="document">
         <div class="modal-content">
-            <form class="inline" action="" method="post" id="formCustomer">
+            <form class="inline" action="" method="post" id="formOffice">
                 @csrf
                 <div class="modal-header">
                     <h4 class="modal-title">Search Office</h4>
+                    <button class="close" type="button" data-dismiss="modal" aria-label="Close">
+                        <span aria-hidden="true">×</span>
+                    </button>
                 </div>
                 <div class="modal-body">
                     <div class="row">

@@ -9,7 +9,7 @@
                 @include('common.tagHtml.__input_double',[
                     'labelInput' => 'Amount',
                     'placeHolder' => 'Amount',
-                    'inputName' => 'Amount',
+                    'inputName' => 'amount',
                     'inputValue' => $contract->amount
                 ])
             </div>

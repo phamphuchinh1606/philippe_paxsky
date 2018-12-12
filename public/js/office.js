@@ -28,5 +28,6 @@ jQuery(document).ready(function ($) {
             }
         };
         jQuery.ajax(params);
-    })
+    });
+    $('select[name=office_layout_id]').change();
 });

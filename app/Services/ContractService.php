@@ -35,7 +35,7 @@ class ContractService extends BaseService{
     }
 
     private function getContractInfo(Request $request, $contract = null){
-        if(!isset($customer)){
+        if(!isset($contract)){
             $contract = new RentalContract();
         }
         $contract->contract_code = $request->contract_code;
@@ -93,21 +93,25 @@ class ContractService extends BaseService{
                     $customers = $data->customers;
                     if(isset($customers)){
                         foreach ($customers as $customerId){
-                            $contractCustomer = new RentalContractCustomer();
-                            $contractCustomer->customer_id = $customerId;
-                            $contractCustomer->rental_contract_id = $contract->id;
-                            $this->contractLogic->saveContractCustomer($contractCustomer);
+                            if(isset($customerId)){
+                                $contractCustomer = new RentalContractCustomer();
+                                $contractCustomer->customer_id = $customerId;
+                                $contractCustomer->rental_contract_id = $contract->id;
+                                $this->contractLogic->saveContractCustomer($contractCustomer);
+                            }
                         }
                     }
 
                     $offices = $data->offices;
                     if(isset($offices)){
                         foreach ($offices as $officeId){
-                            $contractDetail  = new RentalContractDetail();
-                            $contractDetail->rental_contract_id = $contract->id;
-                            $contractDetail->office_id = $officeId;
-                            $contractDetail->rent_cost = 100;
-                            $this->contractLogic->saveContractDetail($contractDetail);
+                            if(isset($officeId)){
+                                $contractDetail  = new RentalContractDetail();
+                                $contractDetail->rental_contract_id = $contract->id;
+                                $contractDetail->office_id = $officeId;
+                                $contractDetail->rent_cost = 100;
+                                $this->contractLogic->saveContractDetail($contractDetail);
+                            }
                         }
                     }
                 }
@@ -118,6 +122,54 @@ class ContractService extends BaseService{
             }
         }
         return $contract;
+    }
+
+    public function update(Request $request){
+        $contract = $this->contractLogic->find($request->contract_id);
+        if(isset($contract)){
+            $data = $this->getContractInfo($request,$contract);
+            $contract = $data->contract;
+            if(isset($contract->id)){
+                try{
+                    DB::beginTransaction();
+                    $this->contractLogic->destroyContractCustomer($contract->id);
+                    $this->contractLogic->destroyContractDetail($contract->id);
+                    $contract = $this->contractLogic->save($contract);
+                    if(isset($contract)){
+                        $customers = $data->customers;
+                        if(isset($customers)){
+                            foreach ($customers as $customerId){
+                                if(isset($customerId)){
+                                    $contractCustomer = new RentalContractCustomer();
+                                    $contractCustomer->customer_id = $customerId;
+                                    $contractCustomer->rental_contract_id = $contract->id;
+                                    $this->contractLogic->saveContractCustomer($contractCustomer);
+                                }
+                            }
+                        }
+
+                        $offices = $data->offices;
+                        if(isset($offices)){
+                            foreach ($offices as $officeId){
+                                if(isset($officeId)){
+                                    $contractDetail  = new RentalContractDetail();
+                                    $contractDetail->rental_contract_id = $contract->id;
+                                    $contractDetail->office_id = $officeId;
+                                    $contractDetail->rent_cost = 100;
+                                    $this->contractLogic->saveContractDetail($contractDetail);
+                                }
+                            }
+                        }
+                    }
+                    DB::commit();
+
+                }catch (\Exception $ex){
+                    DB::rollBack();
+                    throw $ex;
+                }
+            }
+        }
+
     }
 
 }

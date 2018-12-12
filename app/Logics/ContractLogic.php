@@ -47,11 +47,19 @@ class ContractLogic extends BaseLogic{
 
     //Contract Customer
     public function getContractCustomerByContractId($contractId){
-        return RentalContractCustomer::where('contract_id',$contractId)->get();
+        return RentalContractCustomer::where('rental_contract_id',$contractId)->get();
+    }
+
+    public function destroyContractCustomer($contractId){
+        return RentalContractCustomer::where('rental_contract_id',$contractId)->delete();
     }
 
     //Contract Detail
     public function getContractDetailByContractId($contractId){
-        return RentalContractDetail::where('contract_id',$contractId)->get();
+        return RentalContractDetail::where('rental_contract_id',$contractId)->get();
+    }
+
+    public function destroyContractDetail($contractId){
+        return RentalContractDetail::where('rental_contract_id',$contractId)->delete();
     }
 }

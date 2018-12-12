@@ -36,7 +36,7 @@
     <div class="card-header">
         <i class="icon-note"></i> List Representative
         <div class="card-header-actions">
-            <a data-toggle="modal" class="btn btn-outline-primary active"
+            <a data-toggle="modal" class="btn btn-outline-success active"
                href="#searchCustomerModal" id="btn-new-appointment">
                 Search Customer
             </a>
@@ -71,18 +71,20 @@
                     <tbody>
                     @if(isset($contract->customers))
                         @foreach($contract->customers as $index => $customer)
-                            <tr>
-                                <td class="full_name">{{$customer->customer->first_name . ' ' . $customer->customer->last_name}}</td>
-                                <td class="mobile_phone">{{$customer->customer->mobile_phone}}</td>
-                                <td class="email">{{$customer->customer->email}}</td>
-                                <td></td>
-                                <td class="text-center">
-                                    <a class="delete-customer" href="#">
-                                        <i class="fa fa-trash-o"></i>
-                                    </a>
-                                    <input type="hidden" class="customer_id" name="customer_id[]" value="{{$customer->id}}" />
-                                </td>
-                            </tr>
+                            @if(isset($customer->customer))
+                                <tr>
+                                    <td class="full_name">{{$customer->customer->first_name . ' ' . $customer->customer->last_name}}</td>
+                                    <td class="mobile_phone">{{$customer->customer->mobile_phone}}</td>
+                                    <td class="email">{{$customer->customer->email}}</td>
+                                    <td></td>
+                                    <td class="text-center">
+                                        <a class="delete-customer" href="#">
+                                            <i class="fa fa-trash-o"></i>
+                                        </a>
+                                        <input type="hidden" class="customer_id" name="customer_id[]" value="{{$customer->customer->id}}" />
+                                    </td>
+                                </tr>
+                            @endif
                         @endforeach
                     @endif
 

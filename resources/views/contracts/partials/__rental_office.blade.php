@@ -6,7 +6,7 @@
     });
 
     function eventDeleteOffice(){
-        $('.table-customer a.delete-office').on('click',function(){
+        $('.table-office a.delete-office').on('click',function(){
             let trItem = $(this).closest('tr');
             trItem.remove();
         });
@@ -38,7 +38,7 @@
     <div class="card-header">
         <i class="icon-note"></i> List Office
         <div class="card-header-actions">
-            <a data-toggle="modal" class="btn btn-outline-primary active"
+            <a data-toggle="modal" class="btn btn-outline-success active"
                href="#searchOfficeModal" id="btn-new-appointment">
                 Search Office
             </a>
@@ -73,12 +73,15 @@
                                 <td class="office_name">{{$office->office->office_name}}</td>
                                 <td class="floor">{{$office->office->floorName}}</td>
                                 <td class="acreage_rent text-right">{{$office->office->acreage_rent}}</td>
-                                <td class="price text-right">{{$office->rent_cost}}</td>
+                                <td class="price text-right">
+                                    {{$office->rent_cost}}
+                                    {{\App\Common\Constant::$UNIT_RENT_COST}}
+                                </td>
                                 <td class="text-center">
                                     <a class="delete-office" href="#">
                                         <i class="fa fa-trash-o"></i>
                                     </a>
-                                    <input type="hidden" class="office_id" name="office_id[]" value="" />
+                                    <input type="hidden" class="office_id" name="office_id[]" value="{{$office->office->id}}" />
                                 </td>
                             </tr>
                         @endforeach

@@ -24,6 +24,7 @@
                     <form method="post" id="form-building" action="{{route('contract.update',['id' => $contract->id])}}" enctype="multipart/form-data"
                           id="form">
                         @csrf
+                        <input type="hidden" name="contract_id" value="{{$contract->id}}"/>
                         <div class="row">
                             <div class="col-md-6">
                                 @include('contracts.partials.__contract_info')
@@ -45,7 +46,7 @@
                                 <div class="card">
                                     <div class="card-footer text-center">
                                         <button class="btn btn-primary submit-building" type="submit">
-                                            <i class="fa fa-dot-circle-o"></i> Create
+                                            <i class="fa fa-dot-circle-o"></i> Update
                                         </button>
                                         <button class="btn btn-danger" type="reset">
                                             <i class="fa fa-ban"></i> Cancel</button>

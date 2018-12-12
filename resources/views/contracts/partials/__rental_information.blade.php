@@ -41,7 +41,7 @@
             </div>
         </div>
         <div class="row">
-            <div class="col-xl-6 col-md-12">
+            <div class="col-xl-4 col-md-12">
                 @include('common.tagHtml.__input_date',[
                    'labelInput' => 'Start Date',
                    'placeHolder' => 'Start date',
@@ -49,7 +49,7 @@
                    'inputValue' => $contract->start_date
                ])
             </div>
-            <div class="col-xl-6 col-md-12">
+            <div class="col-xl-4 col-md-12">
                 @include('common.tagHtml.__input_date',[
                    'labelInput' => 'End Date',
                    'placeHolder' => 'End date',
@@ -57,11 +57,15 @@
                    'inputValue' => $contract->end_date
                ])
             </div>
+            <div class="col-xl-4 col-md-12">
+                <label class="col-form-label font-weight-bold" for="status">Status</label>
+                @include('common.status.__select_contract_status',['selectName' => 'status', 'defaultValue' => AppCommon::showValueOld('building_id',$contract->status)])
+            </div>
         </div>
         <div class="row">
             <div class="col-xl-6 col-md-12">
                 <div class="form-group">
-                    <label class="col-form-label" for="direction">Building</label>
+                    <label class="col-form-label font-weight-bold" for="direction">Building</label>
                     @include('common.__select_building',['selectName' => 'building_id','defaultValue' => AppCommon::showValueOld('building_id',$contract->building_id)])
                 </div>
             </div>

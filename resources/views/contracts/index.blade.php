@@ -47,28 +47,28 @@
                                         <table class="table appointment-list table-striped table-bordered datatable dataTable no-footer" role="grid" aria-describedby="DataTables_Table_0_info" style="border-collapse: collapse !important">
                                             <thead>
                                             <tr role="row">
-                                                <th class="no">
+                                                <th class="no text-center">
                                                     No.
                                                 </th>
-                                                <th class="status">
+                                                <th class="status text-center">
                                                     Status
                                                 </th>
-                                                <th class="contract-number">
+                                                <th class="contract-number text-center">
                                                     Contract Code
                                                 </th>
-                                                <th class="company-name">
+                                                <th class="company-name text-center">
                                                     Company Name
                                                 </th>
-                                                <th class="charge-user">
+                                                <th class="charge-user text-center">
                                                     Charge User
                                                 </th>
-                                                <th class="start-date">
+                                                <th class="start-date text-center">
                                                     Start Date
                                                 </th>
-                                                <th class="end-date">
+                                                <th class="end-date text-center">
                                                     End Date
                                                 </th>
-                                                <th class="contract-amount">
+                                                <th class="contract-amount text-center">
                                                     Amount
                                                 </th>
                                                 <th class="action">
@@ -80,7 +80,7 @@
                                                 <tr role="row" class="odd" id="{{$contract->id}}">
                                                     <td>{{$index+1}}</td>
                                                     <td class="text-center">
-                                                        {{--<span class="badge {{$appointment->status_class}}">{{$appointment->status_name}}</span>--}}
+                                                        <span class="badge {{$contract->status_class}}">{{$contract->status_name}}</span>
                                                     </td>
                                                     <td>
                                                         {{$contract->contract_code}}
@@ -94,13 +94,14 @@
                                                         @endif
                                                     </td>
                                                     <td>
-                                                        {{$contract->start_date}}
+                                                        {{$contract->start_date_str}}
                                                     </td>
                                                     <td>
-                                                        {{$contract->end_date}}
+                                                        {{$contract->end_date_str}}
                                                     </td>
-                                                    <td>
-                                                        {{$contract->total_amount}}
+                                                    <td class="text-right">
+                                                        {{\App\Common\NumberUtils::formatDouble($contract->total_amount)}}
+                                                        {{\App\Common\Constant::$UNIT_AMOUNT}}
                                                     </td>
                                                     <td class="text-center app-col-action">
                                                         <a class="btn btn-info" href="{{route('contract.update',['id' => $contract->id])}}">

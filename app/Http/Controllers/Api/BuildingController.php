@@ -51,4 +51,18 @@ class BuildingController extends ControllerApi
         $result->acreage_rent_array = $data->acreageRentArray;
         return $this->json($result);
     }
+
+    public function imageFirst(Request $request){
+        $result = new \StdClass();
+        if(isset($request->building_id)){
+            $listImage = $this->buildingImageService->getImageByBuilding($request->building_id);
+            if(isset($listImage) && count($listImage) > 0){
+                $result->src_image = ImageCommon::showImage($listImage[0]->src_image);
+            }else{
+                $building = $this->buildingService->find($request->building_id);
+                $result->src_image = ImageCommon::showImage($building->main_image);
+            }
+        }
+        return $this->json($result);
+    }
 }

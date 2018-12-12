@@ -44,6 +44,7 @@ class Constant{
     public static $UNIT_ACREAGE = "m2";
     public static $UNIT_RENT_COST = "$/m2";
     public static $UNIT_ELECTRIC_COST = "K/W giờ";
+    public static $UNIT_AMOUNT = "$";
 
     public static $GENDER_MALE = "male";
     public static $GENDER_FEMALE = "female";
@@ -62,5 +63,23 @@ class Constant{
     public static $APPOINTMENT_STATUS_CANCEL_NAME = "Cancel";
     public static $APPOINTMENT_STATUS_DONE = "3";
     public static $APPOINTMENT_STATUS_DONE_NAME = "Done";
+
+    //Status Contract
+    public static $CONTRACT_STATUS_NEW = 0;
+    public static $CONTRACT_STATUS_NEW_NAME = "New";
+    public static $CONTRACT_STATUS_BOOKING = 1;
+    public static $CONTRACT_STATUS_BOOKING_NAME = "Booking";
+    public static $CONTRACT_STATUS_RENTED = 2;
+    public static $CONTRACT_STATUS_RENTED_NAME = "Rented";
+    public static $CONTRACT_STATUS_EXPIRED = 3;
+    public static $CONTRACT_STATUS_EXPIRED_NAME = "Expired";
+    public static $CONTRACT_STATUS_CANCELLED = 4;
+    public static $CONTRACT_STATUS_CANCELLED_NAME = "Cancelled";
+
+    //Status Contract
+    public static $OFFICE_STATUS_EMPTY = 1;
+    public static $OFFICE_STATUS_PLACED = 2;
+    public static $OFFICE_STATUS_HIRED = 3;
+    public static $OFFICE_STATUS_FIXING = 4;
 
 }

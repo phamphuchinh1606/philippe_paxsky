@@ -58,6 +58,50 @@ class AppCommon{
         return $className;
     }
 
+    public static function nameContractStatus($statusValue){
+        $statusName = "";
+        switch ($statusValue){
+            case Constant::$CONTRACT_STATUS_NEW:
+                $statusName = Constant::$CONTRACT_STATUS_NEW_NAME;
+                break;
+            case Constant::$CONTRACT_STATUS_BOOKING:
+                $statusName = Constant::$CONTRACT_STATUS_BOOKING_NAME;
+                break;
+            case Constant::$CONTRACT_STATUS_RENTED:
+                $statusName = Constant::$CONTRACT_STATUS_RENTED_NAME;
+                break;
+            case Constant::$CONTRACT_STATUS_EXPIRED:
+                $statusName = Constant::$CONTRACT_STATUS_EXPIRED_NAME;
+                break;
+            case Constant::$CONTRACT_STATUS_CANCELLED:
+                $statusName = Constant::$CONTRACT_STATUS_CANCELLED_NAME;
+                break;
+        }
+        return $statusName;
+    }
+
+    public static function classContractStatus($statusValue){
+        $className = "";
+        switch ($statusValue){
+            case Constant::$CONTRACT_STATUS_NEW:
+                $className = '';
+                break;
+            case Constant::$CONTRACT_STATUS_BOOKING:
+                $className = 'badge-warning';
+                break;
+            case Constant::$CONTRACT_STATUS_RENTED:
+                $className = 'badge-primary';
+                break;
+            case Constant::$CONTRACT_STATUS_CANCELLED:
+                $className = 'badge-danger';
+                break;
+            case Constant::$CONTRACT_STATUS_EXPIRED:
+                $className = 'badge-dark';
+                break;
+        }
+        return $className;
+    }
+
     public static function namePublicBuildingType($statusValue){
         $publicName = "";
         switch ($statusValue){

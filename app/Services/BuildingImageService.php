@@ -12,6 +12,10 @@ class BuildingImageService extends BaseService{
         $this->buildingImageLogic = $buildingImageLogic;
     }
 
+    public function getImageByBuilding($buildingId){
+        return $this->buildingImageLogic->getListImageByBuildingId($buildingId);
+    }
+
     public function addImage($buildingId, $image){
         $imageName = AppCommon::moveImageBuilding($image, $buildingId);
         $this->buildingImageLogic->create($buildingId,$imageName,1);

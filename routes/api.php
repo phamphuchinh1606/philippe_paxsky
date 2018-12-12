@@ -25,6 +25,7 @@ Route::post('/customer/create', 'CustomerController@create')->name('api.customer
 
 //Api building
 Route::get('/building','BuildingController@list')->name('api.building');
+Route::get('/building/image-first','BuildingController@imageFirst')->name('api.building.image_first');
 
 //Api Office
 Route::get('/office','OfficeController@listOffice')->name('api.building');

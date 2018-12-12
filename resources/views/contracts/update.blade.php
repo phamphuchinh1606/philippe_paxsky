@@ -14,7 +14,7 @@
 @endsection
 
 @section('body.breadcrumb')
-    {{ Breadcrumbs::render('office.create') }}
+    {{ Breadcrumbs::render('contract.update',$contract->company_name) }}
 @endsection
 @section('body.content')
     <div class="container-fluid">
@@ -48,7 +48,7 @@
                                         <button class="btn btn-primary submit-building" type="submit">
                                             <i class="fa fa-dot-circle-o"></i> Update
                                         </button>
-                                        <button class="btn btn-danger" type="reset">
+                                        <button class="btn btn-danger" type="reset" onclick="window.location='{{route('contract.index')}}'">
                                             <i class="fa fa-ban"></i> Cancel</button>
                                     </div>
                                 </div>

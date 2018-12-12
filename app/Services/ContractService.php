@@ -152,6 +152,7 @@ class ContractService extends BaseService{
 
             }catch (\Exception $ex){
                 DB::rollBack();
+                throw $ex;
             }
         }
         return $contract;

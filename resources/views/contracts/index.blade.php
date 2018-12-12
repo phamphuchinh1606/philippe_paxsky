@@ -18,7 +18,7 @@
 @endsection
 
 @section('body.breadcrumb')
-    {{ Breadcrumbs::render('appointment') }}
+    {{ Breadcrumbs::render('contract') }}
 @endsection
 
 @section('body.content')
@@ -60,7 +60,7 @@
                                                     Company Name
                                                 </th>
                                                 <th class="charge-user text-center">
-                                                    Charge User
+                                                    Assign User
                                                 </th>
                                                 <th class="start-date text-center">
                                                     Start Date

@@ -145,7 +145,7 @@ class OfficeService extends BaseService{
     }
 
     public function searchOffice($buildingId , $officeName, $floor){
-        $offices = $this->officeLogic->searchOffice($buildingId , $officeName, $floor);
+        $offices = $this->officeLogic->searchOffice($buildingId , $officeName, $floor, Constant::$OFFICE_STATUS_EMPTY);
         foreach ($offices as $office){
             $office->floor_name = AppCommon::getFloorNameOffice($office->floor);
             $office->building_name = $office->building->name;

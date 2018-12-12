@@ -209,3 +209,23 @@ Breadcrumbs::for('appointment', function ($trail) {
     $trail->push('List Visit', route('user.index'));
 });
 //========================End Customer===============================================
+
+//Contract Layout ====================================================================
+Breadcrumbs::for('contract', function ($trail) {
+    $trail->parent('home');
+    $trail->push('List Contract', route('contract.index'));
+});
+
+
+//Contract Create
+Breadcrumbs::for('contract.create', function ($trail) {
+    $trail->parent('contract');
+    $trail->push('Create Contract');
+});
+
+//Contract Update
+Breadcrumbs::for('contract.update', function ($trail, $companyName) {
+    $trail->parent('contract');
+    $trail->push($companyName);
+});
+//========================End Customer===============================================

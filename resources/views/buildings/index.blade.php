@@ -97,11 +97,11 @@
                                                         <a class="btn btn-info" href="{{route('building.update',['id' => $building->id])}}">
                                                             <i class="fa fa-edit"></i>
                                                         </a>
-                                                        <a data-toggle="modal" class="btn btn-danger anchorClick"
-                                                           data-url="{{route('building.delete',['id' => $building->id]) }}"
-                                                           data-name="{{$building->name}}" href="#deleteModal">
-                                                            <i class="fa fa-trash-o"></i>
-                                                        </a>
+                                                        {{--<a data-toggle="modal" class="btn btn-danger anchorClick"--}}
+                                                           {{--data-url="{{route('building.delete',['id' => $building->id]) }}"--}}
+                                                           {{--data-name="{{$building->name}}" href="#deleteModal">--}}
+                                                            {{--<i class="fa fa-trash-o"></i>--}}
+                                                        {{--</a>--}}
                                                     </td>
                                                 </tr>
                                             @endforeach

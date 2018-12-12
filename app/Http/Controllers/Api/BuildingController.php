@@ -24,7 +24,8 @@ class BuildingController extends ControllerApi
             $buildingItem->main_image_thumbnail = ImageCommon::showImage($building->main_image_thumbnail);
             $buildingItem->sub_name = $building->sub_name;
             $buildingItem->sub_name = $building->sub_name;
-            $buildingItem->address = $building->address.','.$building->district->label;
+            $buildingItem->address = $building->address;
+            $buildingItem->district = $building->district->label;
             $buildingItem->direction = $building->direction->name;
             $buildingItem->classify_name = $building->classify->name;
             $buildingItem->rent_cost = $building->rental_cost + $building->manager_cost + $building->tax_cost;

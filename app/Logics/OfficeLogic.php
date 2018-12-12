@@ -31,7 +31,7 @@ class OfficeLogic extends BaseLogic{
         return OfficeStatus::all();
     }
 
-    public function searchOffice($buildingId , $officeName, $floor, $limit = 10){
+    public function searchOffice($buildingId , $officeName, $floor, $status , $limit = 10){
         $query = Office::whereIsDelete(Constant::$DELETE_FLG_OFF);
         if(isset($buildingId) && !empty($buildingId)){
             $query->where('building_id',$buildingId);
@@ -41,6 +41,9 @@ class OfficeLogic extends BaseLogic{
         }
         if(isset($floor) && !empty($floor)){
             $query->where('floor',$floor);
+        }
+        if(isset($status)){
+            $query->where('status_id',$status);
         }
         return $query->paginate($limit);
     }

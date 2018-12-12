@@ -183,3 +183,7 @@ input.form-control, select.form-control, textarea.form-control, .ql-container , 
     resize: none;
     min-height: 40px;
 }
+
+a.nav-dropdown-toggle{
+    padding-left: 2px !important;
+}

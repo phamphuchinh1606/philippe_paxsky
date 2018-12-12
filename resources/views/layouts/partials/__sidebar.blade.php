@@ -7,8 +7,8 @@
                 </a>
             </li>
             <li class="nav-item nav-dropdown">
-                <a class="nav-link nav-dropdown-toggle" href="#">
-                    <i class="nav-icon icon-grid"></i>Buildings
+                <a class="nav-link nav-dropdown-toggle font-weight-bold text-uppercase" href="#">
+                    <i class="nav-icon icon-grid"></i> Buildings
                 </a>
                 <ul class="nav-dropdown-items">
                     <li class="nav-item">
@@ -36,7 +36,7 @@
                 </ul>
             </li>
             <li class="nav-item nav-dropdown">
-                <a class="nav-link nav-dropdown-toggle" href="#">
+                <a class="nav-link nav-dropdown-toggle font-weight-bold text-uppercase" href="#">
                     <i class="nav-icon icon-list"></i>Offices
                 </a>
                 <ul class="nav-dropdown-items">
@@ -55,8 +55,8 @@
                 </ul>
             </li>
             <li class="nav-item nav-dropdown">
-                <a class="nav-link nav-dropdown-toggle" href="#">
-                    <i class="nav-icon icon-people"></i>User & Customer
+                <a class="nav-link nav-dropdown-toggle font-weight-bold text-uppercase" href="#">
+                    <i class="nav-icon icon-people"></i> User & Customer
                 </a>
                 <ul class="nav-dropdown-items">
                     <li class="nav-item">
@@ -74,8 +74,8 @@
                 </ul>
             </li>
             <li class="nav-item nav-dropdown">
-                <a class="nav-link nav-dropdown-toggle font-weight-bold" href="#">
-                    APP
+                <a class="nav-link nav-dropdown-toggle font-weight-bold text-uppercase" href="#">
+                    <i class="nav-icon icon-drawer"></i>APP
                 </a>
                 <ul class="nav-dropdown-items">
                     <li class="nav-item">
@@ -86,7 +86,7 @@
                     </li>
                     <li class="nav-item">
                         <a class="nav-link @if(\Request::is('*contract/*')) active @endif" href="{{route('contract.index')}}">
-                            <i class="nav-icon icon-calendar"></i>
+                            <i class="nav-icon icon-docs"></i>
                             Contracts
                         </a>
                     </li>

@@ -48,11 +48,20 @@
                                 <div class="col-md-12">
                                     <div class="card">
                                         <div class="card-footer text-center">
+                                            <a data-toggle="modal" class="anchorClick"
+                                                data-url="{{route('building.delete',['id' => $building->id])}}"
+                                                data-name="{{$building->name}}" href="#deleteModal">
+                                                <button class="btn btn-danger" type="button">
+                                                    <i class="fa fa-trash-o"></i> Delete
+                                                </button>
+                                            </a>
+                                            <button class="btn btn-secondary" type="reset" onclick="window.location='{{route('building.index')}}'">
+                                                <i class="fa fa-ban"></i> Cancel</button>
+
                                             <button class="btn btn-primary submit-building" type="button">
                                                 <i class="fa fa-dot-circle-o"></i> Update
                                             </button>
-                                            <button class="btn btn-danger" type="reset">
-                                                <i class="fa fa-ban"></i> Cancel</button>
+
                                         </div>
                                     </div>
                                 </div>
@@ -63,11 +72,21 @@
                         <div class="col-md-12">
                             <div class="card">
                                 <div class="card-footer text-center">
+                                    <a data-toggle="modal" class="anchorClick"
+                                       data-url="{{route('building.delete',['id' => $building->id])}}"
+                                       data-name="{{$building->name}}" href="#deleteModal">
+                                        <button class="btn btn-danger" type="button">
+                                            <i class="fa fa-trash-o"></i> Delete
+                                        </button>
+                                    </a>
+
+                                    <button class="btn btn-secondary" type="reset" onclick="window.location='{{route('building.index')}}'">
+                                        <i class="fa fa-ban"></i> Cancel</button>
+
                                     <button class="btn btn-primary submit-building" type="button">
                                         <i class="fa fa-dot-circle-o"></i> Update
                                     </button>
-                                    <button class="btn btn-danger" type="reset">
-                                        <i class="fa fa-ban"></i> Cancel</button>
+
                                 </div>
                             </div>
                         </div>

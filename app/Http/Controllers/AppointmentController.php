@@ -16,11 +16,6 @@ class AppointmentController extends Controller
         return $this->showView('index',['appointments' => $appointments]);
     }
 
-    public function showCreate(){
-        $user = new User();
-        return $this->showView('create',['user' => $user]);
-    }
-
     public function create(Request $request){
         $this->appointmentService->create($request);
         return $this->jsonSuccess('Create appointment success');

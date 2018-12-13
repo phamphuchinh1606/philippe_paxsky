@@ -58,7 +58,9 @@
                                                         </div>
                                                         <div class="col-sm-6 col-lg-8 text-left">
                                                             {{$building->address}},
-                                                            {{$building->district->label}}
+                                                            @if(isset($building->district))
+                                                                {{$building->district->label}}
+                                                            @endif
                                                         </div>
                                                     </div>
                                                     <div class="row">

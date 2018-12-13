@@ -75,6 +75,19 @@
             </li>
             <li class="nav-item nav-dropdown">
                 <a class="nav-link nav-dropdown-toggle font-weight-bold text-uppercase" href="#">
+                    <i class="nav-icon icon-people"></i> Kinh Doanh
+                </a>
+                <ul class="nav-dropdown-items">
+                    <li class="nav-item">
+                        <a class="nav-link @if(\Request::is('*news/*')) active @endif" href="{{route('news.index')}}">
+                            <i class="nav-icon icon-user"></i>
+                            News
+                        </a>
+                    </li>
+                </ul>
+            </li>
+            <li class="nav-item nav-dropdown">
+                <a class="nav-link nav-dropdown-toggle font-weight-bold text-uppercase" href="#">
                     <i class="nav-icon icon-drawer"></i>APP
                 </a>
                 <ul class="nav-dropdown-items">

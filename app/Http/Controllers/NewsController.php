@@ -8,7 +8,7 @@ use Illuminate\Http\Request;
 class NewsController extends Controller
 {
     private function showView($viewName,$arrayData = []){
-        return View('news.'.$viewName, $arrayData);
+        return View('newses.'.$viewName, $arrayData);
     }
 
     public function index(){

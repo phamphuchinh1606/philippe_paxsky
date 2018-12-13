@@ -47,8 +47,8 @@ class BuildingService extends BaseService{
     public function getAll(){
         $buildings =  $this->buildingLogic->getAll();
         foreach ($buildings as $building){
-            $building->public_name = AppCommon::namePublicBuildingType($building->is_public);
-            $building->public_class = AppCommon::classPublicBuildingType($building->is_public);
+            $building->public_name = AppCommon::namePublic($building->is_public);
+            $building->public_class = AppCommon::classPublic($building->is_public);
             $acreageRents = [];
             foreach ($building->offices as $office){
                 if(!isset($acreageRents[$office->acreage_rent])){
@@ -71,8 +71,8 @@ class BuildingService extends BaseService{
         $minAcreage = 0;
         $maxAcreage = 0;
         foreach ($buildings as $building){
-            $building->public_name = AppCommon::namePublicBuildingType($building->is_public);
-            $building->public_class = AppCommon::classPublicBuildingType($building->is_public);
+            $building->public_name = AppCommon::namePublic($building->is_public);
+            $building->public_class = AppCommon::classPublic($building->is_public);
             $acreageRents = [];
             foreach ($building->offices as $office){
                 if(!isset($acreageRents[$office->acreage_rent])){

@@ -102,7 +102,7 @@ class AppCommon{
         return $className;
     }
 
-    public static function namePublicBuildingType($statusValue){
+    public static function namePublic($statusValue){
         $publicName = "";
         switch ($statusValue){
             case Constant::$PUBLIC_FLG_ON:
@@ -115,7 +115,7 @@ class AppCommon{
         return $publicName;
     }
 
-    public static function classPublicBuildingType($statusValue){
+    public static function classPublic($statusValue){
         $className = "";
         switch ($statusValue){
             case Constant::$PUBLIC_FLG_ON:

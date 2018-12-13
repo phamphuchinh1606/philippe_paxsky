@@ -8,7 +8,7 @@
             </li>
             <li class="nav-item nav-dropdown">
                 <a class="nav-link nav-dropdown-toggle font-weight-bold text-uppercase" href="#">
-                    <i class="nav-icon icon-grid"></i> Buildings
+                    <i class="nav-icon icon-grid"></i>Buildings
                 </a>
                 <ul class="nav-dropdown-items">
                     <li class="nav-item">
@@ -56,7 +56,7 @@
             </li>
             <li class="nav-item nav-dropdown">
                 <a class="nav-link nav-dropdown-toggle font-weight-bold text-uppercase" href="#">
-                    <i class="nav-icon icon-people"></i> User & Customer
+                    <i class="nav-icon icon-people"></i>User & Customer
                 </a>
                 <ul class="nav-dropdown-items">
                     <li class="nav-item">
@@ -75,12 +75,12 @@
             </li>
             <li class="nav-item nav-dropdown">
                 <a class="nav-link nav-dropdown-toggle font-weight-bold text-uppercase" href="#">
-                    <i class="nav-icon icon-people"></i> Kinh Doanh
+                    <i class="nav-icon fa fa-shopping-basket"></i>Marketing
                 </a>
                 <ul class="nav-dropdown-items">
                     <li class="nav-item">
                         <a class="nav-link @if(\Request::is('*news/*')) active @endif" href="{{route('news.index')}}">
-                            <i class="nav-icon icon-user"></i>
+                            <i class="nav-icon fa fa-newspaper-o"></i>
                             News
                         </a>
                     </li>

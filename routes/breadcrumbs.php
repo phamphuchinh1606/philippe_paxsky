@@ -208,7 +208,14 @@ Breadcrumbs::for('appointment', function ($trail) {
     $trail->parent('home');
     $trail->push('List Visit', route('user.index'));
 });
-//========================End Customer===============================================
+//========================End Appointment===============================================
+
+//News Layout ====================================================================
+Breadcrumbs::for('news', function ($trail) {
+    $trail->parent('home');
+    $trail->push('List News', route('news.index'));
+});
+//========================End News===============================================
 
 //Contract Layout ====================================================================
 Breadcrumbs::for('contract', function ($trail) {

@@ -25,7 +25,7 @@ class ImageCommon{
     }
 
     public static function showImage($image){
-        if(str_contains($image,Constant::$URL_PAXSKY)){
+        if(str_contains($image,"http")){
             return $image;
         }
         return asset(Constant::$PATH_URL_UPLOAD_IMAGE.$image);

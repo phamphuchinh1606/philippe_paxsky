@@ -51,6 +51,7 @@ class AppointmentService extends BaseService{
         $appointment->email = $request->email;
         $appointment->mobile_phone = $request->mobile_phone;
         $appointment->building_id = $request->building_id;
+        $appointment->office_id = $request->office_id;
         $appointment->date_schedule = DateCommon::createFromFormat($request->schedule_date.' '.$request->schedule_time,'Y-m-d H:i');
         $appointment->sale_person_id = $request->sale_person;
         $appointment->note = $request->notes;

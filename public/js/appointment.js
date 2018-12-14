@@ -92,8 +92,8 @@ function eventDelete(){
 }
 
 function selectedRow(){
-    $('.appointment-list tr').on('dblclick',function(){
-        let appointmentId = $(this).attr('id');
+    $('.appointment-list tr .app-col-action button').on('click',function(){
+        let appointmentId = $(this).closest('tr').attr('id');
         let data = {appointment_id:appointmentId};
         let url = $('#url_show_detail').val();
         var params = {

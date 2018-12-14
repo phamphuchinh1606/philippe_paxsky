@@ -76,6 +76,9 @@
                                                 <th class="content">
                                                     Content
                                                 </th>
+                                                <th class="action">
+
+                                                </th>
                                             </tr>
                                             </thead>
                                             <tbody>
@@ -96,6 +99,11 @@
                                                     </td>
                                                     <td>
                                                         {{\App\Common\AppCommon::showTextDot($news->content,250)}}
+                                                    </td>
+                                                    <td class="text-center app-col-action">
+                                                        <button class="btn btn-info" value="{{$news->id}}">
+                                                            <i class="fa fa-edit"></i>
+                                                        </button>
                                                     </td>
                                                 </tr>
                                             @endforeach

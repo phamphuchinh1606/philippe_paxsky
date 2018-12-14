@@ -82,6 +82,7 @@
                                                 <th class="comment">
                                                     Comment
                                                 </th>
+                                                <th class="action"></th>
                                             </tr>
                                             </thead>
                                             <tbody>
@@ -121,6 +122,11 @@
                                                     </td>
                                                     <td>
                                                         {{$appointment->note}}
+                                                    </td>
+                                                    <td class="text-center app-col-action">
+                                                        <button class="btn btn-info" value="{{$appointment->id}}">
+                                                            <i class="fa fa-edit"></i>
+                                                        </button>
                                                     </td>
                                                 </tr>
                                             @endforeach

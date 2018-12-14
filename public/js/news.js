@@ -57,8 +57,8 @@ function eventDelete(){
 }
 
 function selectedRow(){
-    $('.news-list tr').on('dblclick',function(){
-        let newsId = $(this).attr('id');
+    $('.news-list tr .app-col-action button').on('click',function(){
+        let newsId = $(this).closest('tr').attr('id');
         let data = {news_id:newsId};
         let url = $('#url_show_detail').val();
         var params = {

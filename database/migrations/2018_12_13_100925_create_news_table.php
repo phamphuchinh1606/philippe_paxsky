@@ -22,6 +22,7 @@ class CreateNewsTable extends Migration
             $table->dateTime('public_date')->nullable(true);
             $table->longText('content')->nullable(true);
             $table->integer('user_created_id')->nullable(true);
+            $table->integer('news_special')->nullable(true);
             $table->integer('is_delete')->default(0)->nullable(true);
             $table->timestamps();
         });

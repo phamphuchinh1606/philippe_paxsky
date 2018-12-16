@@ -70,9 +70,19 @@
                     <div class="row">
                         <div class="col-xl-12 col-md-12">
                             @include('common.tagHtml.__check_box_on_of',[
-                                'labelInput' => 'Status',
+                                'labelInput' => 'Special',
+                               'inputName' => 'news_special',
+                               'inputValue' => 0,
+                               'showHorizontal' => true
+                            ])
+                        </div>
+                    </div>
+                    <div class="row">
+                        <div class="col-xl-12 col-md-12">
+                            @include('common.tagHtml.__check_box_on_of',[
+                                'labelInput' => 'Status Public',
                                'inputName' => 'status',
-                               'inputValue' => true,
+                               'inputValue' => 1,
                                'showHorizontal' => true
                             ])
                         </div>

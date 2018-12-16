@@ -15,6 +15,14 @@ class NewsLogic extends BaseLogic{
         return News::where('is_delete', Constant::$DELETE_FLG_OFF)->orderBy('created_at','desc')->paginate($limit);
     }
 
+    public function search($special = null,$limit = 20){
+        $query = News::where('is_delete', Constant::$DELETE_FLG_OFF);
+        if(isset($special)){
+            $query->where('news_special',$special);
+        }
+        return $query->orderBy('created_at','desc')->paginate($limit);
+    }
+
     public function save(News $news){
         if(isset($news)){
             $news->save();

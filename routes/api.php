@@ -45,3 +45,6 @@ Route::post('/appointment/rating','AppointmentController@ratingVisit')->name('ap
 //Batch Route
 Route::post('/batch/building-thumbnail', 'BatchController@buildThumbnailBuilding');
 Route::post('/batch/office-thumbnail', 'BatchController@buildThumbnailOffice');
+
+//Api News
+Route::get('/news/list','NewsController@newsList')->name('api.news');

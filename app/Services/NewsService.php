@@ -30,6 +30,16 @@ class NewsService extends BaseService{
         return $newses;
     }
 
+    public function search($special){
+        $newses = $this->newsLogic->search($special);
+        foreach ($newses as $news){
+            $news->status_name = AppCommon::namePublic($news->status_id);
+            $news->status_class = AppCommon::classPublic($news->status_id);
+            $news->public_date_str = DateCommon::dateFormat($news->public_date,'d-m-Y');
+        }
+        return $newses;
+    }
+
 
     private function getNewsInfo(Request $request, $news = null){
         if(!isset($news)){
@@ -38,6 +48,7 @@ class NewsService extends BaseService{
         $news->title = $request->title;
         $news->url = $request->url_news;
         $news->image = $request->image_url;
+        $news->news_special = AppCommon::getIsPublic($request->news_special);
         $news->status_id = AppCommon::getIsPublic($request->status);
         $news->public_date = DateCommon::createFromFormat($request->public_date,'Y-m-d');
         $news->content = $request->notes;

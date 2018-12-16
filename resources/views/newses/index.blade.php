@@ -70,8 +70,11 @@
                                                 <th class="public_date">
                                                     Public Date
                                                 </th>
+                                                <th class="special">
+                                                    Special
+                                                </th>
                                                 <th class="status">
-                                                    Status
+                                                    Status Public
                                                 </th>
                                                 <th class="content">
                                                     Content
@@ -93,6 +96,13 @@
                                                     </td>
                                                     <td>
                                                         {{$news->public_date_str}}
+                                                    </td>
+                                                    <td class="text-center">
+                                                        @if($news->news_special == 1)
+                                                            Yes
+                                                        @else
+                                                            No
+                                                        @endif
                                                     </td>
                                                     <td class="text-center">
                                                         <span class="badge {{$news->status_class}}">{{$news->status_name}}</span>

@@ -20,7 +20,8 @@ use App\Services\{BuildingTypeService,
     UserService,
     CustomerService,
     AddressService,
-    AppointmentService};
+    AppointmentService,
+    NewsService};
 
 class ControllerApi extends BaseController
 {
@@ -52,12 +53,15 @@ class ControllerApi extends BaseController
 
     protected $appointmentService;
 
+    protected $newsService;
+
     public function __construct(BuildingTypeService $buildingTypeService, InvestorService $investorService,
                                 ClassificationService $classificationService, ManagementAgencyService $managementAgencyService,
                                 DirectionService $directionService, BuildingService $buildingService,
                                 BuildingImageService $buildingImageService, OfficeLayoutService $officeLayoutService,
                                 OfficeService $officeService, UserService $userService, CustomerService $customerService,
-                                AddressService $addressService, AppointmentService $appointmentService)
+                                AddressService $addressService, AppointmentService $appointmentService,
+                                NewsService $newsService)
     {
         $this->buildingTypeService = $buildingTypeService;
         $this->investorService = $investorService;
@@ -72,6 +76,7 @@ class ControllerApi extends BaseController
         $this->customerService = $customerService;
         $this->addressService = $addressService;
         $this->appointmentService = $appointmentService;
+        $this->newsService = $newsService;
     }
 
     protected function json($data){

@@ -10,9 +10,15 @@
 .public_date{
     width: 150px;
 }
+.special{
+    width: 60px;
+}
 .status{
     width: 100px;
 }
 .content{
 
+}
+.action{
+    width: 80px;
 }

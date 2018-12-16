@@ -76,7 +76,16 @@ function selectedRow(){
                 form.find('input[name=url_news]').val(data.url);
                 form.find('input[name=image_url]').val(data.image);
                 form.find('textarea[name=notes]').val(data.content);
-                form.find('input[name=status]').attr('checked','checked');
+                if(data.status_id == 0){
+                    form.find('input[name=status]').removeAttr('checked');
+                }else{
+                    form.find('input[name=status]').attr('checked','checked');
+                }
+                if(data.news_special == 0){
+                    form.find('input[name=news_special]').removeAttr('checked');
+                }else{
+                    form.find('input[name=news_special]').attr('checked','checked');
+                }
                 form.find('input[name=public_date]').val(data.public_date);
                 $("#newsModal").modal();
             }
@@ -100,6 +109,7 @@ function createNews(form){
     let urlNews = form.find('input[name=url_news]').val();
     let imageUrl = form.find('input[name=image_url]').val();
     let publicDate = form.find('input[name=public_date]').val();
+    let newsSpecial = $('input[name=news_special]').prop("checked") ? 'On' : 'Off';
     let status = $('input[name=status]').prop("checked") ? 'On' : 'Off';
     let notes = form.find('textarea[name=notes]').val();
 
@@ -108,6 +118,7 @@ function createNews(form){
         url_news: urlNews,
         image_url: imageUrl,
         public_date: publicDate,
+        news_special : newsSpecial,
         status: status,
         notes: notes
     }
@@ -141,6 +152,7 @@ function updateNews(form){
     let urlNews = form.find('input[name=url_news]').val();
     let imageUrl = form.find('input[name=image_url]').val();
     let publicDate = form.find('input[name=public_date]').val();
+    let newsSpecial = $('input[name=news_special]').prop("checked") ? 'On' : 'Off';
     let status = $('input[name=status]').prop("checked") ? 'On' : 'Off';
     let notes = form.find('textarea[name=notes]').val();
     let data = {
@@ -149,6 +161,7 @@ function updateNews(form){
         url_news: urlNews,
         image_url: imageUrl,
         public_date: publicDate,
+        news_special : newsSpecial,
         status: status,
         notes: notes
     }

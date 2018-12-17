@@ -108,7 +108,7 @@
                                                         <span class="badge {{$news->status_class}}">{{$news->status_name}}</span>
                                                     </td>
                                                     <td>
-                                                        {{\App\Common\AppCommon::showTextDot($news->content,250)}}
+                                                        {{\App\Common\AppCommon::showTextDot($news->content,100)}}
                                                     </td>
                                                     <td class="text-center app-col-action">
                                                         <button class="btn btn-info" value="{{$news->id}}">

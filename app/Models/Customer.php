@@ -24,4 +24,12 @@ class Customer extends Model
     public function user(){
         return $this->belongsTo('App\User','user_id');
     }
+
+    public function province(){
+        return $this->belongsTo('App\Models\Province','province_id');
+    }
+
+    public function district(){
+        return $this->belongsTo('App\Models\District','district_id');
+    }
 }

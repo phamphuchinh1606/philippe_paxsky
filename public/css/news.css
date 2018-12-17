@@ -1,24 +1,24 @@
 .no{
-    width: 60px;
+    width: 30px;
 }
 .image{
     width: 110px;
 }
 .title{
-    width: 350px;
+    width: 300px;
 }
 .public_date{
-    width: 150px;
+    width: 80px;
 }
 .special{
-    width: 60px;
+    width: 40px;
 }
 .status{
-    width: 100px;
+    width: 90px;
 }
 .content{
 
 }
 .action{
-    width: 80px;
+    width: 60px;
 }

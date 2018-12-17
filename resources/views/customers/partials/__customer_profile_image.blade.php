@@ -9,7 +9,7 @@
             <div class="box-body">
                 <div class="upload__area-image">
                     <span>
-                        @if(isset($customer->user->id))
+                        @if(isset($customer->user->id) && isset($customer->user->profile_image))
                             <img id="imgHandle"
                                  src="{{ImageCommon::showImage(AppCommon::showValueOld('profile_image',$customer->user->profile_image))}}">
                         @else

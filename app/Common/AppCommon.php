@@ -235,4 +235,9 @@ class AppCommon{
         }
         return $value;
     }
+
+    public static function nullToEmpty($value){
+        if(!isset($value)) return '';
+        return $value;
+    }
 }

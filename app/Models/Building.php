@@ -57,4 +57,12 @@ class Building extends Model
     public function district(){
         return $this->belongsTo('App\Models\District','district_id');
     }
+
+    public function investor(){
+        return $this->belongsTo('App\Models\Investor','investor_id');
+    }
+
+    public function managementAgency(){
+        return $this->belongsTo('App\Models\ManagementAgency','management_agency_id');
+    }
 }

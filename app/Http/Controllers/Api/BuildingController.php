@@ -2,6 +2,7 @@
 
 namespace App\Http\Controllers\Api;
 
+use App\Common\AppCommon;
 use App\Common\ImageCommon;
 use App\Common\NumberUtils;
 use Illuminate\Http\Request;
@@ -40,6 +41,26 @@ class BuildingController extends ControllerApi
                 $buildingItem->acreage_rent_list = 'FULL';
             }
             $buildingItem->acreage_rent_array = $building->acreage_rent_array;
+
+            $buildingItem->investor_id = $building->investor_id;
+            $buildingItem->investor_name = isset($building->investor) ? $building->investor->name : '';
+            $buildingItem->management_agence_id = $building->management_agency_id;
+            $buildingItem->management_agence_name = isset($building->managementAgency) ? $building->managementAgency->name : '';
+            $buildingItem->acreage_total = $building->acreage_total;
+            $buildingItem->acreage_rent_total = $building->acreage_rent_total;
+            $buildingItem->long = AppCommon::nullToEmpty($building->long);
+            $buildingItem->lat = AppCommon::nullToEmpty($building->lat);
+            $buildingItem->over_time_cost = $building->over_time_cost;
+            $buildingItem->parking_fee_bike = $building->parking_fee_bike;
+            $buildingItem->parking_fee_car = $building->parking_fee_car;
+            $buildingItem->contract_duration = $building->contract_duration;
+            $buildingItem->mode_of_deposit = $building->mode_of_deposit;
+            $buildingItem->mode_of_payment = $building->mode_of_payment;
+            $buildingItem->number_of_vehicles = $building->number_of_vehicles;
+            $buildingItem->notes = AppCommon::nullToEmpty($building->notes);
+            $buildingItem->description = AppCommon::nullToEmpty($building->description);
+            $buildingItem->content = AppCommon::nullToEmpty($building->content);
+
             $listResult[] = $buildingItem;
         }
         $result = new \StdClass();

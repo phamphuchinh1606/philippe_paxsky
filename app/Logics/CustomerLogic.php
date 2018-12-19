@@ -5,11 +5,16 @@ use App\Models\Customer;
 use App\Models\GroupCustomer;
 use App\Common\Constant;
 use Tymon\JWTAuth\Claims\Custom;
+use DB;
 
 class CustomerLogic extends BaseLogic{
 
     public function find($id){
         return Customer::find($id);
+    }
+
+    public function findUserId($userId){
+        return Customer::where('user_id',$userId)->first();
     }
 
     public function getAll($limit = 20){

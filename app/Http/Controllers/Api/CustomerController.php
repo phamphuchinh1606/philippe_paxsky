@@ -36,6 +36,26 @@ class CustomerController extends ControllerApi
         return $this->jsonSuccess();
     }
 
+    public function update(Request $request){
+        $rules = array(
+            'customer_id' => 'required'
+        );
+        $validator = Validator::make($request->all(), $rules);
+        if ($validator->fails())
+        {
+            return $this->jsonError($validator->errors(), $validator->errors()->first());
+        }
+        $customer = $this->customerService->find($request->customer_id);
+        if(!isset($customer)){
+            return response()->json([
+                'status'=> false,
+                'message'=> 'Customer not exit'
+            ]);
+        }
+        $this->customerService->update($request->customer_id,$request);
+        return $this->jsonSuccess();
+    }
+
     public function info(Request $request){
         $rules = array(
             'customer_id' => 'required',

@@ -22,9 +22,11 @@ Route::post('/login','LoginController@login')->name('api.login');
 //Api Customer
 Route::get('/customer/info', 'CustomerController@info')->name('api.customer.info');
 Route::post('/customer/create', 'CustomerController@create')->name('api.customer.create');
+Route::post('/customer/update', 'CustomerController@update')->name('api.customer.update');
 
 //Api building
 Route::get('/building','BuildingController@list')->name('api.building');
+Route::get('/building/detail','BuildingController@detail')->name('api.building.detail');
 Route::get('/building/image-first','BuildingController@imageFirst')->name('api.building.image_first');
 
 //Api Office

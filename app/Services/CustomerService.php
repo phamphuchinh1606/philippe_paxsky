@@ -18,14 +18,21 @@ class CustomerService extends BaseService{
 
     private $userLogic;
 
-    public function __construct(CustomerLogic $customerLogic, UserLogic $userLogic)
+    private $userService;
+
+    public function __construct(CustomerLogic $customerLogic, UserLogic $userLogic, UserService $userService)
     {
         $this->customerLogic = $customerLogic;
         $this->userLogic = $userLogic;
+        $this->userService = $userService;
     }
 
     public function find($id){
         return $this->customerLogic->find($id);
+    }
+
+    public function findUserId($userId){
+        return $this->customerLogic->findUserId($userId);
     }
 
     public function getAll(){
@@ -53,24 +60,55 @@ class CustomerService extends BaseService{
         if(!isset($user)){
             $user = new User();
         }
-        $customer->first_name = $request->first_name;
-        $customer->last_name = $request->last_name;
-        $customer->email = $request->email;
-        $customer->mobile_phone = $request->mobile_phone;
-        $customer->birthday = $request->birthday;
-        $customer->gender = $request->gender;
-        $customer->group_id = $request->group_id;
-        $customer->province_id = $request->province_id;
-        $customer->district_id = $request->district_id;
-
+        if(isset($request->first_name)){
+            $customer->first_name = $request->first_name;
+        }
+        if(isset($request->last_name)){
+            $customer->last_name = $request->last_name;
+        }
+        if(isset($request->email)){
+            $customer->email = $request->email;
+        }
+        if(isset($request->mobile_phone)){
+            $customer->mobile_phone = $request->mobile_phone;
+        }
+        if(isset($request->birthday)){
+            $customer->birthday = $request->birthday;
+        }
+        if(isset($request->gender)){
+            $customer->gender = $request->gender;
+        }
+        if(isset($request->group_id)){
+            $customer->group_id = $request->group_id;
+        }
+        if(isset($request->province_id)){
+            $customer->province_id = $request->province_id;
+        }
+        if(isset($request->district_id)){
+            $customer->district_id = $request->district_id;
+        }
 
         //Set info user login
-        $user->first_name = $request->first_name;
-        $user->last_name = $request->last_name;
-        $user->email = $request->email;
-        $user->mobile_phone = $request->mobile_phone;
-        $user->is_active = AppCommon::getIsPublic($request->is_active);
-        $user->note = $request->note;
+        if(isset($request->first_name)){
+            $user->first_name = $request->first_name;
+        }
+        if(isset($request->last_name)){
+            $user->last_name = $request->last_name;
+        }
+        if(isset($request->email)){
+            $user->email = $request->email;
+        }
+        if(isset($request->mobile_phone)){
+            $user->mobile_phone = $request->mobile_phone;
+        }
+        if(isset($request->is_active)){
+            $user->is_active = AppCommon::getIsPublic($request->is_active);
+        }else if(null == $request->is_active){
+            $user->is_active = AppCommon::getIsPublic($request->is_active);
+        }
+        if(isset($request->note)){
+            $user->note = $request->note;
+        }
         if(isset($user) && !isset($user->id)){
             $user->password = bcrypt($request->password);
         }
@@ -133,6 +171,9 @@ class CustomerService extends BaseService{
         if(isset($customer)){
             $customer->is_delete = Constant::$DELETE_FLG_ON;
             $this->customerLogic->save($customer);
+
+            $this->userService->destroy($customer->user_id);
+
         }
     }
 

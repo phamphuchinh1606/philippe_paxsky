@@ -41,7 +41,7 @@ class LoginController extends ControllerApi
             if(isset($isLogin->customer) && count($isLogin->customers) > 0){
                 $customerId = $isLogin->customers[0]->id;
             }
-            $customer = $this->customerService->find($customerId);
+            $customer = $this->customerService->findUserId($customerId);
             if(!isset($customer)){
                 return $this->jsonError([],'Customer not exit.');
             }

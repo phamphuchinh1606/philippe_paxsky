@@ -71,7 +71,7 @@ class BuildingController extends ControllerApi
         $result->rent_cost_array = [$data->minRentCost,$data->maxRentCost];
         $result->min_acreage = $data->minAcreage;
         $result->max_acreage = $data->maxAcreage;
-//        $result->direction_array = $data->directionArray;
+        $result->direction_array = $data->directionArray;
         $result->acreage_rent_array = $data->acreageRentArray;
         return $this->json($result);
     }

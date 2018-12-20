@@ -17,8 +17,12 @@ class CustomerLogic extends BaseLogic{
         return Customer::where('user_id',$userId)->first();
     }
 
+    public function getCustomerByEmail($email){
+        return Customer::where('email',$email)->first();
+    }
+
     public function getAll($limit = 20){
-        return Customer::whereIsDelete(Constant::$DELETE_FLG_OFF)->limit($limit)->get();
+        return Customer::whereIsDelete(Constant::$DELETE_FLG_OFF)->orderBy('created_at','desc')->paginate($limit);
     }
 
     public function save(Customer $customer){

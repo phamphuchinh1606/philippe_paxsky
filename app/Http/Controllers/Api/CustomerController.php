@@ -8,6 +8,8 @@ use App\Common\DateCommon;
 use Illuminate\Http\Request;
 use Validator;
 use App\Common\ImageCommon;
+use JWTAuthException;
+use JWTAuth;
 
 class CustomerController extends ControllerApi
 {
@@ -30,10 +32,53 @@ class CustomerController extends ControllerApi
         {
             return $this->jsonError($validator->errors(), $validator->errors()->first());
         }
+        //Check email exit
+        if($this->customerService->checkEmailExit($request->email)){
+            return response()->json([
+                'status'=> false,
+                'message'=> 'Email address already exists'
+            ]);
+        }
         $request->group_id = Constant::$GROUP_CUSTOMER_VISIT;
         $request->is_active = 'on';
-        $this->customerService->create($request);
-        return $this->jsonSuccess();
+        $customer = $this->customerService->create($request);
+        $credentials = $request->only('email', 'password');
+        $token = null;
+        try {
+            if (!$token = JWTAuth::attempt($credentials)) {
+                return response()->json([
+                    'status'=> false,
+                    'message'=> 'invalid email or password'
+                ]);
+            }
+        } catch (JWTAuthException $e) {
+            return response()->json([
+                'status'=> false,
+                'message'=> 'failed to create token'
+            ]);
+        }
+
+        $customerInfo = new \StdClass();
+        $customerInfo->customer_id  = $customer->id;
+        $customerInfo->first_name = $customer->first_name;
+        $customerInfo->last_name = $customer->last_name;
+        $customerInfo->email = $customer->email;
+        $customerInfo->mobile_phone = $customer->mobile_phone;
+        $customerInfo->address = AppCommon::nullToEmpty($customer->address);
+        $customerInfo->province_id = AppCommon::nullToEmpty($customer->province_id);
+        $customerInfo->province_name =  isset($customer->province) ? $customer->province->label : '';;
+        $customerInfo->district_id = AppCommon::nullToEmpty($customer->district_id);
+        $customerInfo->district_name =  isset($customer->district) ? $customer->district->label : '';;
+        $customerInfo->gender = AppCommon::nullToEmpty($customer->gender);
+        $customerInfo->birthday = DateCommon::dateFormat($customer->birthday,'d-m-Y');
+        $customerInfo->image_profile = (isset($customer->user) && isset($customer->user->profile_image)) ? ImageCommon::showImage($customer->user->profile_image) : asset('images/no_image_available.jpg');
+        return response()->json([
+            'status'=> 0,
+            'token'=> $token,
+            'message'=>'Create success! ',
+            'customer_id' =>  $customer->id,
+            'customer' => $customerInfo
+        ]);
     }
 
     public function update(Request $request){

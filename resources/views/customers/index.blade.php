@@ -101,6 +101,9 @@
                                         </table>
                                     </div>
                                 </div>
+                                <div class="pull-right">
+                                    {{$customers->links()}}
+                                </div>
                             </div>
                         </div>
                     </div>

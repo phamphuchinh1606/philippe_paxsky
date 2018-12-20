@@ -35,6 +35,12 @@ class CustomerService extends BaseService{
         return $this->customerLogic->findUserId($userId);
     }
 
+    public function checkEmailExit($email){
+        $customer = $this->customerLogic->getCustomerByEmail($email);
+        if(!isset($customer)) return false;
+        return true;
+    }
+
     public function getAll(){
         $customers = $this->customerLogic->getAll();
         foreach ($customers as $customer){

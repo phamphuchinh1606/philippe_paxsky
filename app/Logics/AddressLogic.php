@@ -2,7 +2,9 @@
 
 namespace App\Logics;
 
-use App\Models\{Country, Province, District};
+use App\Models\{Country, Province, District, Building};
+use App\Common\Constant;
+use DB;
 
 class AddressLogic extends BaseLogic{
     public function createCountry($countryCode, $countryName, $label, $value){
@@ -43,6 +45,17 @@ class AddressLogic extends BaseLogic{
         return Province::all();
     }
 
+    public function getProvinceAllAndCountBuilding(){
+        $subQuery = Building::whereIsDelete(Constant::$DELETE_FLG_OFF)
+            ->select(DB::raw("province_id,count(id) as count_building"))
+            ->groupBy('province_id');
+        $tableProvince = (new Province())->getTable();
+        $list = Province::leftJoinSub($subQuery,'subTable',function($join) use ($tableProvince){
+            $join->on('subTable.province_id','=',"$tableProvince.id");
+        })->select("$tableProvince.*","subTable.count_building")->get();
+        return $list;
+    }
+
     public function getProvinceById($provinceId){
         return Province::whereId($provinceId)->first();
     }
@@ -53,6 +66,17 @@ class AddressLogic extends BaseLogic{
 
     public function getDistrictByProvinceCode($provinceCode){
         return District::whereProvinceCode($provinceCode)->orderBy('label')->get();
+    }
+
+    public function getDistrictByCodeAndCountBuilding($provinceCode){
+        $subQuery = Building::whereIsDelete(Constant::$DELETE_FLG_OFF)
+            ->select(DB::raw("district_id,count(id) as count_building"))
+            ->groupBy('district_id');
+        $tableDistrict = (new District())->getTable();
+        $list = District::whereProvinceCode($provinceCode)->leftJoinSub($subQuery,'subTable',function($join) use ($tableDistrict){
+            $join->on('subTable.district_id','=',"$tableDistrict.id");
+        })->select("$tableDistrict.*","subTable.count_building")->get();
+        return $list;
     }
 
     public function getDistrictByProvinceId($provinceId){

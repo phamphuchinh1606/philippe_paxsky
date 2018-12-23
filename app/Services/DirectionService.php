@@ -20,6 +20,10 @@ class DirectionService extends BaseService{
         return $this->directionLogic->getAll();
     }
 
+    public function getDirectionAndCountBuilding(){
+        return $this->directionLogic->getDirectionAndCountBuilding();
+    }
+
     public function create($directionName){
         return $this->directionLogic->create($directionName);
     }

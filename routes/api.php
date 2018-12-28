@@ -41,6 +41,8 @@ Route::get('/direction','DirectionController@directionList')->name('api.directio
 
 //Api Appointment
 Route::post('/appointment/create','AppointmentController@create')->name('api.appointment.create');
+Route::post('/appointment/update','AppointmentController@update')->name('api.appointment.update');
+Route::post('/appointment/delete','AppointmentController@delete')->name('api.appointment.delete');
 Route::get('/appointment/list','AppointmentController@appointmentList')->name('api.appointment.rating');
 Route::post('/appointment/rating','AppointmentController@ratingVisit')->name('api.appointment.rating');
 

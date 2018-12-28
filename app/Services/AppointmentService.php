@@ -47,15 +47,33 @@ class AppointmentService extends BaseService{
         if(isset($request->customer_id)){
             $appointment->customer_id = $request->customer_id;
         }
-        $appointment->full_name = $request->customer_name;
-        $appointment->email = $request->email;
-        $appointment->mobile_phone = $request->mobile_phone;
-        $appointment->building_id = $request->building_id;
-        $appointment->office_id = $request->office_id;
-        $appointment->date_schedule = DateCommon::createFromFormat($request->schedule_date.' '.$request->schedule_time,'Y-m-d H:i');
-        $appointment->sale_person_id = $request->sale_person;
-        $appointment->note = $request->notes;
-        $appointment->status = $request->status;
+        if(isset($request->customer_name)){
+            $appointment->full_name = $request->customer_name;
+        }
+        if(isset($request->email)){
+            $appointment->email = $request->email;
+        }
+        if(isset($request->mobile_phone)){
+            $appointment->mobile_phone = $request->mobile_phone;
+        }
+        if(isset($request->building_id)){
+            $appointment->building_id = $request->building_id;
+        }
+        if(isset($request->office_id)){
+            $appointment->office_id = $request->office_id;
+        }
+        if(isset($request->schedule_date) && isset($request->schedule_time)){
+            $appointment->date_schedule = DateCommon::createFromFormat($request->schedule_date.' '.$request->schedule_time,'Y-m-d H:i');
+        }
+        if(isset($request->sale_person)){
+            $appointment->sale_person_id = $request->sale_person;
+        }
+        if(isset($request->notes)){
+            $appointment->note = $request->notes;
+        }
+        if(isset($request->status)){
+            $appointment->status = $request->status;
+        }
         return $appointment;
     }
 

@@ -27,6 +27,38 @@ class AppointmentController extends ControllerApi
         return $this->jsonSuccess();
     }
 
+    public function update(Request $request){
+        $rules = array(
+            'appointment_id' => 'required',
+            'customer_name' => 'required',
+            'email' => 'required',
+            'mobile_phone' => 'required',
+            'office_id' => 'required',
+            'schedule_date'=>'required|date_format:Y-m-d',
+            'schedule_time' => 'required',
+        );
+        $validator = Validator::make($request->all(), $rules);
+        if ($validator->fails())
+        {
+            return $this->jsonError($validator->errors(), $validator->errors()->first());
+        }
+        $this->appointmentService->update($request);
+        return $this->jsonSuccess();
+    }
+
+    public function delete(Request $request){
+        $rules = array(
+            'appointment_id' => 'required'
+        );
+        $validator = Validator::make($request->all(), $rules);
+        if ($validator->fails())
+        {
+            return $this->jsonError($validator->errors(), $validator->errors()->first());
+        }
+        $this->appointmentService->destroy($request->appointment_id);
+        return $this->jsonSuccess();
+    }
+
     public function appointmentList(Request $request){
         $rules = array(
             'customer_id' => 'required'

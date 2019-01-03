@@ -73,7 +73,6 @@ class ImageCommon{
     public static function movePathImageBuildingThumbnail($pathImage, $productId){
         if(Storage::exists($pathImage)){
             $file = Storage::path($pathImage);
-            dump($file);
             return self::moveImageThumbnail($file, Constant::$PATH_FOLDER_UPLOAD_BUILDING.'/'.$productId);
         }
         return "";

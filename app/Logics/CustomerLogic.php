@@ -3,6 +3,7 @@
 namespace App\Logics;
 use App\Models\Customer;
 use App\Models\GroupCustomer;
+use App\Models\SocialAccount;
 use App\Common\Constant;
 use Tymon\JWTAuth\Claims\Custom;
 use DB;
@@ -17,6 +18,13 @@ class CustomerLogic extends BaseLogic{
         return Customer::where('user_id',$userId)->first();
     }
 
+    public function findSocialAccount($provider, $providerUserId){
+        $account = SocialAccount::whereProvider($provider)
+            ->whereProviderUserId($providerUserId)
+            ->first();
+        return $account;
+    }
+
     public function getCustomerByEmail($email){
         return Customer::where('email',$email)->first();
     }
@@ -29,6 +37,14 @@ class CustomerLogic extends BaseLogic{
         if(isset($customer)){
             $customer->save();
             return $customer;
+        }
+        return null;
+    }
+
+    public function saveSocial(SocialAccount $socialAccount){
+        if(isset($socialAccount)){
+            $socialAccount->save();
+            return $socialAccount;
         }
         return null;
     }

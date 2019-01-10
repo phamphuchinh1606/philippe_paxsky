@@ -27,6 +27,9 @@ class AppointmentService extends BaseService{
             $appointment->status_class = AppCommon::classAppointmentStatus($appointment->status);
             $appointment->date_str = DateCommon::dateFormat($appointment->date_schedule,'d-m-Y');
             $appointment->time_str = DateCommon::dateFormat($appointment->date_schedule,'H:i');
+            if(isset($appointment->customer)){
+                $appointment->full_name = $appointment->customer->fullName;
+            }
         }
         return $appointments;
     }

@@ -6,8 +6,13 @@ use Illuminate\Database\Eloquent\Model;
 
 class ScheduleAppointment extends Model
 {
+
     public function user(){
         return $this->belongsTo('App\User','sale_person_id');
+    }
+
+    public function customer(){
+        return $this->belongsTo('App\Models\Customer','customer_id');
     }
 
     public function building(){

@@ -20,14 +20,18 @@
                 </div>
                 <div class="modal-body">
                     <div class="row">
+                        {{--<div class="col-xl-12 col-md-12">--}}
+                            {{--@include('common.tagHtml.__input_text',[--}}
+                               {{--'labelInput' => 'Customer Name',--}}
+                               {{--'inputName' => 'customer',--}}
+                               {{--'placeHolder' => 'Customer name',--}}
+                               {{--'inputValue' => '',--}}
+                               {{--'required' => true--}}
+                           {{--])--}}
+                        {{--</div>--}}
                         <div class="col-xl-12 col-md-12">
-                            @include('common.tagHtml.__input_text',[
-                               'labelInput' => 'Customer Name',
-                               'inputName' => 'customer',
-                               'placeHolder' => 'Customer name',
-                               'inputValue' => '',
-                               'required' => true
-                           ])
+                            <label class="col-form-label font-weight-bold" for="direction">Customer</label>
+                            @include('common.customers.__select_customer',['selectName' => 'customer_id', 'required' => true])
                         </div>
                     </div>
                     <div class="row">

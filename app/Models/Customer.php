@@ -17,6 +17,10 @@ class Customer extends Model
         $this->province_id = Constant::$PROVINCE_ID_HCM;
     }
 
+    public function getFullNameAttribute(){
+        return "{$this->first_name} {$this->last_name}";
+    }
+
     public function groupCustomer(){
         return $this->belongsTo('App\Models\GroupCustomer','group_id');
     }

@@ -51,7 +51,7 @@ class ViewComposerServiceProvider extends ServiceProvider
             'App\Http\ViewComposers\UserViewComposer'
         );
         View::composer(
-            ['common.__select_group_customer', 'customers.partials.__modal_search_customer'],
+            ['common.__select_group_customer', 'customers.partials.__modal_search_customer', 'common.customers.__select_customer'],
             'App\Http\ViewComposers\CustomerViewComposer'
         );
     }

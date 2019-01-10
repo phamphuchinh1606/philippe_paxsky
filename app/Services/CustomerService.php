@@ -188,4 +188,71 @@ class CustomerService extends BaseService{
         return $customers;
     }
 
+    public function createUserFromSocial(Request $request){
+        $provider = $request->provider;
+        $providerUserId = $request->provider_user_id;
+        $accessToken = $request->access_token;
+        $account = $this->customerLogic->findSocialAccount($provider, $providerUserId);
+        if ($account) {
+            return $account->user;
+        }else{
+            $account = new SocialAccount([
+                'provider_user_id' => $providerUserId,
+                'providerUser' => $provider,
+                'access_token' => $accessToken
+            ]);
+
+            $nickName = $request->nick_name;
+            $name = $request->name;
+            $email = $request->email;
+            $mobilePhone = $request->mobile_phone;
+            $profileImage = $request->profile_image;
+            if(isset($email)){
+                $user = User::whereEmail($email)->first();
+                if(isset($user)){
+                    $customer = $this->customerLogic->findUserId($user->id);
+                }
+            }
+            if(isset($customer)){
+                $customer = new Customer();
+            }
+            if(!isset($user)){
+                $user = new User();
+                $user->group_id = Constant::$GROUP_CUSTOMER_VISIT;
+                $user->is_active = Constant::$ACTIVE_FLG_ON;
+                if(isset($name)){
+                    $array = explode(' ', $name);
+                    if(count($array) > 0){
+                        $user->first_name = $array[0];
+                        $customer->first_name = $array[0];
+                        if(count($array) > 1){
+                            $user->first_name = $array[1];
+                            $customer->first_name = $array[1];
+                        }
+                    }
+                }
+            }
+            if(isset($email) && empty($email)){
+                $user->email = $email;
+                $customer->email = $email;
+            }
+            if(isset($mobilePhone) && empty($mobilePhone)){
+                $user->mobile_phone = $mobilePhone;
+                $customer->mobile_phone = $mobilePhone;
+            }
+            if(isset($profileImage) && empty($profileImage)){
+                $user->profile_image = $profileImage;
+            }
+            $user = $this->userLogic->save($user);
+
+            //Save customer
+            $this->customerLogic->save($customer);
+
+            //Save social
+            $account->user()->associate($user);
+            $this->customerLogic->saveSocial($account);
+            return $user;
+        }
+    }
+
 }

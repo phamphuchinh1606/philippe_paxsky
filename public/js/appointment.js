@@ -110,7 +110,8 @@ function selectedRow(){
                 form.find('.modal-footer .ladda-label').html('Update');
                 form.attr('action',$('input#url_update').val());
                 form.find('input[name=appointment_id]').val(data.id);
-                form.find('input[name=customer]').val(data.full_name);
+                // form.find('input[name=customer]').val(data.full_name);
+                form.find('select[name=customer_id]').val(data.customer_id);
                 form.find('select[name=building_id]').val(data.building_id);
                 form.find('input[name=date_visit]').val(data.date_visit);
                 form.find('input[name=time_visit]').val(data.time_visit);
@@ -146,6 +147,7 @@ function createAppointment(form){
     }
     // if (form.valid()){
         let customer = form.find('input[name=customer]').val();
+        let customerId = form.find('select[name=customer_id]').val();
         let buildingId = form.find('select[name=building_id]').val();
         let scheduleDate = form.find('input[name=date_visit]').val();
         let scheduleTime = form.find('input[name=time_visit]').val();
@@ -153,6 +155,7 @@ function createAppointment(form){
         let notes = form.find('textarea[name=notes]').val();
         let status = form.find('.appointment-status').find('button[active=true]').attr('value');
         let data = {
+            customer_id : customerId,
             customer_name : customer,
             building_id: buildingId,
             schedule_date: scheduleDate,
@@ -189,6 +192,7 @@ function updateAppointment(form){
     // if (form.valid()){
     let appointmentId = form.find('input[name=appointment_id]').val();
     let customer = form.find('input[name=customer]').val();
+    let customerId = form.find('select[name=customer_id]').val();
     let buildingId = form.find('select[name=building_id]').val();
     let scheduleDate = form.find('input[name=date_visit]').val();
     let scheduleTime = form.find('input[name=time_visit]').val();
@@ -198,6 +202,7 @@ function updateAppointment(form){
     let data = {
         appointment_id: appointmentId,
         customer_name : customer,
+        customer_id : customerId,
         building_id: buildingId,
         schedule_date: scheduleDate,
         schedule_time: scheduleTime,

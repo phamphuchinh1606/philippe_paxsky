@@ -130,4 +130,23 @@ class CustomerController extends ControllerApi
         $customerInfo->image_profile = (isset($customer->user) && isset($customer->user->profile_image)) ? ImageCommon::showImage($customer->user->profile_image) : asset('images/no_image_available.jpg');
         return $this->json($customerInfo);
     }
+
+    public function callbackLogicSocial(Request $request){
+        $rules = array(
+            'provider' => 'required',
+            'provider_user_id' => 'required',
+            'access_token' => 'required',
+            'nick_name' => 'required',
+            'name' => 'required',
+            'email' => 'required',
+            'mobile_phone' => 'required',
+            'image_profile' => 'required'
+        );
+        $validator = Validator::make($request->all(), $rules);
+        if ($validator->fails())
+        {
+            return $this->jsonError($validator->errors(), $validator->errors()->first());
+        }
+        $user = $this->customerService->createUserFromSocial($request);
+    }
 }

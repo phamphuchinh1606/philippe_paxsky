@@ -80,7 +80,7 @@ class AppointmentController extends ControllerApi
                 $appointmentItem->building_name = '';
             }
             if(isset($appointment->office)){
-                $appointmentItem->office_name = $appointment->office->name;
+                $appointmentItem->office_name = $appointment->office->office_name;
             }else{
                 $appointmentItem->office_name = '';
             }

@@ -7,6 +7,7 @@ use App\Common\UserTypeConstant;
 use App\Logics\CustomerLogic;
 use App\Logics\UserLogic;
 use App\Models\Customer;
+use App\Models\SocialAccount;
 use App\User;
 use Illuminate\Http\Request;
 use App\Common\AppCommon;
@@ -194,64 +195,78 @@ class CustomerService extends BaseService{
         $accessToken = $request->access_token;
         $account = $this->customerLogic->findSocialAccount($provider, $providerUserId);
         if ($account) {
-            return $account->user;
+            $customer = $this->customerLogic->findUserId($account->user->id);
+            $customer->first_login = false;
+            return $customer;
         }else{
-            $account = new SocialAccount([
-                'provider_user_id' => $providerUserId,
-                'providerUser' => $provider,
-                'access_token' => $accessToken
-            ]);
+            try {
+                DB::beginTransaction();
+                $account = new SocialAccount([
+                    'provider_user_id' => $providerUserId,
+                    'provider' => $provider,
+                    'access_token' => $accessToken
+                ]);
 
-            $nickName = $request->nick_name;
-            $name = $request->name;
-            $email = $request->email;
-            $mobilePhone = $request->mobile_phone;
-            $profileImage = $request->profile_image;
-            if(isset($email)){
-                $user = User::whereEmail($email)->first();
-                if(isset($user)){
-                    $customer = $this->customerLogic->findUserId($user->id);
+                $nickName = $request->nick_name;
+                $name = $request->name;
+                $email = $request->email;
+                $mobilePhone = $request->mobile_phone;
+                $profileImage = $request->profile_image;
+                if(isset($email)){
+                    $user = User::whereEmail($email)->first();
+                    if(isset($user)){
+                        $customer = $this->customerLogic->findUserId($user->id);
+                    }
                 }
-            }
-            if(isset($customer)){
-                $customer = new Customer();
-            }
-            if(!isset($user)){
-                $user = new User();
-                $user->group_id = Constant::$GROUP_CUSTOMER_VISIT;
-                $user->is_active = Constant::$ACTIVE_FLG_ON;
-                if(isset($name)){
-                    $array = explode(' ', $name);
-                    if(count($array) > 0){
-                        $user->first_name = $array[0];
-                        $customer->first_name = $array[0];
-                        if(count($array) > 1){
-                            $user->first_name = $array[1];
-                            $customer->first_name = $array[1];
+                if(!isset($customer)){
+                    $customer = new Customer();
+                    $customer->group_id = Constant::$GROUP_CUSTOMER_VISIT;
+                }
+                if(!isset($user)){
+                    $user = new User();
+                    $user->user_type_id = UserTypeConstant::$USER_TYPE_CUSTOMER;
+                    $user->is_active = Constant::$ACTIVE_FLG_ON;
+                    $user->password = bcrypt('pass_app_paxsky');
+                    if(isset($name)){
+                        $array = explode(' ', $name);
+                        if(count($array) > 0){
+                            $user->first_name = $array[0];
+                            $customer->first_name = $array[0];
+                            if(count($array) > 1){
+                                $user->last_name = trim(substr($name,strlen($array[0])))    ;
+                                $customer->last_name = $user->last_name;
+                            }
                         }
                     }
                 }
-            }
-            if(isset($email) && empty($email)){
-                $user->email = $email;
-                $customer->email = $email;
-            }
-            if(isset($mobilePhone) && empty($mobilePhone)){
-                $user->mobile_phone = $mobilePhone;
-                $customer->mobile_phone = $mobilePhone;
-            }
-            if(isset($profileImage) && empty($profileImage)){
-                $user->profile_image = $profileImage;
-            }
-            $user = $this->userLogic->save($user);
+                if(isset($email) && !empty($email)){
+                    $user->email = $email;
+                    $customer->email = $email;
+                }
+                if(isset($mobilePhone) && !empty($mobilePhone)){
+                    $user->mobile_phone = $mobilePhone;
+                    $customer->mobile_phone = $mobilePhone;
+                }
+                if(isset($profileImage) && !empty($profileImage)){
+                    $user->profile_image = $profileImage;
+                }
+                $user = $this->userLogic->save($user);
 
-            //Save customer
-            $this->customerLogic->save($customer);
+                //Save customer
+                $customer->user()->associate($user);
+                $this->customerLogic->save($customer);
 
-            //Save social
-            $account->user()->associate($user);
-            $this->customerLogic->saveSocial($account);
-            return $user;
+                //Save social
+                $account->user()->associate($user);
+                $this->customerLogic->saveSocial($account);
+
+                $customer->first_login = true;
+                DB::commit();
+                return $customer;
+            }catch (\Exception $ex){
+                DB::rollBack();
+                throw $ex;
+            }
         }
     }
 

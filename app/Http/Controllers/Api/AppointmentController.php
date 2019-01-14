@@ -74,15 +74,21 @@ class AppointmentController extends ControllerApi
             $appointmentItem = new \StdClass();
             $appointmentItem->appointment_id = $appointment->id;
             $appointmentItem->customer_id = $appointment->customer_id;
+            $appointmentItem->building_id = $appointment->building_id;
             if(isset($appointment->building)){
                 $appointmentItem->building_name = $appointment->building->name;
             }else{
                 $appointmentItem->building_name = '';
             }
+            $appointmentItem->office_id = $appointment->office_id;
             if(isset($appointment->office)){
                 $appointmentItem->office_name = $appointment->office->office_name;
             }else{
                 $appointmentItem->office_name = '';
+            }
+            $appointmentItem->sale_person_id = $appointment->sale_person_id;
+            if(isset($appointment->user)){
+                $appointmentItem->sale_person_name = $appointment->user->full_name;
             }
             $appointmentItem->full_name = $appointment->full_name;
             $appointmentItem->date_schedule = $appointment->date_str;

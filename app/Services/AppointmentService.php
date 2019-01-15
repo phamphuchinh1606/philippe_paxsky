@@ -99,8 +99,8 @@ class AppointmentService extends BaseService{
 
     public function ratingVisit(Request $request){
         $appointmentId = $request->appointment_id;
-        $ratingNumber = $request->rating_number;
-        $ratingComment = $request->rating_comment;
+        $ratingNumber = $request->rate_number;
+        $ratingComment = $request->rate_comment;
         $appointment = $this->appointmentLogic->find($appointmentId);
         if(isset($appointment)){
             $appointment->rate = $ratingNumber;

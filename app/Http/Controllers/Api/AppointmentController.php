@@ -105,7 +105,7 @@ class AppointmentController extends ControllerApi
     public function ratingVisit(Request $request){
         $rules = array(
             'appointment_id' => 'required',
-            'rating_number' => 'required'
+            'rate_number' => 'required'
         );
         $validator = Validator::make($request->all(), $rules);
         if ($validator->fails())

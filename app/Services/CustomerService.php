@@ -42,6 +42,14 @@ class CustomerService extends BaseService{
         return true;
     }
 
+    public function getCustomerByEmail($email){
+        return $this->customerLogic->getCustomerByEmail($email);
+    }
+
+    public function getCustomerByPhone($mobilePhone){
+        return $this->customerLogic->getCustomerByMobilePhone($mobilePhone);
+    }
+
     public function getAll(){
         $customers = $this->customerLogic->getAll();
         foreach ($customers as $customer){
@@ -189,6 +197,15 @@ class CustomerService extends BaseService{
         return $customers;
     }
 
+    public function findSocialAccount($provider, $providerUserId){
+        $account = $this->customerLogic->findSocialAccount($provider, $providerUserId);
+        if ($account) {
+            $customer = $this->customerLogic->findUserId($account->user->id);
+            return $customer;
+        }
+        return null;
+    }
+
     public function createUserFromSocial(Request $request){
         $provider = $request->provider;
         $providerUserId = $request->provider_user_id;
@@ -196,7 +213,6 @@ class CustomerService extends BaseService{
         $account = $this->customerLogic->findSocialAccount($provider, $providerUserId);
         if ($account) {
             $customer = $this->customerLogic->findUserId($account->user->id);
-            $customer->first_login = false;
             return $customer;
         }else{
             try {
@@ -206,9 +222,6 @@ class CustomerService extends BaseService{
                     'provider' => $provider,
                     'access_token' => $accessToken
                 ]);
-
-                $nickName = $request->nick_name;
-                $name = $request->name;
                 $email = $request->email;
                 $mobilePhone = $request->mobile_phone;
                 $profileImage = $request->profile_image;
@@ -231,30 +244,13 @@ class CustomerService extends BaseService{
                     $user = new User();
                     $user->user_type_id = UserTypeConstant::$USER_TYPE_CUSTOMER;
                     $user->is_active = Constant::$ACTIVE_FLG_ON;
-                    $user->password = bcrypt('pass_app_paxsky');
-                    if(isset($name)){
-                        $array = explode(' ', $name);
-                        if(count($array) > 0){
-                            $user->first_name = $array[0];
-                            $customer->first_name = $array[0];
-                            if(count($array) > 1){
-                                $user->last_name = trim(substr($name,strlen($array[0])))    ;
-                                $customer->last_name = $user->last_name;
-                            }
-                        }
-                    }
+                    $request->is_active = Constant::$ACTIVE_FLG_ON;
                 }
-                if(isset($email) && !empty($email)){
-                    $user->email = $email;
-                    $customer->email = $email;
-                }
-                if(isset($mobilePhone) && !empty($mobilePhone)){
-                    $user->mobile_phone = $mobilePhone;
-                    $customer->mobile_phone = $mobilePhone;
-                }
-                if(isset($profileImage) && !empty($profileImage)){
-                    $user->profile_image = $profileImage;
-                }
+                $request->password = "pass_app_paxsky";
+                $data = $this->getCustomerInfo($request, $customer, $user);
+                $customer = $data->customer;
+                $user = $data->user;
+
                 $user = $this->userLogic->save($user);
 
                 //Save customer

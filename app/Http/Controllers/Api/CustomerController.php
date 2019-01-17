@@ -6,6 +6,7 @@ use App\Common\AppCommon;
 use App\Common\Constant;
 use App\Common\DateCommon;
 use Illuminate\Http\Request;
+use phpDocumentor\Reflection\Types\String_;
 use Validator;
 use App\Common\ImageCommon;
 use JWTAuthException;
@@ -13,6 +14,7 @@ use JWTAuth;
 
 class CustomerController extends ControllerApi
 {
+
     private function customerToJson($customer){
         $customerInfo = new \StdClass();
         $customerInfo->customer_id  = $customer->id;
@@ -136,6 +138,104 @@ class CustomerController extends ControllerApi
         $customerInfo->image_profile = (isset($customer->user) && isset($customer->user->profile_image)) ? ImageCommon::showImage($customer->user->profile_image) : asset('images/no_image_available.jpg');
         return $this->json($customerInfo);
     }
+
+    private function createToken($user){
+        $token = null;
+        try {
+            if (!$token = JWTAuth::fromUser($user)) {
+                return response()->json([
+                    'status'=> false,
+                    'message'=> 'invalid email or password'
+                ]);
+            }
+        } catch (JWTAuthException $e) {
+            return response()->json([
+                'status'=> false,
+                'message'=> 'failed to create token'
+            ]);
+        }
+        return $token;
+    }
+
+    public function checkTokenFacebook(Request $request){
+        $rules = array(
+            'access_token' => 'required',
+        );
+        $validator = Validator::make($request->all(), $rules);
+        if ($validator->fails())
+        {
+            return $this->jsonError($validator->errors(), $validator->errors()->first());
+        }
+        $access_token = $request->access_token;
+        $response = $this->facebookService->getUserInfo($access_token);
+        if(is_string($response)){
+            return $this->jsonError(array('token' => $response), $response);
+        }
+        $providerUserId = $response["id"];
+        $provider = Constant::$PROVIDER_SOCIAL_FACEBOOK;
+        $userInfo = new \StdClass();
+        $userInfo->name = isset($response["name"])?$response["name"]:'';
+        $userInfo->first_name = isset($response["first_name"]) ? $response["first_name"] : '';
+        $userInfo->last_name = isset($response["last_name"]) ? $response["last_name"] : '';
+        $userInfo->email = isset($response["email"]) ? $response["email"] : '';
+
+        //Check first Login
+        $customer = $this->customerService->findSocialAccount($provider,$providerUserId);
+        if(!isset($customer) && isset($userInfo->email)) {
+            $customer = $this->customerService->getCustomerByEmail($userInfo->email);
+        }
+        if(isset($customer)){
+            $customerInfo = $this->customerToJson($customer);
+            return response()->json([
+                'first_login'=> false,
+                'token'=> $this->createToken($customer->user),
+                'message'=>'Login success! ',
+                'customer_id' =>  $customer->id,
+                'customer' => $customerInfo
+            ]);
+        }
+        return response()->json([
+            'first_login'=> true,
+            'provider_user_id'=> $providerUserId,
+            'provider' =>  $provider,
+            'customer' => $userInfo
+        ]);
+    }
+
+    public function createLoginSocial(Request $request){
+        $rules = array(
+            'provider' => 'required',
+            'provider_user_id' => 'required',
+            'first_name' => 'required',
+            'last_name' => 'required',
+            'email'=>'required|email',
+            'mobile_phone'=>'required|numeric'
+        );
+        $validator = Validator::make($request->all(), $rules);
+        if ($validator->fails())
+        {
+            return $this->jsonError($validator->errors(), $validator->errors()->first());
+        }
+        //Check email exit
+        if($this->customerService->checkEmailExit($request->email)){
+            return response()->json([
+                'status'=> false,
+                'message'=> 'Email address already exists'
+            ]);
+        }
+        $customer = $this->customerService->createUserFromSocial($request);
+        $customerInfo = $this->customerToJson($customer);
+        return response()->json([
+            'status'=> 0,
+            'first_login' => $customer->first_login,
+            'token'=> $this->createToken($customer->user),
+            'message'=>'Create success! ',
+            'customer_id' =>  $customer->id,
+            'customer' => $customerInfo
+        ]);
+    }
+
+
 
     public function callBackLoginFacebook(Request $request){
         $request->provider = Constant::$PROVIDER_SOCIAL_FACEBOOK;

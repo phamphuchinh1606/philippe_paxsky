@@ -29,6 +29,10 @@ class CustomerLogic extends BaseLogic{
         return Customer::where('email',$email)->first();
     }
 
+    public function getCustomerByMobilePhone($mobilePhone){
+        return Customer::where('mobile_phone',$mobilePhone)->first();
+    }
+
     public function getAll($limit = 20){
         return Customer::whereIsDelete(Constant::$DELETE_FLG_OFF)->orderBy('created_at','desc')->paginate($limit);
     }

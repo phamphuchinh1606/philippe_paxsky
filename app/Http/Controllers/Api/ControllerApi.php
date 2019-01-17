@@ -7,6 +7,7 @@ use Illuminate\Foundation\Bus\DispatchesJobs;
 use Illuminate\Routing\Controller as BaseController;
 use Illuminate\Foundation\Validation\ValidatesRequests;
 use Illuminate\Foundation\Auth\Access\AuthorizesRequests;
+use App\Services\Socials\FacebookService;
 
 use App\Services\{BuildingTypeService,
     InvestorService,
@@ -55,13 +56,15 @@ class ControllerApi extends BaseController
 
     protected $newsService;
 
+    protected $facebookService;
+
     public function __construct(BuildingTypeService $buildingTypeService, InvestorService $investorService,
                                 ClassificationService $classificationService, ManagementAgencyService $managementAgencyService,
                                 DirectionService $directionService, BuildingService $buildingService,
                                 BuildingImageService $buildingImageService, OfficeLayoutService $officeLayoutService,
                                 OfficeService $officeService, UserService $userService, CustomerService $customerService,
                                 AddressService $addressService, AppointmentService $appointmentService,
-                                NewsService $newsService)
+                                NewsService $newsService, FacebookService $facebookService)
     {
         $this->buildingTypeService = $buildingTypeService;
         $this->investorService = $investorService;
@@ -77,6 +80,7 @@ class ControllerApi extends BaseController
         $this->addressService = $addressService;
         $this->appointmentService = $appointmentService;
         $this->newsService = $newsService;
+        $this->facebookService = $facebookService;
     }
 
     protected function json($data){

@@ -23,8 +23,8 @@ Route::post('/login','LoginController@login')->name('api.login');
 Route::get('/customer/info', 'CustomerController@info')->name('api.customer.info');
 Route::post('/customer/create', 'CustomerController@create')->name('api.customer.create');
 Route::post('/customer/update', 'CustomerController@update')->name('api.customer.update');
-Route::post('/customer/facebook/call-back-login-social', 'CustomerController@callBackLoginFacebook')->name('api.customer.call_back_login_social');
-Route::post('/customer/mobile-phone/call-back-login-social', 'CustomerController@callBackLoginMobilePhone')->name('api.customer.call_back_login_social');
+Route::get('/customer/facebook/check-token', 'CustomerController@checkTokenFacebook')->name('api.customer.facebook.check_token');
+Route::post('/customer/social/create-login', 'CustomerController@createLoginSocial')->name('api.customer.social.create_login');
 
 //Api building
 Route::get('/building','BuildingController@list')->name('api.building');

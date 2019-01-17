@@ -137,17 +137,45 @@ class CustomerController extends ControllerApi
         return $this->json($customerInfo);
     }
 
-    public function callbackLogicSocial(Request $request){
+    public function callBackLoginFacebook(Request $request){
+        $request->provider = Constant::$PROVIDER_SOCIAL_FACEBOOK;
         $rules = array(
-            'provider' => 'required',
             'provider_user_id' => 'required',
             'access_token' => 'required',
+            'email' => 'required',
             'nick_name' => 'required',
             'name' => 'required',
-            'email' => 'required',
-            'mobile_phone' => 'required',
-            'profile_image' => 'required'
         );
+        return $this->callbackLogicSocial($request, $rules);
+    }
+
+    public function callBackLoginMobilePhone(Request $request){
+        $request->provider = Constant::$PROVIDER_SOCIAL_MOBILE_PHONE;
+        $rules = array(
+            'provider_user_id' => 'required',
+            'access_token' => 'required',
+            'mobile_phone' => 'required',
+            'email' => 'required',
+            'nick_name' => 'required',
+            'name' => 'required',
+        );
+        return $this->callbackLogicSocial($request, $rules);
+    }
+
+    public function callbackLogicSocial(Request $request, $rules = null){
+        if(!isset($rules)){
+            $rules = array(
+                'provider' => 'required',
+                'provider_user_id' => 'required',
+                'access_token' => 'required',
+                'nick_name' => 'required',
+                'name' => 'required',
+                'email' => 'required',
+                'mobile_phone' => 'required',
+                'profile_image' => 'required'
+            );
+        }
+
         $validator = Validator::make($request->all(), $rules);
         if ($validator->fails())
         {
@@ -169,9 +197,7 @@ class CustomerController extends ControllerApi
             ]);
         }
 
-
         $customerInfo = $this->customerToJson($customer);
-
         return response()->json([
             'status'=> 0,
             'first_login' => $customer->first_login,

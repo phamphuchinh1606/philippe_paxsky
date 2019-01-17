@@ -217,6 +217,11 @@ class CustomerService extends BaseService{
                     if(isset($user)){
                         $customer = $this->customerLogic->findUserId($user->id);
                     }
+                }else if(isset($mobilePhone)){
+                    $user = User::whereMobilePhone($mobilePhone)->first();
+                    if(isset($user)){
+                        $customer = $this->customerLogic->findUserId($user->id);
+                    }
                 }
                 if(!isset($customer)){
                     $customer = new Customer();

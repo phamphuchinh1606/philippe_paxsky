@@ -82,4 +82,8 @@ class Constant{
     public static $OFFICE_STATUS_HIRED = 3;
     public static $OFFICE_STATUS_FIXING = 4;
 
+    //Driver social login
+    public static $PROVIDER_SOCIAL_FACEBOOK = "facebook";
+    public static $PROVIDER_SOCIAL_MOBILE_PHONE = "phone";
+
 }

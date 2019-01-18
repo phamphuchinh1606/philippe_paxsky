@@ -24,6 +24,7 @@ Route::get('/customer/info', 'CustomerController@info')->name('api.customer.info
 Route::post('/customer/create', 'CustomerController@create')->name('api.customer.create');
 Route::post('/customer/update', 'CustomerController@update')->name('api.customer.update');
 Route::get('/customer/facebook/check-token', 'CustomerController@checkTokenFacebook')->name('api.customer.facebook.check_token');
+Route::get('/customer/facebook-account-kit/check-token', 'CustomerController@checkTokenMobilePhone')->name('api.customer.facebook_account_kit');
 Route::post('/customer/social/create-login', 'CustomerController@createLoginSocial')->name('api.customer.social.create_login');
 
 //Api building

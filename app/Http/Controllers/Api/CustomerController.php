@@ -202,6 +202,48 @@ class CustomerController extends ControllerApi
         ]);
     }
 
+    public function checkTokenMobilePhone(Request $request){
+        $rules = array(
+            'access_token' => 'required',
+        );
+        $validator = Validator::make($request->all(), $rules);
+        if ($validator->fails())
+        {
+            return $this->jsonError($validator->errors(), $validator->errors()->first());
+        }
+        $access_token = $request->access_token;
+        $response = $this->facebookService->getUserInfoByMobilePhone($access_token);
+        if(is_string($response)){
+            return $this->jsonError(array('token' => $response), $response);
+        }
+        $providerUserId = $response["id"];
+        $provider = Constant::$PROVIDER_SOCIAL_MOBILE_PHONE;
+        $userInfo = new \StdClass();
+        $userInfo->mobile_phone = "0".$response["phone"]["national_number"];
+
+        //Check first Login
+        $customer = $this->customerService->findSocialAccount($provider,$providerUserId);
+        if(!isset($customer) && isset($userInfo->mobile_phone)) {
+            $customer = $this->customerService->getCustomerByPhone($userInfo->mobile_phone);
+        }
+        if(isset($customer)){
+            $customerInfo = $this->customerToJson($customer);
+            return response()->json([
+                'first_login'=> false,
+                'token'=> $this->createToken($customer->user),
+                'message'=>'Login success! ',
+                'customer_id' =>  $customer->id,
+                'customer' => $customerInfo
+            ]);
+        }
+        return response()->json([
+            'first_login'=> true,
+            'provider_user_id'=> $providerUserId,
+            'provider' =>  $provider,
+            'customer' => $userInfo
+        ]);
+    }
+
     public function createLoginSocial(Request $request){
         $rules = array(
             'provider' => 'required',
@@ -234,8 +276,6 @@ class CustomerController extends ControllerApi
             'customer' => $customerInfo
         ]);
     }
-
-
 
     public function callBackLoginFacebook(Request $request){
         $request->provider = Constant::$PROVIDER_SOCIAL_FACEBOOK;

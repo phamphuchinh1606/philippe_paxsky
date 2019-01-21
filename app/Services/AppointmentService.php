@@ -5,15 +5,18 @@ use App\Common\Constant;
 use App\Common\DateCommon;
 use App\Logics\AppointmentLogic;
 use App\Models\ScheduleAppointment;
+use App\Services\Socials\FireBaseService;
 use Illuminate\Http\Request;
 use App\Common\AppCommon;
 
 class AppointmentService extends BaseService{
     private $appointmentLogic;
+    private $fireBaseService;
 
-    public function __construct(AppointmentLogic $appointmentLogic)
+    public function __construct(AppointmentLogic $appointmentLogic, FireBaseService $fireBaseService)
     {
         $this->appointmentLogic = $appointmentLogic;
+        $this->fireBaseService = $fireBaseService;
     }
 
     public function find($id){
@@ -91,10 +94,28 @@ class AppointmentService extends BaseService{
     public function update(Request $request){
         $appointmentDB = $this->appointmentLogic->find($request->appointment_id);
         if(isset($appointmentDB)){
+            $statusOld = $appointmentDB->status;
             $appointment = $this->getAppointmentInfo($request,$appointmentDB);
+            $statusNew = $appointment->status;
             $appointmentDB = $this->appointmentLogic->save($appointment);
+            if($statusOld != $statusNew && ( $statusNew == Constant::$APPOINTMENT_STATUS_SCHEDULE || $statusNew == Constant::$APPOINTMENT_STATUS_CANCEL )){
+                if($statusNew == Constant::$APPOINTMENT_STATUS_SCHEDULE){
+                    $statusName = "confirmed";
+                }else{
+                    $statusName = "canceled";
+                }
+                //Send Notification
+                $buildingName = $appointmentDB->building->name;
+                $this->pushNotification($appointmentDB->customer_id, $buildingName, $statusName);
+            }
         }
         return $appointmentDB;
+    }
+
+    private function pushNotification($customerId, $buildingName, $statusName){
+        $title = "Confirm Appointment";
+        $body = "Your appointment schedule at the building $buildingName has been $statusName.";
+        $this->fireBaseService->pushNotification($customerId, $title, $body);
     }
 
     public function ratingVisit(Request $request){

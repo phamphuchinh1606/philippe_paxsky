@@ -60,9 +60,6 @@ class BuildingLogic extends BaseLogic{
                 $query->whereRaw("(rental_cost + manager_cost + tax_cost) <= $rentCostTo");
             }
         }
-//        \DB::listen(function($query){
-//            dd($query);
-//        });
         return $query->orderBy('created_at','desc')->get();
     }
 

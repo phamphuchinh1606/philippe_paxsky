@@ -265,6 +265,13 @@ class CustomerController extends ControllerApi
                 'message'=> 'Email address already exists'
             ]);
         }
+        //Check Phone exit
+        if($this->customerService->checkPhoneExit($request->mobile_phone)){
+            return response()->json([
+                'status'=> false,
+                'message'=> 'Mobile phone already exists'
+            ]);
+        }
         $customer = $this->customerService->createUserFromSocial($request);
         $customerInfo = $this->customerToJson($customer);
         return response()->json([

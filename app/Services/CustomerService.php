@@ -42,6 +42,12 @@ class CustomerService extends BaseService{
         return true;
     }
 
+    public function checkPhoneExit($mobilePhone){
+        $customer = $this->customerLogic->getCustomerByMobilePhone($mobilePhone);
+        if(!isset($customer)) return false;
+        return true;
+    }
+
     public function getCustomerByEmail($email){
         return $this->customerLogic->getCustomerByEmail($email);
     }

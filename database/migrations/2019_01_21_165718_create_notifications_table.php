@@ -21,7 +21,6 @@ class CreateNotificationsTable extends Migration
             $table->string('title',255)->nullable();
             $table->string('body',1000)->nullable();
             $table->integer('is_read')->default(0);
-            $table->string('device',50)->nullable();
             $table->integer('is_delete')->default(0);
             $table->timestamps();
         });

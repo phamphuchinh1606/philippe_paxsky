@@ -22,7 +22,8 @@ use App\Services\{BuildingTypeService,
     CustomerService,
     AddressService,
     AppointmentService,
-    NewsService};
+    NewsService,
+    NotificationService};
 
 class ControllerApi extends BaseController
 {
@@ -60,13 +61,16 @@ class ControllerApi extends BaseController
 
     protected $fireBaseService;
 
+    protected $notificationService;
+
     public function __construct(BuildingTypeService $buildingTypeService, InvestorService $investorService,
                                 ClassificationService $classificationService, ManagementAgencyService $managementAgencyService,
                                 DirectionService $directionService, BuildingService $buildingService,
                                 BuildingImageService $buildingImageService, OfficeLayoutService $officeLayoutService,
                                 OfficeService $officeService, UserService $userService, CustomerService $customerService,
                                 AddressService $addressService, AppointmentService $appointmentService,
-                                NewsService $newsService, FacebookService $facebookService, FireBaseService $fireBaseService)
+                                NewsService $newsService, FacebookService $facebookService, FireBaseService $fireBaseService,
+                                NotificationService $notificationService)
     {
         $this->buildingTypeService = $buildingTypeService;
         $this->investorService = $investorService;
@@ -84,6 +88,7 @@ class ControllerApi extends BaseController
         $this->newsService = $newsService;
         $this->facebookService = $facebookService;
         $this->fireBaseService = $fireBaseService;
+        $this->notificationService = $notificationService;
     }
 
     protected function json($data){

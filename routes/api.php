@@ -55,3 +55,10 @@ Route::post('/batch/office-thumbnail', 'BatchController@buildThumbnailOffice');
 
 //Api News
 Route::get('/news/list','NewsController@newsList')->name('api.news');
+
+//Api Notification
+Route::post('/notification/create-token','NotificationController@createRequestToken')->name('api.notification.create_token');
+Route::post('/notification/push-notification','NotificationController@pushNotification')->name('api.notification.push_notification');
+Route::post('/notification/update-read-notification','NotificationController@readNotification')->name('api.notification.read_notification');
+Route::post('/notification/delete','NotificationController@deleteNotification')->name('api.notification.delete');
+Route::get('/notification/notifications','NotificationController@listNotification')->name('api.notification.list');

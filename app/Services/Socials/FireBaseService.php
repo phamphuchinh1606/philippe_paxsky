@@ -1,28 +1,28 @@
 <?php
 
 namespace App\Services\Socials;
-use App\Common\Constant;
-use App\Common\DateCommon;
 use App\Logics\CustomerLogic;
 use App\Logics\FireBaseTokenLogic;
 use App\Logics\UserLogic;
 use App\Models\FireBaseToken;
-use App\Models\News;
-use Illuminate\Http\Request;
-use App\Common\AppCommon;
+use App\Services\NotificationService;
+use App\Services\BaseService;
 
 class FireBaseService extends BaseService{
     private $fireBaseTokenLogic;
     private $customerLogic;
     private $userLogic;
 
+    private $notificationService;
+
     private $fcmUrl = 'https://fcm.googleapis.com/fcm/send';
 
-    public function __construct(FireBaseTokenLogic $fireBaseTokenLogic, CustomerLogic $customerLogic, UserLogic $userLogic)
+    public function __construct(FireBaseTokenLogic $fireBaseTokenLogic, CustomerLogic $customerLogic, UserLogic $userLogic ,NotificationService $notificationService)
     {
         $this->fireBaseTokenLogic = $fireBaseTokenLogic;
         $this->customerLogic = $customerLogic;
         $this->userLogic = $userLogic;
+        $this->notificationService = $notificationService;
     }
 
     public function find($id){
@@ -49,6 +49,7 @@ class FireBaseService extends BaseService{
                 $fireBaseToken->user_id = $customer->user_id;
                 $fireBaseToken->customer_id = $customer->id;
                 $fireBaseToken->token = $token;
+                $fireBaseToken->device = $device;
             }
             $this->fireBaseTokenLogic->save($fireBaseToken);
             return true;
@@ -68,7 +69,7 @@ class FireBaseService extends BaseService{
                     );
                 }
                 //Save Data notification
-
+                $this->notificationService->create($customerId, $title, $message);
             }
         }
     }

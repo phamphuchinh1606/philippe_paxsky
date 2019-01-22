@@ -97,7 +97,7 @@ class AppointmentService extends BaseService{
             $statusOld = $appointmentDB->status;
             $appointment = $this->getAppointmentInfo($request,$appointmentDB);
             $statusNew = $appointment->status;
-            $appointmentDB = $this->appointmentLogic->save($appointment);
+
             if($statusOld != $statusNew && ( $statusNew == Constant::$APPOINTMENT_STATUS_SCHEDULE || $statusNew == Constant::$APPOINTMENT_STATUS_CANCEL )){
                 if($statusNew == Constant::$APPOINTMENT_STATUS_SCHEDULE){
                     $statusName = "confirmed";
@@ -108,6 +108,8 @@ class AppointmentService extends BaseService{
                 $buildingName = $appointmentDB->building->name;
                 $this->pushNotification($appointmentDB->customer_id, $buildingName, $statusName);
             }
+            $appointmentDB = $this->appointmentLogic->save($appointment);
+
         }
         return $appointmentDB;
     }

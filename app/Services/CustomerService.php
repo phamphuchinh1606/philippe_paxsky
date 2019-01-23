@@ -184,7 +184,9 @@ class CustomerService extends BaseService{
                 $this->userLogic->save($user);
                 $this->customerLogic->save($customer);
             }
+            return $customer;
         }
+        return $customerDB;
     }
 
     public function destroy($id){

@@ -105,8 +105,14 @@ class CustomerController extends ControllerApi
                 'message'=> 'Customer not exit'
             ]);
         }
-        $this->customerService->update($request->customer_id,$request);
-        return $this->jsonSuccess();
+        $customer = $this->customerService->update($request->customer_id,$request);
+        $customerInfo = $this->customerToJson($customer);
+        return response()->json([
+            'status'=> 0,
+            'message'=>'Update success! ',
+            'customer_id' =>  $customer->id,
+            'customer' => $customerInfo
+        ]);
     }
 
     public function info(Request $request){

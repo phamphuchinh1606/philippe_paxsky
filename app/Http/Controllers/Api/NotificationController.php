@@ -95,4 +95,17 @@ class NotificationController extends ControllerApi
         $this->notificationService->deleteNotification($request->notification_id);
         return $this->jsonSuccess('Delete read notification success');
     }
+
+    public function countNotificationUnRead(Request $request){
+        $rules = array(
+            'customer_id' => 'required'
+        );
+        $validator = Validator::make($request->all(), $rules);
+        if ($validator->fails())
+        {
+            return $this->jsonError($validator->errors(), $validator->errors()->first());
+        }
+        $count = $this->notificationService->countNotificationUnRead($request->customer_id);
+        return $this->json(array('count' => $count));
+    }
 }

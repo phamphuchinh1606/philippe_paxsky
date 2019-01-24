@@ -24,6 +24,10 @@ class NotificationService extends BaseService{
         return $this->notificationLogic->getByCustomer($customerId);
     }
 
+    public function countNotificationUnRead($customerId){
+        return $this->notificationLogic->countNotificationUnRead($customerId);
+    }
+
     public function create($customerId, $title, $body){
         $notification = new Notification();
         $notification->to_customer_id = $customerId;

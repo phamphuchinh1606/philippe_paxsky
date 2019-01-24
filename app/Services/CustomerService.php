@@ -189,6 +189,61 @@ class CustomerService extends BaseService{
         return $customerDB;
     }
 
+    public function updateProfile($customerId, $request){
+        $customer = $this->customerLogic->find($customerId);
+        if(isset($customer)){
+            $user = $customer->user;
+            $customerImage = $request->file('profile_image');
+            if(isset($customerImage) && isset($user)){
+                AppCommon::deleteImage($user->profile_image);
+                $imageName = AppCommon::moveImage($customerImage, Constant::$PATH_FOLDER_UPLOAD_USER.'/'.$user->id);
+                $user->profile_image = $imageName;
+                $this->userLogic->save($user);
+            }
+        }
+        return $customer;
+    }
+
+    public function updateEmail($customerId, $request){
+        $customer = $this->customerLogic->find($customerId);
+        if(isset($customer)) {
+            $user = $customer->user;
+            if(isset($user)){
+                $user->email = $request->email;
+                $this->userLogic->save($user);
+            }
+            $customer->email = $request->email;
+            $this->customerLogic->save($customer);
+        }
+        return $customer;
+    }
+
+    public function updateMobilePhone($customerId, $request){
+        $customer = $this->customerLogic->find($customerId);
+        if(isset($customer)) {
+            $user = $customer->user;
+            if(isset($user)){
+                $user->mobile_phone = $request->mobile_phone;
+                $this->userLogic->save($user);
+            }
+            $customer->mobile_phone = $request->mobile_phone;
+            $this->customerLogic->save($customer);
+        }
+        return $customer;
+    }
+
+    public function updatePassword($customerId, $request){
+        $customer = $this->customerLogic->find($customerId);
+        if(isset($customer)) {
+            $user = $customer->user;
+            if(isset($user)){
+                $user->password = bcrypt($request->password);
+                $this->userLogic->save($user);
+            }
+        }
+        return $customer;
+    }
+
     public function destroy($id){
         $customer = $this->customerLogic->find($id);
         if(isset($customer)){

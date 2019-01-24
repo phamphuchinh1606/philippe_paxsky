@@ -29,17 +29,11 @@ class CustomerController extends ControllerApi
         $customerInfo->district_name =  isset($customer->district) ? $customer->district->label : '';;
         $customerInfo->gender = AppCommon::nullToEmpty($customer->gender);
         $customerInfo->birthday = DateCommon::dateFormat($customer->birthday,'d-m-Y');
-        $customerInfo->image_profile = (isset($customer->user) && isset($customer->user->profile_image)) ? ImageCommon::showImage($customer->user->profile_image) : asset('images/no_image_available.jpg');
+        $customerInfo->image_profile = (isset($customer->user) && isset($customer->user->profile_image)) ? ImageCommon::showImage($customer->user->profile_image) :  '';
         return $customerInfo;
     }
 
     public function create(Request $request){
-//        $messages = array(
-//            'required' => 'Vui lòng nhập thông tin (*).',
-//            'numeric' => 'Điện thoại phải dạng số',
-//            'email' => 'Địa chỉ email không đúng',
-//            'confirmed'=>'Nhập lại mật khẩu không chính xác'
-//        );
         $rules = array(
             'first_name' => 'required',
             'last_name' => 'required',
@@ -115,6 +109,115 @@ class CustomerController extends ControllerApi
         ]);
     }
 
+    public function updateProfileImage(Request $request){
+        $rules = array(
+            'customer_id' => 'required',
+            'profile_image' => 'required'
+        );
+        $validator = Validator::make($request->all(), $rules);
+        if ($validator->fails())
+        {
+            return $this->jsonError($validator->errors(), $validator->errors()->first());
+        }
+        $customer = $this->customerService->find($request->customer_id);
+        if(!isset($customer)){
+            return response()->json([
+                'status'=> false,
+                'message'=> 'Customer not exit'
+            ]);
+        }
+        $customer = $this->customerService->updateProfile($request->customer_id, $request);
+        $customerInfo = $this->customerToJson($customer);
+        return response()->json([
+            'status'=> 0,
+            'message'=>'Update success! ',
+            'customer_id' =>  $customer->id,
+            'customer' => $customerInfo
+        ]);
+    }
+
+    public function updateEmail(Request $request){
+        $rules = array(
+            'customer_id' => 'required',
+            'email' => 'required'
+        );
+        $validator = Validator::make($request->all(), $rules);
+        if ($validator->fails())
+        {
+            return $this->jsonError($validator->errors(), $validator->errors()->first());
+        }
+        $customer = $this->customerService->find($request->customer_id);
+        if(!isset($customer)){
+            return response()->json([
+                'status'=> false,
+                'message'=> 'Customer not exit'
+            ]);
+        }
+        $customer = $this->customerService->updateEmail($request->customer_id, $request);
+        $customerInfo = $this->customerToJson($customer);
+        return response()->json([
+            'status'=> 0,
+            'message'=>'Update success! ',
+            'customer_id' =>  $customer->id,
+            'customer' => $customerInfo
+        ]);
+    }
+
+    public function updateMobilePhone(Request $request){
+        $rules = array(
+            'customer_id' => 'required',
+            'mobile_phone' => 'required'
+        );
+        $validator = Validator::make($request->all(), $rules);
+        if ($validator->fails())
+        {
+            return $this->jsonError($validator->errors(), $validator->errors()->first());
+        }
+        $customer = $this->customerService->find($request->customer_id);
+        if(!isset($customer)){
+            return response()->json([
+                'status'=> false,
+                'message'=> 'Customer not exit'
+            ]);
+        }
+        $customer = $this->customerService->updateMobilePhone($request->customer_id, $request);
+        $customerInfo = $this->customerToJson($customer);
+        return response()->json([
+            'status'=> 0,
+            'message'=>'Update success! ',
+            'customer_id' =>  $customer->id,
+            'customer' => $customerInfo
+        ]);
+    }
+
+    public function updatePassword(Request $request){
+        $rules = array(
+            'customer_id' => 'required',
+            'password' => 'required'
+        );
+        $validator = Validator::make($request->all(), $rules);
+        if ($validator->fails())
+        {
+            return $this->jsonError($validator->errors(), $validator->errors()->first());
+        }
+        $customer = $this->customerService->find($request->customer_id);
+        if(!isset($customer)){
+            return response()->json([
+                'status'=> false,
+                'message'=> 'Customer not exit'
+            ]);
+        }
+        $customer = $this->customerService->updatePassword($request->customer_id, $request);
+        $customerInfo = $this->customerToJson($customer);
+        return response()->json([
+            'status'=> 0,
+            'message'=>'Update success! ',
+            'customer_id' =>  $customer->id,
+            'customer' => $customerInfo
+        ]);
+
+    }
+
     public function info(Request $request){
         $rules = array(
             'customer_id' => 'required',
@@ -128,20 +231,7 @@ class CustomerController extends ControllerApi
         if(!isset($customer)){
             return $this->jsonError([],'Customer not exit.');
         }
-        $customerInfo = new \StdClass();
-        $customerInfo->customer_id  = $customer->id;
-        $customerInfo->first_name = $customer->first_name;
-        $customerInfo->last_name = $customer->last_name;
-        $customerInfo->email = $customer->email;
-        $customerInfo->mobile_phone = $customer->mobile_phone;
-        $customerInfo->address = AppCommon::nullToEmpty($customer->address);
-        $customerInfo->province_id = AppCommon::nullToEmpty($customer->province_id);
-        $customerInfo->province_name =  isset($customer->province) ? $customer->province->label : '';;
-        $customerInfo->district_id = AppCommon::nullToEmpty($customer->district_id);
-        $customerInfo->district_name =  isset($customer->district) ? $customer->district->label : '';;
-        $customerInfo->gender = AppCommon::nullToEmpty($customer->gender);
-        $customerInfo->birthday = DateCommon::dateFormat($customer->birthday,'d-m-Y');
-        $customerInfo->image_profile = (isset($customer->user) && isset($customer->user->profile_image)) ? ImageCommon::showImage($customer->user->profile_image) : asset('images/no_image_available.jpg');
+        $customerInfo = $this->customerToJson($customer);
         return $this->json($customerInfo);
     }
 

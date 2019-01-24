@@ -16,7 +16,7 @@ class NotificationLogic extends BaseLogic{
     }
 
     public function getByCustomer($customerId){
-        return Notification::whereIsDelete(Constant::$DELETE_FLG_OFF)->whereToCustomerId($customerId)->get();
+        return Notification::whereIsDelete(Constant::$DELETE_FLG_OFF)->whereToCustomerId($customerId)->orderBy('created_at','desc')->get();
     }
 
     public function save(Notification $item){

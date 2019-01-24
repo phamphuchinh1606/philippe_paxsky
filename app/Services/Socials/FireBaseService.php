@@ -16,6 +16,7 @@ class FireBaseService extends BaseService{
     private $notificationService;
 
     private $fcmUrl = 'https://fcm.googleapis.com/fcm/send';
+    private $legacyServerKey  = "AIzaSyDKBmEcSOMo72ftBiGkaky-N4C5lZsMCoI";
 
     public function __construct(FireBaseTokenLogic $fireBaseTokenLogic, CustomerLogic $customerLogic, UserLogic $userLogic ,NotificationService $notificationService)
     {
@@ -82,19 +83,21 @@ class FireBaseService extends BaseService{
         $notification = [
             'title' => $title,
             'sound' => true,
+            'body' => $body
         ];
 
         $extraNotificationData = ["message" => $notification, "moredata" => $body];
 
         $fcmNotification = [
             //'registration_ids' => $tokenList, //multple token array
-            'to'        => $token, //single token
+            'to'        => $token, //single token,
+            'content_available' => true,
             'notification' => $notification,
             'data' => $extraNotificationData
         ];
 
         $headers = [
-            'Authorization: key=Legacy server key',
+            'Authorization: key='.$this->legacyServerKey,
             'Content-Type: application/json'
         ];
 

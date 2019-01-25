@@ -139,7 +139,8 @@ class CustomerController extends ControllerApi
     public function updateEmail(Request $request){
         $rules = array(
             'customer_id' => 'required',
-            'email' => 'required'
+            'email' => 'required',
+            'password' => 'required'
         );
         $validator = Validator::make($request->all(), $rules);
         if ($validator->fails())
@@ -151,6 +152,14 @@ class CustomerController extends ControllerApi
             return response()->json([
                 'status'=> false,
                 'message'=> 'Customer not exit'
+            ]);
+        }
+        $user = $customer->user;
+        if (!$this->userService->checkPassword($user, $request->password))
+        {
+            return response()->json([
+                'status'=> false,
+                'message'=> 'Password incorrect'
             ]);
         }
         $customer = $this->customerService->updateEmail($request->customer_id, $request);
@@ -166,7 +175,8 @@ class CustomerController extends ControllerApi
     public function updateMobilePhone(Request $request){
         $rules = array(
             'customer_id' => 'required',
-            'mobile_phone' => 'required'
+            'mobile_phone' => 'required',
+            'password' => 'required'
         );
         $validator = Validator::make($request->all(), $rules);
         if ($validator->fails())
@@ -178,6 +188,14 @@ class CustomerController extends ControllerApi
             return response()->json([
                 'status'=> false,
                 'message'=> 'Customer not exit'
+            ]);
+        }
+        $user = $customer->user;
+        if (!$this->userService->checkPassword($user, $request->password))
+        {
+            return response()->json([
+                'status'=> false,
+                'message'=> 'Password incorrect'
             ]);
         }
         $customer = $this->customerService->updateMobilePhone($request->customer_id, $request);
@@ -193,6 +211,7 @@ class CustomerController extends ControllerApi
     public function updatePassword(Request $request){
         $rules = array(
             'customer_id' => 'required',
+            'password_old' => 'required',
             'password' => 'required'
         );
         $validator = Validator::make($request->all(), $rules);
@@ -205,6 +224,14 @@ class CustomerController extends ControllerApi
             return response()->json([
                 'status'=> false,
                 'message'=> 'Customer not exit'
+            ]);
+        }
+        $user = $customer->user;
+        if (!$this->userService->checkPassword($user, $request->password_old))
+        {
+            return response()->json([
+                'status'=> false,
+                'message'=> 'Password incorrect'
             ]);
         }
         $customer = $this->customerService->updatePassword($request->customer_id, $request);

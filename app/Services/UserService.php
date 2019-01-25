@@ -31,6 +31,16 @@ class UserService extends BaseService{
         return null;
     }
 
+    public function checkPassword($user, $password){
+        if(isset($user)){
+            if (Hash::check($password, $user->password))
+            {
+                return true;
+            }
+        }
+        return false;
+    }
+
     public function getAll(){
         $users = $this->userLogic->getAll();
         foreach ($users as $user){

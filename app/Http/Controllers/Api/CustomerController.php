@@ -154,6 +154,13 @@ class CustomerController extends ControllerApi
                 'message'=> 'Customer not exit'
             ]);
         }
+        //Check email exit
+        if($this->customerService->checkEmailExit($request->email, $request->customer_id)){
+            return response()->json([
+                'status'=> false,
+                'message'=> 'Email address already exists'
+            ]);
+        }
         $user = $customer->user;
         if (!$this->userService->checkPassword($user, $request->password))
         {
@@ -188,6 +195,13 @@ class CustomerController extends ControllerApi
             return response()->json([
                 'status'=> false,
                 'message'=> 'Customer not exit'
+            ]);
+        }
+        //Check email exit
+        if($this->customerService->checkPhoneExit($request->mobile_phone, $request->customer_id)){
+            return response()->json([
+                'status'=> false,
+                'message'=> 'Mobile phone already exists'
             ]);
         }
         $user = $customer->user;

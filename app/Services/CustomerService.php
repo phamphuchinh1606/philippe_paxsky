@@ -36,14 +36,14 @@ class CustomerService extends BaseService{
         return $this->customerLogic->findUserId($userId);
     }
 
-    public function checkEmailExit($email){
-        $customer = $this->customerLogic->getCustomerByEmail($email);
+    public function checkEmailExit($email, $customerId = null){
+        $customer = $this->customerLogic->getCustomerByEmail($email, $customerId);
         if(!isset($customer)) return false;
         return true;
     }
 
-    public function checkPhoneExit($mobilePhone){
-        $customer = $this->customerLogic->getCustomerByMobilePhone($mobilePhone);
+    public function checkPhoneExit($mobilePhone, $customerId = null){
+        $customer = $this->customerLogic->getCustomerByMobilePhone($mobilePhone, $customerId);
         if(!isset($customer)) return false;
         return true;
     }

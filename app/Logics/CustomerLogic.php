@@ -25,12 +25,20 @@ class CustomerLogic extends BaseLogic{
         return $account;
     }
 
-    public function getCustomerByEmail($email){
-        return Customer::where('email',$email)->first();
+    public function getCustomerByEmail($email ,$customerId = null){
+        $query = Customer::where('email',$email);
+        if(isset($customerId)){
+            $query->where('id','<>',$customerId);
+        }
+        return $query->first();
     }
 
-    public function getCustomerByMobilePhone($mobilePhone){
-        return Customer::where('mobile_phone',$mobilePhone)->first();
+    public function getCustomerByMobilePhone($mobilePhone, $customerId = null){
+        $query = Customer::where('mobile_phone',$mobilePhone);
+        if(isset($customerId)){
+            $query->where('id','<>',$customerId);
+        }
+        return $query->first();
     }
 
     public function getAll($limit = 20){

@@ -98,9 +98,12 @@ class AppointmentService extends BaseService{
             $appointment = $this->getAppointmentInfo($request,$appointmentDB);
             $statusNew = $appointment->status;
 
-            if($statusOld != $statusNew && ( $statusNew == Constant::$APPOINTMENT_STATUS_SCHEDULE || $statusNew == Constant::$APPOINTMENT_STATUS_CANCEL )){
+            if($statusOld != $statusNew && ( $statusNew == Constant::$APPOINTMENT_STATUS_SCHEDULE || $statusNew == Constant::$APPOINTMENT_STATUS_CANCEL ||
+                    $statusNew == Constant::$APPOINTMENT_STATUS_DONE)){
                 if($statusNew == Constant::$APPOINTMENT_STATUS_SCHEDULE){
                     $statusName = "confirmed";
+                }else if($statusNew == Constant::$APPOINTMENT_STATUS_DONE){
+                    $statusName = "done";
                 }else{
                     $statusName = "canceled";
                 }

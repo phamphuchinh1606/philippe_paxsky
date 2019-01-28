@@ -53,6 +53,13 @@ class CustomerController extends ControllerApi
                 'message'=> 'Email address already exists'
             ]);
         }
+        //Check mobile phone exit
+        if($this->customerService->checkPhoneExit($request->mobile_phone)){
+            return response()->json([
+                'status'=> false,
+                'message'=> 'Mobile phone already exists'
+            ]);
+        }
         $request->group_id = Constant::$GROUP_CUSTOMER_VISIT;
         $request->is_active = 'on';
         $customer = $this->customerService->create($request);
@@ -99,6 +106,25 @@ class CustomerController extends ControllerApi
                 'message'=> 'Customer not exit'
             ]);
         }
+        if(isset($request->email)){
+            //Check email exit
+            if($this->customerService->checkEmailExit($request->email, $request->customer_id)){
+                return response()->json([
+                    'status'=> false,
+                    'message'=> 'Email address already exists'
+                ]);
+            }
+        }
+        if(isset($request->mobile_phone)){
+            //Check mobile phone exit
+            if($this->customerService->checkPhoneExit($request->mobile_phone,  $request->customer_id)){
+                return response()->json([
+                    'status'=> false,
+                    'message'=> 'Mobile phone already exists'
+                ]);
+            }
+        }
+
         $customer = $this->customerService->update($request->customer_id,$request);
         $customerInfo = $this->customerToJson($customer);
         return response()->json([

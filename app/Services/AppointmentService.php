@@ -48,7 +48,7 @@ class AppointmentService extends BaseService{
 
     public function getAppointLastDoneNotRating($customerId){
         $appointment = $this->appointmentLogic->getAppointLastDoneNotRating($customerId);
-        if(isset($appointment)){
+        if(isset($appointment) && ($appointment->rate == 0 ||  $appointment->rate == null)){
             if($appointment->flg_skip == Constant::$FLG_OFF){
                 return $appointment;
             }

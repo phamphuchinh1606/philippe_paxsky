@@ -51,6 +51,8 @@ Route::post('/appointment/create','AppointmentController@create')->name('api.app
 Route::post('/appointment/update','AppointmentController@update')->name('api.appointment.update');
 Route::post('/appointment/delete','AppointmentController@delete')->name('api.appointment.delete');
 Route::get('/appointment/list','AppointmentController@appointmentList')->name('api.appointment.rating');
+Route::get('/appointment/last-done-not-rating','AppointmentController@appointmentLastDoneNotRating')->name('api.appointment.done_not_rating');
+Route::post('/appointment/update-flg-skip','AppointmentController@updateFlgSkip')->name('api.appointment.update_flg_skip');
 Route::post('/appointment/rating','AppointmentController@ratingVisit')->name('api.appointment.rating');
 
 //Batch Route

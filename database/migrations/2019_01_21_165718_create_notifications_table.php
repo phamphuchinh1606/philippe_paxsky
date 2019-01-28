@@ -20,6 +20,7 @@ class CreateNotificationsTable extends Migration
             $table->integer('to_customer_id')->nullable();
             $table->string('title',255)->nullable();
             $table->string('body',1000)->nullable();
+            $table->longText('content',10000)->nullable();
             $table->integer('is_read')->default(0);
             $table->integer('is_delete')->default(0);
             $table->timestamps();

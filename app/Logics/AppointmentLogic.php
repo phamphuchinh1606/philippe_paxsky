@@ -19,6 +19,12 @@ class AppointmentLogic extends BaseLogic{
         return ScheduleAppointment::where('customer_id',$customerId)->orderBy('created_at','desc')->limit($limit)->get();
     }
 
+    public function getAppointLastDoneNotRating($customerId){
+        return ScheduleAppointment::where('customer_id',$customerId)
+            ->where('status', Constant::$APPOINTMENT_STATUS_DONE)
+            ->orderBy('created_at','desc')->limit(1)->first();
+    }
+
     public function save(ScheduleAppointment $appointment){
         if(isset($appointment)){
             $appointment->save();

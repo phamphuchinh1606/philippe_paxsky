@@ -6,6 +6,9 @@ class Constant{
     public static $DELETE_FLG_ON = 1;
     public static $DELETE_FLG_OFF = 0;
 
+    public static $FLG_ON = 1;
+    public static $FLG_OFF = 0;
+
     public static $PUBLIC_FLG_ON = 1;
     public static $PUBLIC_FLG_ON_NAME = "Public";
     public static $PUBLIC_FLG_OFF = 0;

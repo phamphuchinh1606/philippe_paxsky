@@ -47,6 +47,7 @@ class NotificationController extends ControllerApi
         $notificationItem->customer_id = $notification->to_customer_id;
         $notificationItem->title = $notification->title;
         $notificationItem->body = $notification->body;
+        $notificationItem->content = $notification->content;
         $notificationItem->is_read = $notification->is_read;
         $notificationItem->created_at = DateCommon::dateToString($notification->created_at,'d-m-Y H:i');
         return $notificationItem;

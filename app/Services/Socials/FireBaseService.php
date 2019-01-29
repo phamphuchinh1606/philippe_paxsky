@@ -58,7 +58,7 @@ class FireBaseService extends BaseService{
         return false;
     }
 
-    public function pushNotification($customerId, $title, $message){
+    public function pushNotification($customerId, $title, $message, $content = null){
         $customer = $this->customerLogic->find($customerId);
         if(isset($customer)){
             $fireBaseTokens = $this->fireBaseTokenLogic->getTokenByCustomerId($customerId);
@@ -70,7 +70,7 @@ class FireBaseService extends BaseService{
                     );
                 }
                 //Save Data notification
-                $this->notificationService->create($customerId, $title, $message);
+                $this->notificationService->create($customerId, $title, $message, $content);
             }
         }
     }

@@ -28,11 +28,12 @@ class NotificationService extends BaseService{
         return $this->notificationLogic->countNotificationUnRead($customerId);
     }
 
-    public function create($customerId, $title, $body){
+    public function create($customerId, $title, $body, $content = null){
         $notification = new Notification();
         $notification->to_customer_id = $customerId;
         $notification->title = $title;
         $notification->body = $body;
+        $notification->content = $content;
         $this->notificationLogic->save($notification);
     }
 

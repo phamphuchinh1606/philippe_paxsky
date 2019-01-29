@@ -128,7 +128,7 @@ class AppointmentService extends BaseService{
                 }
                 //Send Notification
                 $buildingName = $appointmentDB->building->name;
-                $this->pushNotification($appointmentDB->customer_id, $buildingName, $statusName);
+                $this->pushNotification($appointmentDB->customer_id, $buildingName, $statusName, $appointmentDB, $statusNew);
             }
             $appointmentDB = $this->appointmentLogic->save($appointment);
 
@@ -136,34 +136,56 @@ class AppointmentService extends BaseService{
         return $appointmentDB;
     }
 
-    private function buildContentNotification($appointment, $buildingName){
+    private function buildContentNotification($appointment, $buildingName, $statusNew){
+        $customerName = $appointment->customer->fullName;
+        $mobilePhone = $appointment->customer->mobile_phone;
+        $email = $appointment->customer->email;
+        $note = $appointment->note ;
+        if($statusNew == Constant::$APPOINTMENT_STATUS_SCHEDULE){
+            $statusNameEN = "confirmed";
+            $statusNameVI = "đã xác nhận";
+        }else if($statusNew == Constant::$APPOINTMENT_STATUS_DONE){
+            $statusNameEN = "done";
+            $statusNameVI = "đã hoàn thành";
+        }else{
+            $statusNameEN = "canceled";
+            $statusNameVI = "đã hủy";
+        }
+        $address =  $appointment->building->address;
+        if(isset($appointment->building->district)){
+            $address = $address.','.$appointment->building->district->label;
+        }
+        $time = DateCommon::dateFormat($appointment->date_schedule,'H:i');
+        $date = DateCommon::dateFormat($appointment->date_schedule,'d-m-Y');
 
+        $content = "<header>XÁC NHẬN LỊCH HẸN</header>
+                        <title>Xin chào <b>$customerName</b>,</title>
+                        <msg>Lịch hẹn của bạn $statusNameVI</msg>
+                        <brand>$buildingName</brand>
+                        <div>$address, Tp. HCM</div>
+                        <info>Họ tên: <b>$customerName</b></info>
+                        <info>Điện thoại: <b>$mobilePhone</b></info>
+                        <info>Email: <b>$email</b>
+                        </info></info><info>$time $date</info>
+                        <note>Ghi chú: $note</note>
+                    <header>APPOINTMENT CONFIRMATION</header>
+                    <title>Hello <b>$customerName</b>,</title>
+                    <msg>Your appointment schedule has been $statusNameEN</msg>
+                    <brand>$buildingName</brand>
+                    <div>$address, HCM City</div>
+                    <info>Name: <b>$customerName</b></info>
+                    <info>Phone: <b>$mobilePhone</b></info>
+                    <info>Email: <b>$email</b></info>
+                    </info><info>$time $date</info>
+                    <note>Note: $note</note>";
+        return $content;
     }
 
-    private function pushNotification($customerId, $buildingName, $statusName){
+    private function pushNotification($customerId, $buildingName, $statusName, $appointment, $statusNew){
         $title = "Confirm Appointment";
         $body = "Your appointment schedule at the building $buildingName has been $statusName.";
-        $content = "<header>XÁC NHẬN LỊCH HẸN</header>
-                        <title>Xin chào <b>Danh Nguyễn</b>,</title>
-                        <msg>Lịch hẹn của bạn đã được xác nhận</msg>
-                        <brand>PAXSKY 555 Đường 3/2</brand>
-                        <div>555 Ba tháng hai, Quận 10, Tp. HCM</div>
-                        <info>Họ tên: <b>Nguyễn Thành Danh</b></info>
-                        <info>Điện thoại: <b>0349663532</b></info>
-                        <info>Email: <b>danh.nguyen@amagumolabs.com</b>
-                        </info></info><info>19:00 ngày 01 tháng 01 năm 2019</info>
-                        <note>Ghi chú:</note><header>APPOINTMENT CONFIRMATION
-                    </header>
-                    <title>Hello <b>Danh Nguyễn</b>,</title>
-                    <msg>Your appointment schedule has been confirmed</msg>
-                    <brand>PAXSKY 555 Đường 3/2</brand>
-                    <div>555 Ba tháng hai, District 10, HCM City</div>
-                    <info>Name: <b>Nguyễn Thành Danh</b></info>
-                    <info>Phone: <b>0349663532</b></info>
-                    <info>Email: <b>danh.nguyen@amagumolabs.com</b></info>
-                    </info><info>19:00 1st Jan, 2019</info>
-                    <note>Note:</note>";
-        $this->fireBaseService->pushNotification($customerId, $title, $body);
+        $content = $this->buildContentNotification($appointment,$buildingName, $statusNew);
+        $this->fireBaseService->pushNotification($customerId, $title, $body, $content);
     }
 
     public function ratingVisit(Request $request){

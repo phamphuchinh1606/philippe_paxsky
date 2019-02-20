@@ -124,7 +124,7 @@ class CustomerController extends ControllerApi
                 ]);
             }
         }
-
+        $request->api_update = 1;
         $customer = $this->customerService->update($request->customer_id,$request);
         $customerInfo = $this->customerToJson($customer);
         return response()->json([

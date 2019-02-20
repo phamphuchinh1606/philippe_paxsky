@@ -122,11 +122,14 @@ class CustomerService extends BaseService{
         if(isset($request->mobile_phone)){
             $user->mobile_phone = $request->mobile_phone;
         }
-        if(isset($request->is_active)){
-            $user->is_active = AppCommon::getIsPublic($request->is_active);
-        }else if(null == $request->is_active){
-            $user->is_active = AppCommon::getIsPublic($request->is_active);
+        if(!isset($request->api_update)){
+            if(isset($request->is_active)){
+                $user->is_active = AppCommon::getIsPublic($request->is_active);
+            }else if(null == $request->is_active){
+                $user->is_active = AppCommon::getIsPublic($request->is_active);
+            }
         }
+
         if(isset($request->note)){
             $user->note = $request->note;
         }
